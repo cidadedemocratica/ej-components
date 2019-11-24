@@ -56,12 +56,21 @@ export class EjConversation {
   }
 
   private getUserData(): any {
+    let identifier = this.getUserIdentifier();
     return {
-      username: "davidcarlos3",
+      username: identifier,
       email: "davidcarlos9@gmail.com",
       password1: "12345678david9",
       password2: "12345678david9"
     };
+  }
+
+  /*
+   * This method will retrieve a mautic cookie and use it as
+   * username on EJ
+   */
+  private getUserIdentifier(): string {
+    return "sometokenfrommautic";
   }
 
   render() {
