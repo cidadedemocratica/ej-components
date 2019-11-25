@@ -14,11 +14,11 @@ export namespace Components {
     /**
     * The middle name
     */
-    'text': string;
+    'comment': any;
     /**
     * The first name
     */
-    'title': string;
+    'conversation': any;
   }
 }
 
@@ -40,11 +40,11 @@ declare namespace LocalJSX {
     /**
     * The middle name
     */
-    'text'?: string;
+    'comment'?: any;
     /**
     * The first name
     */
-    'title'?: string;
+    'conversation'?: any;
   }
 
   interface IntrinsicElements {

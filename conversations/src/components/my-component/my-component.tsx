@@ -9,14 +9,14 @@ export class EjConversation {
   /**
    * The first name
    */
-  @Prop() title: string;
+  @Prop() conversation: any = {};
 
   /**
    * The middle name
    */
-  @Prop() text: string;
+  @Prop() comment: any = {};
 
-  private async requestAuthToken() {
+  private async getAuthToken() {
     const user = this.getUserData();
     const response = await fetch(
       "http://localhost:8000/rest-auth/registration/",
@@ -29,10 +29,11 @@ export class EjConversation {
       }
     );
     let bodyResponse = await response.json();
+    console.log(bodyResponse);
     this.setUserTokenOnLocalStorage(bodyResponse.key);
   }
 
-  private async requestConversations() {
+  private async getConversation() {
     const response = await fetch(
       "http://localhost:8000/api/v1/conversations/",
       {
@@ -43,12 +44,28 @@ export class EjConversation {
       }
     );
     let bodyResponse = await response.json();
-    this.setConversationState(bodyResponse.results[0]);
+    this.conversation = bodyResponse.results[0];
+    this.getConversationNextComment(this.conversation.links["random-comment"]);
   }
 
-  private setConversationState(conversation: any) {
-    this.title = conversation.title;
-    this.text = conversation.text;
+  private async getConversationNextComment(commentUrl: string) {
+    const response = await fetch(commentUrl, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${this.getUserToken()}`
+      }
+    });
+    let bodyResponse = await response.json();
+    this.setCommentState(bodyResponse);
+  }
+
+  private getUserToken() {
+    return localStorage.getItem("ejToken");
+  }
+
+  private setCommentState(comment: any) {
+    this.comment = comment;
   }
 
   private setUserTokenOnLocalStorage(token: string) {
@@ -59,7 +76,7 @@ export class EjConversation {
     let identifier = this.getUserIdentifier();
     return {
       username: identifier,
-      email: "davidcarlos9@gmail.com",
+      email: "davidcarlos11@gmail.com",
       password1: "12345678david9",
       password2: "12345678david9"
     };
@@ -76,16 +93,12 @@ export class EjConversation {
   render() {
     return (
       <div>
-        <button onClick={this.requestAuthToken.bind(this)}>
-          Request Token
-        </button>
-        <button onClick={this.requestConversations.bind(this)}>
+        <button onClick={this.getAuthToken.bind(this)}>Request Token</button>
+        <button onClick={this.getConversation.bind(this)}>
           Request Conversations
         </button>
-        <div>
-          <h1>{this.title}</h1>
-          <h1>{this.text}</h1>
-        </div>
+        <div>{this.conversation && <h1>{this.conversation.title}</h1>}</div>
+        <div>{this.comment && <h1>{this.comment.content}</h1>}</div>
       </div>
     );
   }
