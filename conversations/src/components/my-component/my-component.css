@@ -1,1 +1,43 @@
+.card {
+	background-color: #30bfd3;
+	max-width: 90%;
+	margin: auto;
+}
 
+.card-content {
+	margin: auto;
+}
+
+.conversation-data {
+	text-align: center;
+	background-color: #C4F2F4;
+}
+#conversation-title {
+	font-size: 1.0rem;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+#comment-content {
+	font-size: 1.5rem;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	text-align: center;
+}
+
+.vote-options {
+	width: 90%;
+	margin: auto;
+}
+
+.vote-options-container {
+	text-align: center;
+	display: flex;
+}
+.vote-options-container > div {
+	margin-right: 10px;
+	margin: auto;
+	width: 50%;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}

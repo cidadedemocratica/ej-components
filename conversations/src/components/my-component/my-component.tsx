@@ -16,7 +16,16 @@ export class EjConversation {
    */
   @Prop() comment: any = {};
 
+  async connectedCallback() {
+    let tokenPromise = this.getAuthToken();
+    await tokenPromise;
+    this.getConversation();
+  }
+
   private async getAuthToken() {
+    if (localStorage.getItem("ejToken")) {
+      return;
+    }
     const user = this.getUserData();
     const response = await fetch(
       "http://localhost:8000/rest-auth/registration/",
@@ -76,7 +85,7 @@ export class EjConversation {
     let identifier = this.getUserIdentifier();
     return {
       username: identifier,
-      email: "davidcarlos11@gmail.com",
+      email: "davidcarlos13@gmail.com",
       password1: "12345678david9",
       password2: "12345678david9"
     };
@@ -90,15 +99,81 @@ export class EjConversation {
     return "sometokenfrommautic";
   }
 
+  private getCommentID(): number {
+    let selfLink = this.comment.links["self"];
+    return Number(selfLink[selfLink.length - 2]);
+  }
+
+  private async computeDisagreeVote() {
+    await fetch("http://localhost:8000/api/v1/votes/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${this.getUserToken()}`
+      },
+      body: JSON.stringify({ comment: this.getCommentID(), choice: -1 })
+    });
+  }
+
+  private async computeSkipVote() {
+    await fetch("http://localhost:8000/api/v1/votes/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${this.getUserToken()}`
+      },
+      body: JSON.stringify({ comment: this.getCommentID(), choice: 0 })
+    });
+  }
+  private async computeAgreeVote() {
+    await fetch("http://localhost:8000/api/v1/votes/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${this.getUserToken()}`
+      },
+      body: JSON.stringify({ comment: this.getCommentID(), choice: 1 })
+    });
+  }
+
   render() {
     return (
-      <div>
-        <button onClick={this.getAuthToken.bind(this)}>Request Token</button>
-        <button onClick={this.getConversation.bind(this)}>
-          Request Conversations
-        </button>
-        <div>{this.conversation && <h1>{this.conversation.title}</h1>}</div>
-        <div>{this.comment && <h1>{this.comment.content}</h1>}</div>
+      <div class="card">
+        <div class="card-content">
+          <div class="conversation-data">
+            <div>
+              {this.conversation && (
+                <div id="conversation-title">{this.conversation.title}</div>
+              )}
+            </div>
+          </div>
+          <div
+            class="
+            comment-data"
+          >
+            <div>
+              {this.comment && (
+                <div id="comment-content">{this.comment.content}</div>
+              )}
+            </div>
+          </div>
+          <div class="vote-options">
+            <div class="vote-options-container">
+              <div
+                class="disagree"
+                onClick={this.computeDisagreeVote.bind(this)}
+              >
+                DISAGREE
+              </div>
+              <div class="skip" onClick={this.computeSkipVote.bind(this)}>
+                SKIP
+              </div>
+              <div class="agree" onClick={this.computeAgreeVote.bind(this)}>
+                AGREE
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
