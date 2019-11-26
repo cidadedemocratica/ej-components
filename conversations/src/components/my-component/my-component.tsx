@@ -65,16 +65,26 @@ export class EjConversation {
         Authorization: `Token ${this.getUserToken()}`
       }
     });
-    let bodyResponse = await response.json();
-    this.setCommentState(bodyResponse);
+    if (response.ok) {
+      let bodyResponse = await response.json();
+      this.setCommentState(bodyResponse);
+    } else {
+      this.setCommentState();
+    }
   }
 
   private getUserToken() {
     return localStorage.getItem("ejToken");
   }
 
-  private setCommentState(comment: any) {
-    this.comment = comment;
+  private setCommentState(comment?: any) {
+    if (!comment) {
+      this.comment = {
+        content: "Você respondeu todos os comentários disponíveis"
+      };
+    } else {
+      this.comment = comment;
+    }
   }
 
   private setUserTokenOnLocalStorage(token: string) {
@@ -113,6 +123,7 @@ export class EjConversation {
       },
       body: JSON.stringify({ comment: this.getCommentID(), choice: -1 })
     });
+    this.getConversationNextComment(this.conversation.links["random-comment"]);
   }
 
   private async computeSkipVote() {
@@ -124,7 +135,9 @@ export class EjConversation {
       },
       body: JSON.stringify({ comment: this.getCommentID(), choice: 0 })
     });
+    this.getConversationNextComment(this.conversation.links["random-comment"]);
   }
+
   private async computeAgreeVote() {
     await fetch("http://localhost:8000/api/v1/votes/", {
       method: "POST",
@@ -134,6 +147,7 @@ export class EjConversation {
       },
       body: JSON.stringify({ comment: this.getCommentID(), choice: 1 })
     });
+    this.getConversationNextComment(this.conversation.links["random-comment"]);
   }
 
   render() {
