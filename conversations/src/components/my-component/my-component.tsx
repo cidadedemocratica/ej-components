@@ -23,10 +23,17 @@ export class EjConversation {
   }
 
   private async getAuthToken() {
-    if (localStorage.getItem("ejToken")) {
+    if (this.authTokenExists()) {
       return;
     }
-    const user = this.getUserData();
+    const data = this.getUserData();
+    if (data.identifier != "") {
+      let response = await this.createUserFromData(data);
+      this.setUserTokenOnLocalStorage(response.key);
+    }
+  }
+
+  private async createUserFromData(data: any) {
     const response = await fetch(
       "http://localhost:8000/rest-auth/registration/",
       {
@@ -34,12 +41,17 @@ export class EjConversation {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(user)
+        body: JSON.stringify(data)
       }
     );
-    let bodyResponse = await response.json();
-    console.log(bodyResponse);
-    this.setUserTokenOnLocalStorage(bodyResponse.key);
+    return response.json();
+  }
+
+  private authTokenExists() {
+    if (localStorage.getItem("ejToken")) {
+      return true;
+    }
+    return false;
   }
 
   private async getConversation() {
@@ -92,12 +104,12 @@ export class EjConversation {
   }
 
   private getUserData(): any {
-    let identifier = this.getUserIdentifier();
+    let identifier = this.getUserIdentifierCookie();
     return {
-      username: identifier,
-      email: "davidcarlos13@gmail.com",
-      password1: "12345678david9",
-      password2: "12345678david9"
+      name: identifier,
+      email: `${identifier}@fakemail.com`,
+      password1: identifier,
+      password2: identifier
     };
   }
 
@@ -105,8 +117,16 @@ export class EjConversation {
    * This method will retrieve a mautic cookie and use it as
    * username on EJ
    */
-  private getUserIdentifier(): string {
-    return "sometokenfrommautic";
+  private getUserIdentifierCookie(): string {
+    let cookies = document.cookie;
+    let userIdentifierCookie = "mautic";
+    let cookieIndex = cookies.indexOf(userIdentifierCookie);
+    if (cookieIndex != -1) {
+      let cookieKeyAndValue = cookies.substring(cookieIndex, cookies.length);
+      let cookieValue = cookieKeyAndValue.split("=")[1];
+      return cookieValue;
+    }
+    return "";
   }
 
   private getCommentID(): number {
