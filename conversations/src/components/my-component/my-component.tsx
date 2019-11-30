@@ -1,4 +1,5 @@
 import { Component, Prop, h } from "@stencil/core";
+import { Element } from "@stencil/core";
 
 @Component({
   tag: "ej-conversation",
@@ -9,12 +10,16 @@ export class EjConversation {
   /**
    * The first name
    */
+  @Element() el: HTMLElement;
+
   @Prop() conversation: any = {};
 
   /**
    * The middle name
    */
   @Prop() comment: any = {};
+
+  @Prop() newCommentContent: string = "";
 
   async connectedCallback() {
     let tokenPromise = this.getAuthToken();
@@ -31,6 +36,26 @@ export class EjConversation {
       let response = await this.createUserFromData(data);
       this.setUserTokenOnLocalStorage(response.key);
     }
+  }
+
+  private displayNewCommentCard() {
+    let newCommentCard: HTMLElement = this.el.shadowRoot.querySelector(
+      ".new-comment-content"
+    );
+    let commentContainer: HTMLElement = this.el.shadowRoot.querySelector(
+      ".comment-container"
+    );
+    let voteOptionsContainer: HTMLElement = this.el.shadowRoot.querySelector(
+      ".vote-options-container"
+    );
+    let addCommentContainer: HTMLElement = this.el.shadowRoot.querySelector(
+      "#add-comment-container"
+    );
+
+    commentContainer.style.display = "none";
+    voteOptionsContainer.style.display = "none";
+    addCommentContainer.style.display = "none";
+    newCommentCard.style.display = "block";
   }
 
   private async createUserFromData(data: any) {
@@ -170,11 +195,17 @@ export class EjConversation {
     this.getConversationNextComment(this.conversation.links["random-comment"]);
   }
 
+  private async createComment(event: any) {}
+
+  private async getCommentContent(event: any) {
+    this.newCommentContent = event.target.value;
+  }
+
   render() {
     return (
       <div class="card">
         <div class="card-content">
-          <div class="conversation-data">
+          <div class="conversation-title-container">
             <div>
               {this.conversation && (
                 <div id="conversation-title">{this.conversation.title}</div>
@@ -183,7 +214,7 @@ export class EjConversation {
           </div>
           <div
             class="
-            comment-data"
+            comment-container"
           >
             <div>
               {this.comment && (
@@ -191,8 +222,8 @@ export class EjConversation {
               )}
             </div>
           </div>
-          <div class="vote-options">
-            <div class="vote-options-container">
+          <div class="vote-options-container">
+            <div class="vote-options">
               <div
                 class="disagree"
                 onClick={this.computeDisagreeVote.bind(this)}
@@ -207,6 +238,25 @@ export class EjConversation {
               </div>
             </div>
           </div>
+          <div
+            id="add-comment-container"
+            onClick={this.displayNewCommentCard.bind(this)}
+          >
+            <div id="add-comment">Adicionar Comentario</div>
+          </div>
+        </div>
+        <div class="new-comment-content">
+          <div id="new-comment-advise">
+            Inclua um novo comentário e evite opiniões similares. Você pode
+            postar apenas um comentário.
+          </div>
+          <div id="new-comment-input">
+            <input
+              type="text"
+              onChange={(event: UIEvent) => this.getCommentContent(event)}
+            />
+          </div>
+          <div onClick={this.createComment.bind(this)}>Submit</div>
         </div>
       </div>
     );

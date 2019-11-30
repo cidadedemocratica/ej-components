@@ -9,7 +9,7 @@
 	margin: auto;
 }
 
-.conversation-data {
+.conversation-title-container {
 	text-align: center;
 	background-color: #C4F2F4;
 }
@@ -26,19 +26,45 @@
 	text-align: center;
 }
 
-.vote-options {
+.vote-options-container {
 	width: 90%;
 	margin: auto;
 }
 
-.vote-options-container {
+.vote-options {
 	text-align: center;
 	display: flex;
 }
-.vote-options-container > div {
+.vote-options > div {
 	margin-right: 10px;
 	margin: auto;
 	width: 50%;
 	padding-top: 20px;
 	padding-bottom: 20px;
+}
+
+#add-comment-container {
+	width: 50%;
+  margin: auto;
+  padding: 20px 20px 20px 20px;
+}
+
+.new-comment-content {
+	display: none;
+}
+
+#new-comment-advise {
+	width: 90%;
+  margin: auto;
+  padding: 20px 20px 20px 20px;
+}
+
+#new-comment-input, #new-comment-submit {
+	text-align: center;
+  padding: 20px 20px 20px 20px;
+}
+
+#new-comment-input > input {
+	height: 60px;
+  width: 100%;
 }
