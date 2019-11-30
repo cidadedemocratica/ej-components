@@ -159,6 +159,11 @@ export class EjConversation {
     return Number(selfLink[selfLink.length - 2]);
   }
 
+  private getConversationID(): number {
+    let selfLink = this.conversation.links["self"];
+    return Number(selfLink[selfLink.length - 2]);
+  }
+
   private async computeDisagreeVote() {
     await fetch("http://localhost:8000/api/v1/votes/", {
       method: "POST",
@@ -195,7 +200,22 @@ export class EjConversation {
     this.getConversationNextComment(this.conversation.links["random-comment"]);
   }
 
-  private async createComment(event: any) {}
+  private async createComment() {
+    let data = {
+      content: this.newCommentContent,
+      conversation: this.getConversationID(),
+      status: "pending"
+    };
+    await fetch("http://localhost:8000/api/v1/comments/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${this.getUserToken()}`
+      },
+      body: JSON.stringify(data)
+    });
+    this.getConversationNextComment(this.conversation.links["random-comment"]);
+  }
 
   private async getCommentContent(event: any) {
     this.newCommentContent = event.target.value;
