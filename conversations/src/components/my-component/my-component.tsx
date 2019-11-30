@@ -58,6 +58,26 @@ export class EjConversation {
     newCommentCard.style.display = "block";
   }
 
+  private hideNewCommentCard() {
+    let newCommentCard: HTMLElement = this.el.shadowRoot.querySelector(
+      ".new-comment-content"
+    );
+    let commentContainer: HTMLElement = this.el.shadowRoot.querySelector(
+      ".comment-container"
+    );
+    let voteOptionsContainer: HTMLElement = this.el.shadowRoot.querySelector(
+      ".vote-options-container"
+    );
+    let addCommentContainer: HTMLElement = this.el.shadowRoot.querySelector(
+      "#add-comment-container"
+    );
+
+    commentContainer.style.display = "block";
+    voteOptionsContainer.style.display = "block";
+    addCommentContainer.style.display = "block";
+    newCommentCard.style.display = "none";
+  }
+
   private async createUserFromData(data: any) {
     const response = await fetch(
       "http://localhost:8000/rest-auth/registration/",
@@ -204,7 +224,7 @@ export class EjConversation {
     let data = {
       content: this.newCommentContent,
       conversation: this.getConversationID(),
-      status: "pending"
+      status: "approved"
     };
     await fetch("http://localhost:8000/api/v1/comments/", {
       method: "POST",
@@ -214,6 +234,7 @@ export class EjConversation {
       },
       body: JSON.stringify(data)
     });
+    this.hideNewCommentCard();
     this.getConversationNextComment(this.conversation.links["random-comment"]);
   }
 
@@ -277,6 +298,7 @@ export class EjConversation {
             />
           </div>
           <div onClick={this.createComment.bind(this)}>Submit</div>
+          <div onClick={this.hideNewCommentCard.bind(this)}>Fechar</div>
         </div>
       </div>
     );
