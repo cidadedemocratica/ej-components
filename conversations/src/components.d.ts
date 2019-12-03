@@ -15,10 +15,8 @@ export namespace Components {
     * The middle name
     */
     'comment': any;
-    /**
-    * The first name
-    */
     'conversation': any;
+    'newCommentContent': string;
   }
 }
 
@@ -41,10 +39,8 @@ declare namespace LocalJSX {
     * The middle name
     */
     'comment'?: any;
-    /**
-    * The first name
-    */
     'conversation'?: any;
+    'newCommentContent'?: string;
   }
 
   interface IntrinsicElements {

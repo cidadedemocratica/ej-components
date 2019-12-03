@@ -1,5 +1,5 @@
-import { Component, Prop, h } from "@stencil/core";
-import { Element } from "@stencil/core";
+import { Component, Prop, h, Element } from "@stencil/core";
+import { API } from "./service";
 
 @Component({
   tag: "ej-conversation",
@@ -22,19 +22,17 @@ export class EjConversation {
   @Prop() newCommentContent: string = "";
 
   async connectedCallback() {
-    let tokenPromise = this.getAuthToken();
-    await tokenPromise;
-    this.getConversation();
+    await API.authenticate();
+    this.conversation = await API.getConversation();
+    this.comment = await API.getConversationNextComment(this.conversation);
+    this.setCommentState();
   }
 
-  private async getAuthToken() {
-    if (this.authTokenExists()) {
-      return;
-    }
-    const data = this.getUserData();
-    if (data.identifier != "") {
-      let response = await this.createUserFromData(data);
-      this.setUserTokenOnLocalStorage(response.key);
+  private setCommentState() {
+    if (!this.comment.content) {
+      this.comment = {
+        content: "Você respondeu todos os comentários disponíveis"
+      };
     }
   }
 
@@ -78,168 +76,31 @@ export class EjConversation {
     newCommentCard.style.display = "none";
   }
 
-  private async createUserFromData(data: any) {
-    const response = await fetch(
-      "http://localhost:8000/rest-auth/registration/",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      }
-    );
-    return response.json();
-  }
-
-  private authTokenExists() {
-    if (localStorage.getItem("ejToken")) {
-      return true;
-    }
-    return false;
-  }
-
-  private async getConversation() {
-    const response = await fetch(
-      "http://localhost:8000/api/v1/conversations/",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }
-    );
-    let bodyResponse = await response.json();
-    this.conversation = bodyResponse.results[0];
-    this.getConversationNextComment(this.conversation.links["random-comment"]);
-  }
-
-  private async getConversationNextComment(commentUrl: string) {
-    const response = await fetch(commentUrl, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${this.getUserToken()}`
-      }
-    });
-    if (response.ok) {
-      let bodyResponse = await response.json();
-      this.setCommentState(bodyResponse);
-    } else {
-      this.setCommentState();
-    }
-  }
-
-  private getUserToken() {
-    return localStorage.getItem("ejToken");
-  }
-
-  private setCommentState(comment?: any) {
-    if (!comment) {
-      this.comment = {
-        content: "Você respondeu todos os comentários disponíveis"
-      };
-    } else {
-      this.comment = comment;
-    }
-  }
-
-  private setUserTokenOnLocalStorage(token: string) {
-    localStorage.setItem("ejToken", token);
-  }
-
-  private getUserData(): any {
-    let identifier = this.getUserIdentifierCookie();
-    return {
-      name: identifier,
-      email: `${identifier}@fakemail.com`,
-      password1: identifier,
-      password2: identifier
-    };
-  }
-
-  /*
-   * This method will retrieve a mautic cookie and use it as
-   * username on EJ
-   */
-  private getUserIdentifierCookie(): string {
-    let cookies = document.cookie;
-    let userIdentifierCookie = "mautic";
-    let cookieIndex = cookies.indexOf(userIdentifierCookie);
-    if (cookieIndex != -1) {
-      let cookieKeyAndValue = cookies.substring(cookieIndex, cookies.length);
-      let cookieValue = cookieKeyAndValue.split("=")[1];
-      return cookieValue;
-    }
-    return "";
-  }
-
-  private getCommentID(): number {
-    let selfLink = this.comment.links["self"];
-    return Number(selfLink[selfLink.length - 2]);
-  }
-
-  private getConversationID(): number {
-    let selfLink = this.conversation.links["self"];
-    return Number(selfLink[selfLink.length - 2]);
-  }
-
-  private async computeDisagreeVote() {
-    await fetch("http://localhost:8000/api/v1/votes/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${this.getUserToken()}`
-      },
-      body: JSON.stringify({ comment: this.getCommentID(), choice: -1 })
-    });
-    this.getConversationNextComment(this.conversation.links["random-comment"]);
-  }
-
-  private async computeSkipVote() {
-    await fetch("http://localhost:8000/api/v1/votes/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${this.getUserToken()}`
-      },
-      body: JSON.stringify({ comment: this.getCommentID(), choice: 0 })
-    });
-    this.getConversationNextComment(this.conversation.links["random-comment"]);
-  }
-
-  private async computeAgreeVote() {
-    await fetch("http://localhost:8000/api/v1/votes/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${this.getUserToken()}`
-      },
-      body: JSON.stringify({ comment: this.getCommentID(), choice: 1 })
-    });
-    this.getConversationNextComment(this.conversation.links["random-comment"]);
-  }
-
-  private async createComment() {
-    let data = {
-      content: this.newCommentContent,
-      conversation: this.getConversationID(),
-      status: "approved"
-    };
-    await fetch("http://localhost:8000/api/v1/comments/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${this.getUserToken()}`
-      },
-      body: JSON.stringify(data)
-    });
-    this.hideNewCommentCard();
-    this.getConversationNextComment(this.conversation.links["random-comment"]);
-  }
-
   private async getCommentContent(event: any) {
     this.newCommentContent = event.target.value;
+  }
+
+  private async addComment() {
+    await API.createComment(this.newCommentContent, this.conversation);
+    this.hideNewCommentCard();
+    API.getConversationNextComment(this.conversation);
+  }
+
+  private async voteOnDisagree() {
+    await API.computeDisagreeVote(this.comment);
+    this.comment = API.getConversationNextComment(this.conversation);
+    this.setCommentState();
+  }
+
+  private async voteOnAgree() {
+    await API.computeAgreeVote(this.comment);
+    this.comment = API.getConversationNextComment(this.conversation);
+    this.setCommentState();
+  }
+  private async voteOnSkip() {
+    await API.computeSkipVote(this.comment);
+    this.comment = API.getConversationNextComment(this.conversation);
+    this.setCommentState();
   }
 
   render() {
@@ -265,16 +126,13 @@ export class EjConversation {
           </div>
           <div class="vote-options-container">
             <div class="vote-options">
-              <div
-                class="disagree"
-                onClick={this.computeDisagreeVote.bind(this)}
-              >
+              <div class="disagree" onClick={this.voteOnDisagree.bind(this)}>
                 DISAGREE
               </div>
-              <div class="skip" onClick={this.computeSkipVote.bind(this)}>
+              <div class="skip" onClick={this.voteOnSkip.bind(this)}>
                 SKIP
               </div>
-              <div class="agree" onClick={this.computeAgreeVote.bind(this)}>
+              <div class="agree" onClick={this.voteOnAgree.bind(this)}>
                 AGREE
               </div>
             </div>
@@ -297,7 +155,7 @@ export class EjConversation {
               onChange={(event: UIEvent) => this.getCommentContent(event)}
             />
           </div>
-          <div onClick={this.createComment.bind(this)}>Submit</div>
+          <div onClick={this.addComment.bind(this)}>Submit</div>
           <div onClick={this.hideNewCommentCard.bind(this)}>Fechar</div>
         </div>
       </div>
