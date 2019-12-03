@@ -12,27 +12,6 @@ class Api {
     }
   }
 
-  private async createUserFromData(data: any) {
-    const response = await fetch(
-      "http://localhost:8000/rest-auth/registration/",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      }
-    );
-    return response.json();
-  }
-
-  private authTokenExists() {
-    if (localStorage.getItem("ejToken")) {
-      return true;
-    }
-    return false;
-  }
-
   async getConversation() {
     const response = await fetch(
       "http://localhost:8000/api/v1/conversations/",
@@ -62,51 +41,6 @@ class Api {
     } else {
       return {};
     }
-  }
-
-  private getUserToken() {
-    return localStorage.getItem("ejToken");
-  }
-
-  private setUserTokenOnLocalStorage(token: string) {
-    localStorage.setItem("ejToken", token);
-  }
-
-  private getUserData(): any {
-    let identifier = this.getUserIdentifierCookie();
-    return {
-      name: identifier,
-      email: `${identifier}@fakemail.com`,
-      password1: identifier,
-      password2: identifier
-    };
-  }
-
-  /*
-   * This method will retrieve a mautic cookie and use it as
-   * username on EJ
-   */
-  private getUserIdentifierCookie(): string {
-    let cookies = document.cookie;
-    let userIdentifierCookie = "mautic";
-    let cookieIndex = cookies.indexOf(userIdentifierCookie);
-    if (cookieIndex != -1) {
-      let cookieKeyAndValue = cookies.substring(cookieIndex, cookies.length);
-      let cookieValue = cookieKeyAndValue.split("=")[1];
-      return cookieValue;
-    }
-    return "";
-  }
-
-  private getCommentID(comment: any): number {
-    let selfLink = comment.links["self"];
-    let linkAsArray = selfLink.split("/");
-    return Number(linkAsArray[linkAsArray.length - 2]);
-  }
-
-  private getConversationID(conversation: any): number {
-    let selfLink = conversation.links["self"];
-    return Number(selfLink[selfLink.length - 2]);
   }
 
   async computeDisagreeVote(comment: any) {
@@ -156,6 +90,73 @@ class Api {
       },
       body: JSON.stringify(data)
     });
+  }
+
+  private async createUserFromData(data: any) {
+    const response = await fetch(
+      "http://localhost:8000/rest-auth/registration/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      }
+    );
+    return response.json();
+  }
+
+  private authTokenExists() {
+    if (localStorage.getItem("ejToken")) {
+      return true;
+    }
+    return false;
+  }
+
+  private getUserToken() {
+    return localStorage.getItem("ejToken");
+  }
+
+  private setUserTokenOnLocalStorage(token: string) {
+    localStorage.setItem("ejToken", token);
+  }
+
+  private getUserData(): any {
+    let identifier = this.getUserIdentifierCookie();
+    return {
+      name: identifier,
+      email: `${identifier}@fakemail.com`,
+      password1: identifier,
+      password2: identifier
+    };
+  }
+
+  /*
+   * This method will retrieve a mautic cookie and use it as
+   * username on EJ
+   */
+  private getUserIdentifierCookie(): string {
+    let cookies = document.cookie;
+    console.log(cookies);
+    let userIdentifierCookie = "mautic";
+    let cookieIndex = cookies.indexOf(userIdentifierCookie);
+    if (cookieIndex != -1) {
+      let cookieKeyAndValue = cookies.substring(cookieIndex, cookies.length);
+      let cookieValue = cookieKeyAndValue.split("=")[1];
+      return cookieValue;
+    }
+    return "";
+  }
+
+  private getCommentID(comment: any): number {
+    let selfLink = comment.links["self"];
+    let linkAsArray = selfLink.split("/");
+    return Number(linkAsArray[linkAsArray.length - 2]);
+  }
+
+  private getConversationID(conversation: any): number {
+    let selfLink = conversation.links["self"];
+    return Number(selfLink[selfLink.length - 2]);
   }
 }
 

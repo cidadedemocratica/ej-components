@@ -11,9 +11,6 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 export namespace Components {
   interface EjConversation {
-    /**
-    * The middle name
-    */
     'comment': any;
     'conversation': any;
     'newCommentContent': string;
@@ -35,9 +32,6 @@ declare global {
 
 declare namespace LocalJSX {
   interface EjConversation {
-    /**
-    * The middle name
-    */
     'comment'?: any;
     'conversation'?: any;
     'newCommentContent'?: string;

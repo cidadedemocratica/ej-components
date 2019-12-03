@@ -7,18 +7,9 @@ import { API } from "./service";
   shadow: true
 })
 export class EjConversation {
-  /**
-   * The first name
-   */
   @Element() el: HTMLElement;
-
   @Prop() conversation: any = {};
-
-  /**
-   * The middle name
-   */
   @Prop() comment: any = {};
-
   @Prop() newCommentContent: string = "";
 
   async connectedCallback() {
@@ -29,10 +20,9 @@ export class EjConversation {
   }
 
   private setCommentState() {
-    console.log(this.comment);
     if (!this.comment.content) {
       this.comment = {
-        content: "Você respondeu todos os comentários disponíveis"
+        content: "Obrigado por participar!"
       };
     }
   }
@@ -50,7 +40,6 @@ export class EjConversation {
     let addCommentContainer: HTMLElement = this.el.shadowRoot.querySelector(
       "#add-comment-container"
     );
-
     commentContainer.style.display = "none";
     voteOptionsContainer.style.display = "none";
     addCommentContainer.style.display = "none";
@@ -70,14 +59,13 @@ export class EjConversation {
     let addCommentContainer: HTMLElement = this.el.shadowRoot.querySelector(
       "#add-comment-container"
     );
-
     commentContainer.style.display = "block";
     voteOptionsContainer.style.display = "block";
     addCommentContainer.style.display = "block";
     newCommentCard.style.display = "none";
   }
 
-  private async getCommentContent(event: any) {
+  private async setCommentContent(event: any) {
     this.newCommentContent = event.target.value;
   }
 
@@ -99,6 +87,7 @@ export class EjConversation {
     this.comment = await API.getConversationNextComment(this.conversation);
     this.setCommentState();
   }
+
   private async voteOnSkip() {
     await API.computeSkipVote(this.comment);
     this.comment = await API.getConversationNextComment(this.conversation);
@@ -154,7 +143,7 @@ export class EjConversation {
           <div id="new-comment-input">
             <input
               type="text"
-              onChange={(event: UIEvent) => this.getCommentContent(event)}
+              onChange={(event: UIEvent) => this.setCommentContent(event)}
             />
           </div>
           <div onClick={this.addComment.bind(this)}>Submit</div>
