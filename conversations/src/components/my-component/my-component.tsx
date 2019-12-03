@@ -29,6 +29,7 @@ export class EjConversation {
   }
 
   private setCommentState() {
+    console.log(this.comment);
     if (!this.comment.content) {
       this.comment = {
         content: "Você respondeu todos os comentários disponíveis"
@@ -83,23 +84,24 @@ export class EjConversation {
   private async addComment() {
     await API.createComment(this.newCommentContent, this.conversation);
     this.hideNewCommentCard();
-    API.getConversationNextComment(this.conversation);
+    this.comment = await API.getConversationNextComment(this.conversation);
+    this.setCommentState();
   }
 
   private async voteOnDisagree() {
     await API.computeDisagreeVote(this.comment);
-    this.comment = API.getConversationNextComment(this.conversation);
+    this.comment = await API.getConversationNextComment(this.conversation);
     this.setCommentState();
   }
 
   private async voteOnAgree() {
     await API.computeAgreeVote(this.comment);
-    this.comment = API.getConversationNextComment(this.conversation);
+    this.comment = await API.getConversationNextComment(this.conversation);
     this.setCommentState();
   }
   private async voteOnSkip() {
     await API.computeSkipVote(this.comment);
-    this.comment = API.getConversationNextComment(this.conversation);
+    this.comment = await API.getConversationNextComment(this.conversation);
     this.setCommentState();
   }
 

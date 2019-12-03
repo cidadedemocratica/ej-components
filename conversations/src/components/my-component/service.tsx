@@ -100,7 +100,8 @@ class Api {
 
   private getCommentID(comment: any): number {
     let selfLink = comment.links["self"];
-    return Number(selfLink[selfLink.length - 2]);
+    let linkAsArray = selfLink.split("/");
+    return Number(linkAsArray[linkAsArray.length - 2]);
   }
 
   private getConversationID(conversation: any): number {
