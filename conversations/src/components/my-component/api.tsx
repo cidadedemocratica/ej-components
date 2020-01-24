@@ -1,5 +1,19 @@
-class Api {
-  constructor() {}
+export class API {
+  HOST: string = "";
+  API_HOST: string = "";
+  CONVERSATIONS_ROUTE: string = "";
+  VOTES_ROUTE: string = "";
+  COMMENTS_ROUTE: string = "";
+  REGISTRATION_ROUTE: string = "";
+
+  constructor(HOST) {
+    this.HOST = HOST;
+    this.API_HOST = `${this.HOST}/api/v1`;
+    this.CONVERSATIONS_ROUTE = `${this.API_HOST}/conversations/`;
+    this.VOTES_ROUTE = `${this.API_HOST}/votes/`;
+    this.COMMENTS_ROUTE = `${this.API_HOST}/comments/`;
+    this.REGISTRATION_ROUTE = `${this.HOST}/rest-auth/registration/`;
+  }
 
   async authenticate() {
     if (this.authTokenExists()) {
@@ -13,15 +27,12 @@ class Api {
   }
 
   async getConversation() {
-    const response = await fetch(
-      "http://localhost:8000/api/v1/conversations/",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json"
-        }
+    const response = await fetch(this.CONVERSATIONS_ROUTE, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
       }
-    );
+    });
     let bodyResponse = await response.json();
     return bodyResponse.results[0];
   }
@@ -44,7 +55,7 @@ class Api {
   }
 
   async computeDisagreeVote(comment: any) {
-    await fetch("http://localhost:8000/api/v1/votes/", {
+    await fetch(this.VOTES_ROUTE, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -55,7 +66,7 @@ class Api {
   }
 
   async computeSkipVote(comment: any) {
-    await fetch("http://localhost:8000/api/v1/votes/", {
+    await fetch(this.VOTES_ROUTE, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -66,7 +77,7 @@ class Api {
   }
 
   async computeAgreeVote(comment: any) {
-    await fetch("http://localhost:8000/api/v1/votes/", {
+    await fetch(this.VOTES_ROUTE, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -82,7 +93,7 @@ class Api {
       conversation: this.getConversationID(conversation),
       status: "approved"
     };
-    await fetch("http://localhost:8000/api/v1/comments/", {
+    await fetch(this.COMMENTS_ROUTE, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -93,16 +104,13 @@ class Api {
   }
 
   private async createUserFromData(data: any) {
-    const response = await fetch(
-      "http://localhost:8000/rest-auth/registration/",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      }
-    );
+    const response = await fetch(this.REGISTRATION_ROUTE, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    });
     return response.json();
   }
 
@@ -159,5 +167,3 @@ class Api {
     return Number(selfLink[selfLink.length - 2]);
   }
 }
-
-export const API = new Api();

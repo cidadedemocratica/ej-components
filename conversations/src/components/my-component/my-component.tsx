@@ -1,5 +1,5 @@
 import { Component, Prop, h, Element } from "@stencil/core";
-import { API } from "./service";
+import { API } from "./api";
 
 @Component({
   tag: "ej-conversation",
@@ -11,13 +11,20 @@ export class EjConversation {
   @Prop() conversation: any = {};
   @Prop() comment: any = {};
   @Prop() newCommentContent: string = "";
+  @Prop() api: API;
 
   async connectedCallback() {
-    await API.authenticate();
-    this.conversation = await API.getConversation();
-    this.comment = await API.getConversationNextComment(this.conversation);
+    let HOST: string = document.querySelector("ej-conversation").attributes[
+      "host"
+    ].value;
+    this.api = new API(HOST);
+    await this.api.authenticate();
+    this.conversation = await this.api.getConversation();
+    this.comment = await this.api.getConversationNextComment(this.conversation);
     this.setCommentState();
   }
+
+  async componentDidLoad() {}
 
   private setCommentState() {
     if (!this.comment.content) {
@@ -70,27 +77,27 @@ export class EjConversation {
   }
 
   private async addComment() {
-    await API.createComment(this.newCommentContent, this.conversation);
+    await this.api.createComment(this.newCommentContent, this.conversation);
     this.hideNewCommentCard();
-    this.comment = await API.getConversationNextComment(this.conversation);
+    this.comment = await this.api.getConversationNextComment(this.conversation);
     this.setCommentState();
   }
 
   private async voteOnDisagree() {
-    await API.computeDisagreeVote(this.comment);
-    this.comment = await API.getConversationNextComment(this.conversation);
+    await this.api.computeDisagreeVote(this.comment);
+    this.comment = await this.api.getConversationNextComment(this.conversation);
     this.setCommentState();
   }
 
   private async voteOnAgree() {
-    await API.computeAgreeVote(this.comment);
-    this.comment = await API.getConversationNextComment(this.conversation);
+    await this.api.computeAgreeVote(this.comment);
+    this.comment = await this.api.getConversationNextComment(this.conversation);
     this.setCommentState();
   }
 
   private async voteOnSkip() {
-    await API.computeSkipVote(this.comment);
-    this.comment = await API.getConversationNextComment(this.conversation);
+    await this.api.computeSkipVote(this.comment);
+    this.comment = await this.api.getConversationNextComment(this.conversation);
     this.setCommentState();
   }
 

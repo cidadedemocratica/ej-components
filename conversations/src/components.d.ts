@@ -7,10 +7,13 @@
 
 
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
-
+import {
+  API,
+} from './components/my-component/api';
 
 export namespace Components {
   interface EjConversation {
+    'api': API;
     'comment': any;
     'conversation': any;
     'newCommentContent': string;
@@ -32,6 +35,7 @@ declare global {
 
 declare namespace LocalJSX {
   interface EjConversation {
+    'api'?: API;
     'comment'?: any;
     'conversation'?: any;
     'newCommentContent'?: string;
