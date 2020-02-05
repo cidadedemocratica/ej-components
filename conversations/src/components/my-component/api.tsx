@@ -6,10 +6,10 @@ export class API {
   COMMENTS_ROUTE: string = "";
   REGISTRATION_ROUTE: string = "";
 
-  constructor(HOST) {
-    this.HOST = HOST;
+  constructor(host: string, conversation_id: string) {
+    this.HOST = host;
     this.API_HOST = `${this.HOST}/api/v1`;
-    this.CONVERSATIONS_ROUTE = `${this.API_HOST}/conversations/`;
+    this.CONVERSATIONS_ROUTE = `${this.API_HOST}/conversations/${conversation_id}`;
     this.VOTES_ROUTE = `${this.API_HOST}/votes/`;
     this.COMMENTS_ROUTE = `${this.API_HOST}/comments/`;
     this.REGISTRATION_ROUTE = `${this.HOST}/rest-auth/registration/`;
@@ -33,8 +33,7 @@ export class API {
         "Content-Type": "application/json"
       }
     });
-    let bodyResponse = await response.json();
-    return bodyResponse.results[0];
+    return await response.json();
   }
 
   async getConversationNextComment(conversation: any) {
@@ -47,7 +46,13 @@ export class API {
       }
     });
     if (response.ok) {
-      let bodyResponse = await response.json();
+      let bodyResponse: any;
+      try {
+        bodyResponse = await response.json();
+      } catch (error) {
+        console.info("no comments to show");
+        return {};
+      }
       return bodyResponse;
     } else {
       return {};
@@ -145,7 +150,6 @@ export class API {
    */
   private getUserIdentifierCookie(): string {
     let cookies = document.cookie;
-    console.log(cookies);
     let userIdentifierCookie = "mautic";
     let cookieIndex = cookies.indexOf(userIdentifierCookie);
     if (cookieIndex != -1) {

@@ -14,10 +14,13 @@ export class EjConversation {
   @Prop() api: API;
 
   async connectedCallback() {
-    let HOST: string = document.querySelector("ej-conversation").attributes[
+    let host: string = document.querySelector("ej-conversation").attributes[
       "host"
     ].value;
-    this.api = new API(HOST);
+    let conversation_id: string = document.querySelector("ej-conversation")
+      .attributes["id"].value;
+
+    this.api = new API(host, conversation_id);
     await this.api.authenticate();
     this.conversation = await this.api.getConversation();
     this.comment = await this.api.getConversationNextComment(this.conversation);
@@ -108,7 +111,7 @@ export class EjConversation {
           <div class="conversation-title-container">
             <div>
               {this.conversation && (
-                <div id="conversation-title">{this.conversation.title}</div>
+                <div id="conversation-title">{this.conversation.text}</div>
               )}
             </div>
           </div>
