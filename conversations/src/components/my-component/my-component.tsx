@@ -9,25 +9,19 @@ import { API } from "./api";
 export class EjConversation {
   @Element() el: HTMLElement;
   @Prop() conversation: any = {};
+  @Prop() host: string;
+  @Prop() id: string;
   @Prop() comment: any = {};
   @Prop() newCommentContent: string = "";
   @Prop() api: API;
 
-  async connectedCallback() {
-    let host: string = document.querySelector("ej-conversation").attributes[
-      "host"
-    ].value;
-    let conversation_id: string = document.querySelector("ej-conversation")
-      .attributes["id"].value;
-
-    this.api = new API(host, conversation_id);
+  async componentDidLoad() {
+    this.api = new API(this.host, this.id);
     await this.api.authenticate();
     this.conversation = await this.api.getConversation();
     this.comment = await this.api.getConversationNextComment(this.conversation);
     this.setCommentState();
   }
-
-  async componentDidLoad() {}
 
   private setCommentState() {
     if (!this.comment.content) {

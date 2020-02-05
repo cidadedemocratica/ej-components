@@ -16,6 +16,8 @@ export namespace Components {
     'api': API;
     'comment': any;
     'conversation': any;
+    'host': string;
+    'id': string;
     'newCommentContent': string;
   }
 }
@@ -38,6 +40,8 @@ declare namespace LocalJSX {
     'api'?: API;
     'comment'?: any;
     'conversation'?: any;
+    'host'?: string;
+    'id'?: string;
     'newCommentContent'?: string;
   }
 
