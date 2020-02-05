@@ -2,40 +2,48 @@
 	background-color: #30bfd3;
 	max-width: 50%;
 	min-width: 300px;
+	border-radius: 3rem;
+	text-align: center;
 	margin: auto;
+	color: white;
+	font-weight: 600;
 }
 
 .card-content {
 	margin: auto;
+	width: 80%;
+	padding-top: 10px;
 }
 
-.conversation-title-container {
-	text-align: center;
+.card #title  {
 	background-color: #C4F2F4;
-}
-#conversation-title {
-	font-size: 1.0rem;
-	padding-top: 20px;
-	padding-bottom: 20px;
+  font-size: 1.0rem;
+  border-top-left-radius: 3rem;
+  border-top-right-radius: 3rem;
+  width: 100%;
 }
 
-#comment-content {
+
+.card #title > div  {
+	padding-top: 16px;
+	padding-bottom: 16px;
+	color: #30BFD3;
+	font-size: 1.3rem;
+}
+
+.card-content #comment {
 	font-size: 1.5rem;
 	padding-top: 20px;
 	padding-bottom: 20px;
 	text-align: center;
 }
 
-.vote-options-container {
-	width: 90%;
-	margin: auto;
-}
-
-.vote-options {
+.card-content #choices {
 	text-align: center;
 	display: flex;
 }
-.vote-options > div {
+
+.card-content #choices > div {
 	margin-right: 10px;
 	margin: auto;
 	width: 50%;
@@ -43,28 +51,49 @@
 	padding-bottom: 20px;
 }
 
-#add-comment-container {
+
+.card #add-comment {
 	width: 50%;
   margin: auto;
   padding: 20px 20px 20px 20px;
 }
 
-.new-comment-content {
+.card .new-comment {
 	display: none;
 }
 
-#new-comment-advise {
+.card .new-comment #advise {
+	width: 90%;
+  margin: auto;
+  padding: 20px 20px 5px 20px;
+	font-size: 1.2rem;
+}
+
+.card .new-comment #input {
 	width: 90%;
   margin: auto;
   padding: 20px 20px 20px 20px;
 }
 
-#new-comment-input, #new-comment-submit {
-	text-align: center;
-  padding: 20px 20px 20px 20px;
+.card .new-comment #input > textarea {
+	width: 60%;
+  height: 80px;
+  border-radius: 1rem;
+	padding: 7px;
+  border-style: none;
 }
 
-#new-comment-input > input {
-	height: 60px;
-  width: 100%;
+.card .new-comment #footer {
+	display: flex;
+	margin: auto;
 }
+
+.card .new-comment #footer > div {
+	width: 100%;
+	display: flex;
+	margin-bottom: 10px;
+}
+.card .new-comment #footer > div > div {
+	width: 50%;
+}
+
