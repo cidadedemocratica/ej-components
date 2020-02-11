@@ -37,7 +37,9 @@ export class API {
   }
 
   async getConversationNextComment(conversation: any) {
-    let commentUrl = conversation.links["random-comment"];
+    let commentUrl = this.getRandomCommentUrl(
+      conversation.links["random-comment"]
+    );
     const response = await fetch(commentUrl, {
       method: "GET",
       headers: {
@@ -169,5 +171,16 @@ export class API {
   private getConversationID(conversation: any): number {
     let selfLink = conversation.links["self"];
     return Number(selfLink[selfLink.length - 2]);
+  }
+
+  private getRandomCommentUrl(comment: any) {
+    try {
+      if (this.HOST.split(":")[0] == "https") {
+        return comment.replace("http", "https");
+      }
+      return comment;
+    } catch (error) {
+      return comment;
+    }
   }
 }
