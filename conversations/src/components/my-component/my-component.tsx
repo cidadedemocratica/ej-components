@@ -1,5 +1,6 @@
 import { Component, Prop, h, Element } from "@stencil/core";
 import { API } from "./api";
+import { HTMLStencilElement } from "@stencil/core/internal";
 
 @Component({
   tag: "ej-conversation",
@@ -7,16 +8,23 @@ import { API } from "./api";
   shadow: true
 })
 export class EjConversation {
-  @Element() el: HTMLElement;
+  @Element() el: HTMLStencilElement;
+  //@Element() stencil: HTMLStencilElement;
   @Prop() conversation: any = {};
   @Prop() host: string;
-  @Prop() id: string;
+  //conversation_id
+  @Prop() cid: string;
   @Prop() comment: any = {};
   @Prop() newCommentContent: string = "";
-  @Prop() api: API;
+  @Prop() api: API = new API(this.host, this.cid);
+  @Prop() user: any = {
+    name: "",
+    email: "",
+    password1: "pass",
+    password2: "pass"
+  };
 
   async componentDidLoad() {
-    this.api = new API(this.host, this.id);
     await this.api.authenticate();
     this.conversation = await this.api.getConversation();
     this.comment = await this.api.getConversationNextComment(this.conversation);
@@ -73,6 +81,28 @@ export class EjConversation {
     this.newCommentContent = event.target.value;
   }
 
+  private async setUserName(event: any) {
+    this.user.name = event.target.value;
+  }
+
+  private async setUserEmail(event: any) {
+    this.user.email = event.target.value;
+  }
+
+  private async registerUser() {
+    try {
+      let response = await this.api.createUserFromData(this.user);
+      this.api.setUserTokenOnLocalStorage(response.key);
+      this.conversation = await this.api.getConversation();
+      this.comment = await this.api.getConversationNextComment(
+        this.conversation
+      );
+      this.setCommentState();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   private async addComment() {
     await this.api.createComment(this.newCommentContent, this.conversation);
     this.hideNewCommentCard();
@@ -99,112 +129,84 @@ export class EjConversation {
   }
 
   render() {
-    //return (
-    //  <div class="card">
-    //    <div class="card-content">
-    //      <div class="conversation-title-container">
-    //        <div>
-    //          {this.conversation && (
-    //            <div id="conversation-title">{this.conversation.text}</div>
-    //          )}
-    //        </div>
-    //      </div>
-    //      <div
-    //        class="
-    //        comment-container"
-    //      >
-    //        <div>
-    //          {this.comment && (
-    //            <div id="comment-content">{this.comment.content}</div>
-    //          )}
-    //        </div>
-    //      </div>
-    //      <div class="vote-options-container">
-    //        <div class="vote-options">
-    //          <div class="disagree" onClick={this.voteOnDisagree.bind(this)}>
-    //            DISAGREE
-    //          </div>
-    //          <div class="skip" onClick={this.voteOnSkip.bind(this)}>
-    //            SKIP
-    //          </div>
-    //          <div class="agree" onClick={this.voteOnAgree.bind(this)}>
-    //            AGREE
-    //          </div>
-    //        </div>
-    //      </div>
-    //      <div
-    //        id="add-comment-container"
-    //        onClick={this.displayNewCommentCard.bind(this)}
-    //      >
-    //        <div id="add-comment">Adicionar Comentario</div>
-    //      </div>
-    //    </div>
-    //    <div class="new-comment-content">
-    //      <div id="new-comment-advise">
-    //        Inclua um novo comentário e evite opiniões similares. Você pode
-    //        postar apenas um comentário.
-    //      </div>
-    //      <div id="new-comment-input">
-    //        <input
-    //          type="text"
-    //          onChange={(event: UIEvent) => this.setCommentContent(event)}
-    //        />
-    //      </div>
-    //      <div onClick={this.addComment.bind(this)}>Submit</div>
-    //      <div onClick={this.hideNewCommentCard.bind(this)}>Fechar</div>
-    //    </div>
-    //  </div>
-    //);
-    return (
-      <div class="card">
-        <div id="title">
-          <div>
-            {this.conversation && (
-              <div id="conversation-title">{this.conversation.text}</div>
-            )}
-          </div>
-        </div>
-        <div class="card-content">
-          <div id="comment">
+    console.log(this.api);
+    if (this.api.authTokenExists()) {
+      console.log("DHASJKHDASJKDHASJKDHASJKH");
+      return (
+        <div class="card">
+          <div id="title">
             <div>
-              {this.comment && (
-                <div id="comment-content">{this.comment.content}</div>
+              {this.conversation && (
+                <div id="conversation-title">{this.conversation.text}</div>
               )}
             </div>
           </div>
-          <div id="choices">
-            <div class="disagree" onClick={this.voteOnDisagree.bind(this)}>
-              DISAGREE
+          <div class="card-content">
+            <div id="comment">
+              <div>
+                {this.comment && (
+                  <div id="comment-content">{this.comment.content}</div>
+                )}
+              </div>
             </div>
-            <div class="skip" onClick={this.voteOnSkip.bind(this)}>
-              SKIP
+            <div id="choices">
+              <div class="disagree" onClick={this.voteOnDisagree.bind(this)}>
+                DISAGREE
+              </div>
+              <div class="skip" onClick={this.voteOnSkip.bind(this)}>
+                SKIP
+              </div>
+              <div class="agree" onClick={this.voteOnAgree.bind(this)}>
+                AGREE
+              </div>
             </div>
-            <div class="agree" onClick={this.voteOnAgree.bind(this)}>
-              AGREE
+          </div>
+          <div id="add-comment" onClick={this.displayNewCommentCard.bind(this)}>
+            <div>Adicionar Comentario</div>
+          </div>
+          <div class="new-comment">
+            <div id="advise">
+              Inclua um novo comentário e evite opiniões similares. Você pode
+              postar apenas um comentário.
+            </div>
+            <div id="input">
+              <textarea
+                onChange={(event: UIEvent) => this.setCommentContent(event)}
+              />
+            </div>
+            <div id="footer">
+              <div>
+                <div onClick={this.addComment.bind(this)}>Comentar</div>
+                <div onClick={this.hideNewCommentCard.bind(this)}>Fechar</div>
+              </div>
             </div>
           </div>
         </div>
-        <div id="add-comment" onClick={this.displayNewCommentCard.bind(this)}>
-          <div>Adicionar Comentario</div>
-        </div>
-        <div class="new-comment">
-          <div id="advise">
-            Inclua um novo comentário e evite opiniões similares. Você pode
-            postar apenas um comentário.
-          </div>
-          <div id="input">
-            <textarea
-              onChange={(event: UIEvent) => this.setCommentContent(event)}
-            />
-          </div>
-          <div id="footer">
-            <div>
-              <div onClick={this.addComment.bind(this)}>Comentar</div>
-              <div onClick={this.hideNewCommentCard.bind(this)}>Fechar</div>
+      );
+    } else {
+      return (
+        <div class="card">
+          <div class="register">
+            <div id="register-name">
+              <input
+                onChange={(event: UIEvent) => this.setUserName(event)}
+                placeholder="Seu Nome"
+                type="text"
+                id="name"
+              />
             </div>
+            <div id="register-email">
+              <input
+                onChange={(event: UIEvent) => this.setUserEmail(event)}
+                placeholder="Seu Email"
+                type="text"
+                id="mail"
+              />
+            </div>
+            <button onClick={() => this.registerUser()}>Participar</button>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }

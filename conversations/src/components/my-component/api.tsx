@@ -20,7 +20,7 @@ export class API {
       return;
     }
     const data = this.getUserData();
-    if (data.identifier != "") {
+    if (data) {
       let response = await this.createUserFromData(data);
       this.setUserTokenOnLocalStorage(response.key);
     }
@@ -110,7 +110,7 @@ export class API {
     });
   }
 
-  private async createUserFromData(data: any) {
+  async createUserFromData(data: any) {
     const response = await fetch(this.REGISTRATION_ROUTE, {
       method: "POST",
       headers: {
@@ -121,7 +121,7 @@ export class API {
     return response.json();
   }
 
-  private authTokenExists() {
+  authTokenExists() {
     if (localStorage.getItem("ejToken")) {
       return true;
     }
@@ -132,18 +132,21 @@ export class API {
     return localStorage.getItem("ejToken");
   }
 
-  private setUserTokenOnLocalStorage(token: string) {
+  setUserTokenOnLocalStorage(token: string) {
     localStorage.setItem("ejToken", token);
   }
 
   private getUserData(): any {
     let identifier = this.getUserIdentifierCookie();
-    return {
-      name: identifier,
-      email: `${identifier}@fakemail.com`,
-      password1: identifier,
-      password2: identifier
-    };
+    if (identifier) {
+      return {
+        name: identifier,
+        email: `${identifier}@fakemail.com`,
+        password1: identifier,
+        password2: identifier
+      };
+    }
+    return false;
   }
 
   /*

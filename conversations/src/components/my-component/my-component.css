@@ -3,6 +3,7 @@
 	max-width: 50%;
 	min-width: 300px;
 	border-radius: 3rem;
+	min-height: 300px;
 	text-align: center;
 	margin: auto;
 	color: white;
@@ -97,3 +98,19 @@
 	width: 50%;
 }
 
+.card .register {
+	padding: 60px 30px 30px 30px;
+}
+
+#register-name, #register-email {
+	border-style: none;
+}
+
+.card button {
+	margin: 60px 30px 30px 30px;
+	border-style: none;
+  background-color: white;
+  border-radius: 1rem;
+  width: 7rem;
+  height: 30px;
+}
