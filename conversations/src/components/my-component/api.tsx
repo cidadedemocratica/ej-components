@@ -175,7 +175,7 @@ export class API {
 
   private getConversationID(conversation: any): number {
     let selfLink = conversation.links["self"];
-    return Number(selfLink[selfLink.length - 2]);
+    return Number(selfLink.split("/").reverse()[1]);
   }
 
   private getRandomCommentUrl(comment: any) {

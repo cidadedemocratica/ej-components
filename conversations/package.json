@@ -1,6 +1,6 @@
 {
   "name": "ej-conversations",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "EJ conversations component",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -24,5 +24,8 @@
   "devDependencies": {
     "@stencil/core": "1.8.1"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.12.1"
+  }
 }

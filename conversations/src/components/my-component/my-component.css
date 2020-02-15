@@ -70,6 +70,8 @@
   margin: auto;
   padding: 20px 20px 5px 20px;
 	font-size: 1.2rem;
+	font-family: Raleway,sans-serif;
+	font-weight: 100;
 }
 
 .card .new-comment #input {
@@ -89,6 +91,7 @@
 .card .new-comment #footer {
 	display: flex;
 	margin: auto;
+	font-family: Raleway,sans-serif;
 }
 
 .card .new-comment #footer > div {
@@ -133,4 +136,33 @@
 	background-size: contain;
 	margin: auto auto auto auto;
 	background-position: center;
+}
+
+.fa {
+	font-size: 1.5rem;
+}
+.fa-times {
+	color: #de011e;
+}
+
+.fa-arrow-right {
+	color: #042a46;
+}
+
+.fa-check {
+	color: #16ab39;
+}
+
+.choice button {
+	justify-content: center;
+	background: 0 0;
+  border: none;
+  height: initial;
+  margin: 0;
+  padding: 0;
+	font-family: inherit;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+	width: auto;
 }

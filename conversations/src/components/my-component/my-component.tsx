@@ -4,8 +4,9 @@ import { HTMLStencilElement } from "@stencil/core/internal";
 
 @Component({
   tag: "ej-conversation",
-  styleUrl: "my-component.css",
-  shadow: true
+  styleUrls: ["my-component.css", "assets/css/all.css"],
+  shadow: true,
+  assetsDir: "./assets"
 })
 export class EjConversation {
   @Element() el: HTMLStencilElement;
@@ -153,14 +154,40 @@ export class EjConversation {
               </div>
             </div>
             <div id="choices">
-              <div class="disagree" onClick={this.voteOnDisagree.bind(this)}>
-                Descordar
+              <div class="choice">
+                <button>
+                  <div class="choice-btn">
+                    <i class="fa fa-times"></i>
+                  </div>
+                  <div
+                    class="disagree"
+                    onClick={this.voteOnDisagree.bind(this)}
+                  >
+                    Discordar
+                  </div>
+                </button>
               </div>
-              <div class="skip" onClick={this.voteOnSkip.bind(this)}>
-                Pular
+
+              <div class="choice">
+                <button>
+                  <div class="choice-btn">
+                    <i class="fa fa-arrow-right"></i>
+                  </div>
+                  <div class="skip" onClick={this.voteOnSkip.bind(this)}>
+                    Pular
+                  </div>
+                </button>
               </div>
-              <div class="agree" onClick={this.voteOnAgree.bind(this)}>
-                Concordar
+
+              <div class="choice">
+                <button>
+                  <div class="choice-btn">
+                    <i class="fa fa-check"></i>
+                  </div>
+                  <div class="agree" onClick={this.voteOnAgree.bind(this)}>
+                    Concordar
+                  </div>
+                </button>
               </div>
             </div>
           </div>
