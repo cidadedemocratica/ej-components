@@ -23,6 +23,8 @@ export class API {
     if (data) {
       let response = await this.createUserFromData(data);
       this.setUserTokenOnLocalStorage(response.key);
+    } else {
+      throw new Error("could not authenticate user");
     }
   }
 

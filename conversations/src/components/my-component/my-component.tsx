@@ -9,7 +9,6 @@ import { HTMLStencilElement } from "@stencil/core/internal";
 })
 export class EjConversation {
   @Element() el: HTMLStencilElement;
-  //@Element() stencil: HTMLStencilElement;
   @Prop() conversation: any = {};
   @Prop() host: string;
   //conversation_id
@@ -25,10 +24,16 @@ export class EjConversation {
   };
 
   async componentDidLoad() {
-    await this.api.authenticate();
-    this.conversation = await this.api.getConversation();
-    this.comment = await this.api.getConversationNextComment(this.conversation);
-    this.setCommentState();
+    try {
+      await this.api.authenticate();
+      this.conversation = await this.api.getConversation();
+      this.comment = await this.api.getConversationNextComment(
+        this.conversation
+      );
+      this.setCommentState();
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   private setCommentState() {
@@ -129,9 +134,7 @@ export class EjConversation {
   }
 
   render() {
-    console.log(this.api);
     if (this.api.authTokenExists()) {
-      console.log("DHASJKHDASJKDHASJKDHASJKH");
       return (
         <div class="card">
           <div id="title">
@@ -151,13 +154,13 @@ export class EjConversation {
             </div>
             <div id="choices">
               <div class="disagree" onClick={this.voteOnDisagree.bind(this)}>
-                DISAGREE
+                Descordar
               </div>
               <div class="skip" onClick={this.voteOnSkip.bind(this)}>
-                SKIP
+                Pular
               </div>
               <div class="agree" onClick={this.voteOnAgree.bind(this)}>
-                AGREE
+                Concordar
               </div>
             </div>
           </div>
@@ -186,6 +189,7 @@ export class EjConversation {
     } else {
       return (
         <div class="card">
+          <div class="logo"></div>
           <div class="register">
             <div id="register-name">
               <input

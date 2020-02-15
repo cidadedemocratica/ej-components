@@ -1,6 +1,6 @@
 .card {
 	background-color: #30bfd3;
-	max-width: 50%;
+	max-width: 40%;
 	min-width: 300px;
 	border-radius: 3rem;
 	min-height: 300px;
@@ -10,18 +10,14 @@
 	font-weight: 600;
 }
 
-.card-content {
-	margin: auto;
-	width: 80%;
-	padding-top: 10px;
-}
-
 .card #title  {
 	background-color: #C4F2F4;
   font-size: 1.0rem;
   border-top-left-radius: 3rem;
   border-top-right-radius: 3rem;
   width: 100%;
+	font-family: Raleway,sans-serif;
+	font-weight: 100;
 }
 
 
@@ -32,6 +28,12 @@
 	font-size: 1.3rem;
 }
 
+.card-content {
+	margin: auto;
+	width: 80%;
+	padding-top: 10px;
+	font-family: Raleway,sans-serif;
+}
 .card-content #comment {
 	font-size: 1.5rem;
 	padding-top: 20px;
@@ -99,18 +101,36 @@
 }
 
 .card .register {
-	padding: 60px 30px 30px 30px;
+	padding: 20px 30px 30px 30px;
 }
 
-#register-name, #register-email {
+.register div:first-child {
+	margin-bottom: 10px;
+}
+
+.register input {
 	border-style: none;
+	border-radius: 1rem;
+  border-style: none;
+  padding-left: 10px;
+  min-height: 25px;
 }
 
 .card button {
-	margin: 60px 30px 30px 30px;
+	margin: 30px 30px 30px 30px;
 	border-style: none;
   background-color: white;
   border-radius: 1rem;
   width: 7rem;
   height: 30px;
+}
+
+.card .logo {
+	background-image: url(https://ejplatform.pencillabs.com.br/static/img/logo/logo.svg);
+	width: 80px;
+	height: 80px;
+	background-repeat: no-repeat;
+	background-size: contain;
+	margin: auto auto auto auto;
+	background-position: center;
 }
