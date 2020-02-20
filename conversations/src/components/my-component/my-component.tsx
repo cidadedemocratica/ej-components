@@ -161,7 +161,7 @@ export class EjConversation {
 
   private readQueryParams() {
     let pathname: string = document.location.search;
-    if (pathname != "/") {
+    if (pathname != "/" && pathname != "") {
       let params: any = pathname.slice(1).split("&");
       let cid: string = params[0].split("=")[1];
       let commentId: string = params[1].split("=")[1];
