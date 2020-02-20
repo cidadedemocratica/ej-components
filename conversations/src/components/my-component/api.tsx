@@ -5,13 +5,17 @@ export class API {
   VOTES_ROUTE: string = "";
   COMMENTS_ROUTE: string = "";
   REGISTRATION_ROUTE: string = "";
+  COMMENT_ROUTE: string = "";
 
-  constructor(host: string, conversation_id: string) {
+  constructor(host: string, conversationID: string, commentID?: string) {
     this.HOST = host;
     this.API_HOST = `${this.HOST}/api/v1`;
-    this.CONVERSATIONS_ROUTE = `${this.API_HOST}/conversations/${conversation_id}`;
+    this.CONVERSATIONS_ROUTE = `${this.API_HOST}/conversations/${conversationID}`;
     this.VOTES_ROUTE = `${this.API_HOST}/votes/`;
     this.COMMENTS_ROUTE = `${this.API_HOST}/comments/`;
+    if (commentID) {
+      this.COMMENT_ROUTE = `${this.API_HOST}/comments/${commentID}`;
+    }
     this.REGISTRATION_ROUTE = `${this.HOST}/rest-auth/registration/`;
   }
 
@@ -39,9 +43,14 @@ export class API {
   }
 
   async getConversationNextComment(conversation: any) {
-    let commentUrl = this.getRandomCommentUrl(
-      conversation.links["random-comment"]
-    );
+    let commentUrl: string = "";
+    if (this.COMMENT_ROUTE) {
+      commentUrl = this.COMMENT_ROUTE;
+    } else {
+      commentUrl = this.getRandomCommentUrl(
+        conversation.links["random-comment"]
+      );
+    }
     const response = await fetch(commentUrl, {
       method: "GET",
       headers: {

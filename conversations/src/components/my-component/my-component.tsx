@@ -16,7 +16,7 @@ export class EjConversation {
   @Prop() cid: string;
   @Prop() comment: any = {};
   @Prop() newCommentContent: string = "";
-  @Prop() api: API = new API(this.host, this.cid);
+  @Prop() api: API;
   @Prop() user: any = {
     name: "",
     email: "",
@@ -26,15 +26,38 @@ export class EjConversation {
 
   async componentDidLoad() {
     try {
+      let queryParams: any = this.readQueryParams();
+      if (queryParams) {
+        this.api = new API(this.host, queryParams.cid, queryParams.commentId);
+      } else {
+        this.api = new API(this.host, this.cid);
+      }
       await this.api.authenticate();
       this.conversation = await this.api.getConversation();
       this.comment = await this.api.getConversationNextComment(
         this.conversation
       );
       this.setCommentState();
+      this.voteUsingQueryParams(queryParams);
     } catch (err) {
       console.log(err);
     }
+  }
+
+  private voteUsingQueryParams(queryParams: any) {
+    if (queryParams) {
+      if (queryParams.choice == "agree") {
+        this.voteOnAgree();
+      }
+      if (queryParams.choice == "disagree") {
+        this.voteOnDisagree();
+      }
+      if (queryParams.choice == "skip") {
+        this.voteOnSkip();
+      }
+    }
+    //from here component will use this.api.COMMENTS_ROUTE.
+    this.api.COMMENT_ROUTE = "";
   }
 
   private setCommentState() {
@@ -104,6 +127,8 @@ export class EjConversation {
         this.conversation
       );
       this.setCommentState();
+      let queryParams: any = this.readQueryParams();
+      this.voteUsingQueryParams(queryParams);
     } catch (error) {
       console.log(error);
     }
@@ -132,6 +157,19 @@ export class EjConversation {
     await this.api.computeSkipVote(this.comment);
     this.comment = await this.api.getConversationNextComment(this.conversation);
     this.setCommentState();
+  }
+
+  private readQueryParams() {
+    let pathname: string = document.location.search;
+    if (pathname != "/") {
+      let params: any = pathname.slice(1).split("&");
+      let cid: string = params[0].split("=")[1];
+      let commentId: string = params[1].split("=")[1];
+      let choice: string = params[2].split("=")[1];
+      return { cid: cid, commentId: commentId, choice: choice };
+    } else {
+      return false;
+    }
   }
 
   render() {
