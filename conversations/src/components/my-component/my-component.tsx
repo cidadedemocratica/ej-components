@@ -155,38 +155,29 @@ export class EjConversation {
             </div>
             <div id="choices">
               <div class="choice">
-                <button>
+                <button onClick={this.voteOnDisagree.bind(this)}>
                   <div class="choice-btn">
                     <i class="fa fa-times"></i>
                   </div>
-                  <div
-                    class="disagree"
-                    onClick={this.voteOnDisagree.bind(this)}
-                  >
-                    Discordar
-                  </div>
+                  <div class="disagree">Discordar</div>
                 </button>
               </div>
 
               <div class="choice">
-                <button>
+                <button onClick={this.voteOnSkip.bind(this)}>
                   <div class="choice-btn">
                     <i class="fa fa-arrow-right"></i>
                   </div>
-                  <div class="skip" onClick={this.voteOnSkip.bind(this)}>
-                    Pular
-                  </div>
+                  <div class="skip">Pular</div>
                 </button>
               </div>
 
               <div class="choice">
-                <button>
+                <button onClick={this.voteOnAgree.bind(this)}>
                   <div class="choice-btn">
                     <i class="fa fa-check"></i>
                   </div>
-                  <div class="agree" onClick={this.voteOnAgree.bind(this)}>
-                    Concordar
-                  </div>
+                  <div class="agree">Concordar</div>
                 </button>
               </div>
             </div>
