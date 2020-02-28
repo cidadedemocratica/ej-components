@@ -185,6 +185,9 @@ export class API {
     if (cookieIndex != -1) {
       let cookieKeyAndValue = cookies.substring(cookieIndex, cookies.length);
       let cookieValue = cookieKeyAndValue.split("=")[1];
+      if (cookieValue.indexOf(";") != -1) {
+        cookieValue = cookieValue.split(";")[0];
+      }
       return cookieValue;
     }
     return "";
