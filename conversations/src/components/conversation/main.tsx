@@ -1,4 +1,11 @@
-import { Component, Prop, Listen, h, Element } from "@stencil/core";
+import {
+  Component,
+  Prop,
+  Listen,
+  h,
+  Element,
+  getAssetPath
+} from "@stencil/core";
 import { API, User } from "./api";
 import { HTMLStencilElement } from "@stencil/core/internal";
 
@@ -171,11 +178,37 @@ export class EjConversation {
       return (
         <div class="card">
           <div id="user-prop">{this.user.name}</div>
-          <div id="title">
-            <div>
+          <div class="header">
+            <div class="title">
               {this.conversation && (
                 <div id="conversation-title">{this.conversation.text}</div>
               )}
+            </div>
+            <div class="stats">
+              <div>
+                <img
+                  src={getAssetPath(
+                    `./assets/icons/icone-branco-comentarios.png`
+                  )}
+                  alt=""
+                />
+                32 comentarios
+              </div>
+              <div>
+                <img
+                  src={getAssetPath(`./assets/icons/icone-branco-votos.png`)}
+                  alt=""
+                />
+                5245 votos
+              </div>
+            </div>
+            <div id="seta">
+              <img
+                src={getAssetPath(
+                  `./assets/icons/seta-branca-para-fundo-azul.png`
+                )}
+                alt=""
+              />
             </div>
           </div>
           <div class="card-content">

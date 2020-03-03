@@ -166,10 +166,10 @@ export class API {
     let identifier = this.getUserIdentifierCookie();
     if (identifier) {
       return {
-        name: identifier,
-        email: `${identifier}@fakemail.com`,
-        password1: identifier,
-        password2: identifier
+        name: `${identifier}-mautic`,
+        email: `${identifier}-mautic@mail.com`,
+        password1: `${identifier}-mautic`,
+        password2: `${identifier}-mautic`
       };
     }
     return false;

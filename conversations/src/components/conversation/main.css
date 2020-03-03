@@ -1,31 +1,57 @@
+@font-face {
+font-family: "Helvetica";
+src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf");
+}
+
 .card {
 	background-color: #30bfd3;
-	max-width: 40%;
 	min-width: 300px;
-	border-radius: 3rem;
-	min-height: 300px;
 	text-align: center;
 	margin: auto;
 	color: white;
 	font-weight: 600;
 }
 
-.card #title  {
-	background-color: #C4F2F4;
+.card .header  {
+	background-color: #1D1088;
   font-size: 1.0rem;
-  border-top-left-radius: 3rem;
-  border-top-right-radius: 3rem;
   width: 100%;
 	font-family: Raleway,sans-serif;
 	font-weight: 100;
+	position: relative;
 }
 
+#seta {
+	position: absolute;
+	left: 50%;
+	right: 50%;
+	bottom: -4px;
+}
 
-.card #title > div  {
-	padding-top: 16px;
-	padding-bottom: 16px;
-	color: #30BFD3;
-	font-size: 1.3rem;
+.card .header .title  {
+	padding-top: 70px;
+	padding-bottom: 50px;
+	color: #ffffff;
+	font-size: 54px;
+	font-family: Helvetica;
+	max-width: 1000px;
+	margin: auto;
+}
+
+.card .header .stats {
+	display: flex;
+  width: 20%;
+  margin: auto;
+	padding-bottom: 135px;
+}
+
+.card .header .stats div {
+	flex-grow: 1;
+	color: #1db0f0;
+}
+
+.card .header .stats img {
+	margin-right: 5px;
 }
 
 .card-content {
