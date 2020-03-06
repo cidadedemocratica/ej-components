@@ -211,40 +211,39 @@ export class EjConversation {
               />
             </div>
           </div>
-          <div class="card-content">
-            <div id="comment">
-              <div>
-                {this.comment && (
-                  <div id="comment-content">{this.comment.content}</div>
-                )}
-              </div>
+          <div class="content">
+            <div id="comment-header">
+              <div>COMENTÁRIOS</div>
             </div>
-            <div id="choices">
-              <div class="choice">
-                <button onClick={this.voteOnDisagree.bind(this)}>
-                  <div class="choice-btn">
-                    <i class="fa fa-times"></i>
-                  </div>
-                  <div class="disagree">Discordar</div>
-                </button>
+            <div class="content-card">
+              <div id="comment-title">
+                {this.comment && <div>{this.comment.content}</div>}
               </div>
-
-              <div class="choice">
-                <button onClick={this.voteOnSkip.bind(this)}>
-                  <div class="choice-btn">
-                    <i class="fa fa-arrow-right"></i>
-                  </div>
-                  <div class="skip">Pular</div>
-                </button>
-              </div>
-
-              <div class="choice">
-                <button onClick={this.voteOnAgree.bind(this)}>
-                  <div class="choice-btn">
-                    <i class="fa fa-check"></i>
-                  </div>
-                  <div class="agree">Concordar</div>
-                </button>
+              <div id="choices">
+                <div class="choice">
+                  <button onClick={this.voteOnAgree.bind(this)}>
+                    <div class="choice-btn green">
+                      <i class="fa fa-check"></i>
+                    </div>
+                    <div class="agree">Concordar</div>
+                  </button>
+                </div>
+                <div class="choice">
+                  <button onClick={this.voteOnSkip.bind(this)}>
+                    <div class="choice-btn red">
+                      <i class="fa fa-arrow-right"></i>
+                    </div>
+                    <div class="skip">Pular</div>
+                  </button>
+                </div>
+                <div class="choice">
+                  <button onClick={this.voteOnDisagree.bind(this)}>
+                    <div class="choice-btn pink">
+                      <i class="fa fa-times"></i>
+                    </div>
+                    <div class="disagree">Discordar</div>
+                  </button>
+                </div>
               </div>
             </div>
           </div>

@@ -4,7 +4,6 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 }
 
 .card {
-	background-color: #30bfd3;
 	min-width: 300px;
 	text-align: center;
 	margin: auto;
@@ -40,7 +39,7 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 
 .card .header .stats {
 	display: flex;
-  width: 20%;
+  max-width: 50%;
   margin: auto;
 	padding-bottom: 135px;
 }
@@ -54,30 +53,50 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	margin-right: 5px;
 }
 
-.card-content {
+.card .content {
 	margin: auto;
 	width: 80%;
 	padding-top: 10px;
 	font-family: Raleway,sans-serif;
 }
-.card-content #comment {
-	font-size: 1.5rem;
+.card .content #comment-header {
+	font-size: 2.0rem;
 	padding-top: 20px;
 	padding-bottom: 20px;
 	text-align: center;
+	color: #000937;
+	font-weight: bold;
 }
 
-.card-content #choices {
+.card .content .content-card {
+	font-size: 2.0rem;
+	padding: 20px;
+	text-align: center;
+	background-color: #EDEFEF;
+	max-width: 50%;
+	margin: auto;
+}
+
+.card .content .content-card #comment-title {
+	color: #000937;
+	font-size: 1.2rem;
+}
+
+.card .content .content-card #choices {
 	text-align: center;
 	display: flex;
+	max-width: 60%;
+	margin: 20px auto;
 }
 
-.card-content #choices > div {
+.card .content .content-card #choices > div {
+	color: #000937;
 	margin-right: 10px;
 	margin: auto;
 	width: 50%;
 	padding-top: 20px;
 	padding-bottom: 20px;
+	font-size: 1rem;
 }
 
 
@@ -152,6 +171,7 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
   border-radius: 1rem;
   width: 7rem;
   height: 30px;
+	text-transform: uppercase;
 }
 
 .card .logo {
@@ -188,9 +208,34 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
   padding: 0;
 	font-family: inherit;
   color: inherit;
-  font-size: inherit;
+  font-size: 0.8rem;
   font-weight: inherit;
 	width: auto;
+}
+
+.choice-btn {
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+	border-style: solid;
+	border-width: 1px;
+	margin: auto;
+	background-color: #ffffff;
+}
+
+.choice-btn i {
+	padding: 10px;
+}
+
+.green {
+	border-color: #22b35c;
+}
+.pink {
+	border-color: #fb127e;
+}
+
+.red {
+	border-color: #f13c20;
 }
 
 #user-prop {
