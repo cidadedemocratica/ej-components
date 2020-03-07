@@ -11,7 +11,7 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	font-weight: 600;
 }
 
-.card .header  {
+.header  {
 	background-color: #1D1088;
   font-size: 1.0rem;
   width: 100%;
@@ -27,7 +27,7 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	bottom: -4px;
 }
 
-.card .header .title  {
+.title  {
 	padding-top: 70px;
 	padding-bottom: 50px;
 	color: #ffffff;
@@ -37,59 +37,84 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	margin: auto;
 }
 
-.card .header .stats {
+.stats {
 	display: flex;
   max-width: 50%;
   margin: auto;
 	padding-bottom: 135px;
 }
 
-.card .header .stats div {
+.stats div {
 	flex-grow: 1;
 	color: #1db0f0;
 }
 
-.card .header .stats img {
+.stats img {
 	margin-right: 5px;
 }
 
-.card .content {
+.content {
 	margin: auto;
 	width: 80%;
 	padding-top: 10px;
 	font-family: Raleway,sans-serif;
 }
-.card .content #comment-header {
+
+#comment-header {
 	font-size: 2.0rem;
-	padding-top: 20px;
-	padding-bottom: 20px;
+	padding-top: 80px;
+	padding-bottom: 30px;
 	text-align: center;
 	color: #000937;
 	font-weight: bold;
 }
 
-.card .content .content-card {
+.content-card {
 	font-size: 2.0rem;
 	padding: 20px;
 	text-align: center;
 	background-color: #EDEFEF;
 	max-width: 50%;
-	margin: auto;
+	margin: auto auto 30px auto;
+	position: relative;
 }
 
-.card .content .content-card #comment-title {
+.comment-owner {
+	margin-top: 30px;
+	margin-bottom: 20px;
+}
+
+.comment-owner img {
+	width: 27px;
+	height: 27px;
+}
+
+.comment-owner img,
+.add-comment img {
+	margin-right: 5px;
+	vertical-align: middle;
+}
+
+.comment-owner div:first-child {
+	font-size: 1rem;
+	color: #000937;
+}
+
+
+.comment-title {
 	color: #000937;
 	font-size: 1.2rem;
+	margin-top: 60px;
 }
 
-.card .content .content-card #choices {
+#choices {
 	text-align: center;
 	display: flex;
 	max-width: 60%;
 	margin: 20px auto;
 }
 
-.card .content .content-card #choices > div {
+#choices > div {
 	color: #000937;
 	margin-right: 10px;
 	margin: auto;
@@ -99,18 +124,32 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	font-size: 1rem;
 }
 
+.remaining-votes {
+	font-size: 1rem;
+	color: #000937;
+}
 
-.card #add-comment {
+
+.add-comment {
 	width: 50%;
   margin: auto;
   padding: 20px 20px 20px 20px;
+	color: #f8127e;
+	font-size: 1.5rem;
+	text-transform: uppercase;
+	font-weight: bold;
 }
 
-.card .new-comment {
+.add-comment img {
+	width: 15px;
+	height: 15px;
+}
+
+.new-comment {
 	display: none;
 }
 
-.card .new-comment #advise {
+.new-comment #advise {
 	width: 90%;
   margin: auto;
   padding: 20px 20px 5px 20px;
@@ -119,13 +158,13 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	font-weight: 100;
 }
 
-.card .new-comment #input {
+.new-comment #input {
 	width: 90%;
   margin: auto;
   padding: 20px 20px 20px 20px;
 }
 
-.card .new-comment #input > textarea {
+.new-comment #input > textarea {
 	width: 60%;
   height: 80px;
   border-radius: 1rem;
@@ -133,22 +172,23 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
   border-style: none;
 }
 
-.card .new-comment #footer {
+.new-comment #footer {
 	display: flex;
 	margin: auto;
 	font-family: Raleway,sans-serif;
 }
 
-.card .new-comment #footer > div {
+.new-comment #footer > div {
 	width: 100%;
 	display: flex;
 	margin-bottom: 10px;
 }
-.card .new-comment #footer > div > div {
+
+.new-comment #footer > div > div {
 	width: 50%;
 }
 
-.card .register {
+.register {
 	padding: 20px 30px 30px 30px;
 }
 
@@ -219,7 +259,7 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	border-radius: 50%;
 	border-style: solid;
 	border-width: 1px;
-	margin: auto;
+	margin: auto auto 10px auto;
 	background-color: #ffffff;
 }
 
@@ -240,4 +280,12 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 
 #user-prop {
 	display: none;
+}
+
+@media only screen and (max-width: 768px) {
+	.card .content .content-card,
+	.card .content .content-card #choices
+	{
+		max-width: unset;
+	}
 }

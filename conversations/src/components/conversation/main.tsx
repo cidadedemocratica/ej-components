@@ -216,7 +216,16 @@ export class EjConversation {
               <div>COMENTÁRIOS</div>
             </div>
             <div class="content-card">
-              <div id="comment-title">
+              <div class="comment-owner">
+                <div>
+                  <img
+                    src={getAssetPath(`./assets/icons/simbolo-ucc-m.png`)}
+                    alt=""
+                  />
+                  <span>ddavidcarlos1392@gmail.com</span>
+                </div>
+              </div>
+              <div class="comment-title">
                 {this.comment && <div>{this.comment.content}</div>}
               </div>
               <div id="choices">
@@ -245,10 +254,17 @@ export class EjConversation {
                   </button>
                 </div>
               </div>
+              <div class="remaining-votes">5/11</div>
             </div>
           </div>
-          <div id="add-comment" onClick={this.displayNewCommentCard.bind(this)}>
-            <div>Adicionar Comentario</div>
+          <div
+            class="add-comment"
+            onClick={this.displayNewCommentCard.bind(this)}
+          >
+            <div>
+              <img src={getAssetPath(`./assets/icons/icone-mais.png`)} alt="" />
+              <span>Criar Comentario</span>
+            </div>
           </div>
           <div class="new-comment">
             <div id="advise">
