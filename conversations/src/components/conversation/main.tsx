@@ -268,6 +268,10 @@ export class EjConversation {
               <span>Criar Comentario</span>
             </div>
           </div>
+          <div class="author">
+            <span>Feito por: </span>
+            <img src={getAssetPath(`./assets/icons/logo-ej-mini.png`)} alt="" />
+          </div>
         </div>
       );
     } else {

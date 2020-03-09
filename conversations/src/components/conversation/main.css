@@ -250,7 +250,7 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	text-transform: uppercase;
 }
 
-.card .logo {
+.logo {
 	background-image: url(https://ejplatform.pencillabs.com.br/static/img/logo/logo.svg);
 	width: 80px;
 	height: 80px;
@@ -290,6 +290,17 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 
 #user-prop {
 	display: none;
+}
+
+.author {
+	margin-bottom: 90px;
+}
+.author img {
+	vertical-align: middle;
+}
+.author span {
+	color: #000837;
+	font-weight: 100;
 }
 
 @media only screen and (max-width: 768px) {
