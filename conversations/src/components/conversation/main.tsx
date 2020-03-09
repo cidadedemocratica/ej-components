@@ -59,10 +59,11 @@ export class EjConversation {
         this.api = new API(this.host, this.cid);
       }
       this.user = { ...(await this.api.authenticate()) };
-      this.conversation = await this.api.getConversation();
-      this.comment = await this.api.getConversationNextComment(
-        this.conversation
-      );
+      this.conversation = { ...(await this.api.getConversation()) };
+      this.comment = {
+        ...(await this.api.getConversationNextComment(this.conversation))
+      };
+      this.setUserStatsState();
       this.setCommentState();
       this.voteUsingQueryParams(queryParams);
     } catch (err) {
@@ -92,6 +93,15 @@ export class EjConversation {
         content: "Obrigado por participar!"
       };
     }
+  }
+
+  private async setUserStatsState() {
+    let statsData: any = {
+      ...(await this.api.getUserConversationStatistics())
+    };
+    let userWithStats: User = { ...this.user };
+    userWithStats.stats = { ...statsData };
+    this.user = { ...userWithStats };
   }
 
   private toggleCommentCard() {
@@ -127,18 +137,21 @@ export class EjConversation {
     await this.api.computeDisagreeVote(this.comment);
     this.comment = await this.api.getConversationNextComment(this.conversation);
     this.setCommentState();
+    this.setUserStatsState();
   }
 
   private async voteOnAgree() {
     await this.api.computeAgreeVote(this.comment);
     this.comment = await this.api.getConversationNextComment(this.conversation);
     this.setCommentState();
+    this.setUserStatsState();
   }
 
   private async voteOnSkip() {
     await this.api.computeSkipVote(this.comment);
     this.comment = await this.api.getConversationNextComment(this.conversation);
     this.setCommentState();
+    this.setUserStatsState();
   }
 
   private readQueryParams() {
@@ -155,6 +168,9 @@ export class EjConversation {
   }
 
   render() {
+    console.log("user2");
+    console.log(this.user);
+    console.log("user2");
     if (this.api.authTokenExists()) {
       return (
         <div class="box">
@@ -173,14 +189,20 @@ export class EjConversation {
                   )}
                   alt=""
                 />
-                32 comentarios
+                {(this.conversation.statistics &&
+                  this.conversation.statistics.comments.approved) ||
+                  0}{" "}
+                comentarios
               </div>
               <div>
                 <img
                   src={getAssetPath(`./assets/icons/icone-branco-votos.png`)}
                   alt=""
                 />
-                5245 votos
+                {(this.conversation.statistics &&
+                  this.conversation.statistics.votes.total) ||
+                  0}{" "}
+                votos
               </div>
             </div>
             <div id="seta">
@@ -203,7 +225,7 @@ export class EjConversation {
                     src={getAssetPath(`./assets/icons/simbolo-ucc-m.png`)}
                     alt=""
                   />
-                  <span>ddavidcarlos1392@gmail.com</span>
+                  <span>{this.user.displayName || "Participante"}</span>
                 </div>
               </div>
               <div class="comment-title">
@@ -235,7 +257,12 @@ export class EjConversation {
                   </button>
                 </div>
               </div>
-              <div class="remaining-votes">5/11</div>
+              <div class="remaining-votes">
+                {(this.user.stats && this.user.stats.votes) || 0}/
+                {(this.user.stats &&
+                  this.user.stats.missing_votes + this.user.stats.votes) ||
+                  0}
+              </div>
             </div>
             <div class="card new-comment-card">
               <div id="advise">Deixe o seu comentário.</div>

@@ -3,39 +3,45 @@ export class User {
   email: string;
   password1: string;
   password2: string;
+  displayName: string;
+  stats: any;
 
   constructor() {
     this.name = "";
     this.email = "";
     this.password1 = "";
     this.password2 = "";
+    this.displayName = "";
+    this.stats = {};
   }
 }
 export class API {
   HOST: string = "";
-  API_HOST: string = "";
+  API_URL: string = "";
   CONVERSATIONS_ROUTE: string = "";
   VOTES_ROUTE: string = "";
   COMMENTS_ROUTE: string = "";
   REGISTRATION_ROUTE: string = "";
   COMMENT_ROUTE: string = "";
+  USER_STATISTICS_ROUTE: string = "";
   MAUTIC_COOKIE: string = "mtc_id";
 
   constructor(host: string, conversationID: string, commentID?: string) {
     this.HOST = host;
-    this.API_HOST = `${this.HOST}/api/v1`;
-    this.CONVERSATIONS_ROUTE = `${this.API_HOST}/conversations/${conversationID}/`;
-    this.VOTES_ROUTE = `${this.API_HOST}/votes/`;
-    this.COMMENTS_ROUTE = `${this.API_HOST}/comments/`;
+    this.API_URL = `${this.HOST}/api/v1`;
+    this.CONVERSATIONS_ROUTE = `${this.API_URL}/conversations/${conversationID}/`;
+    this.VOTES_ROUTE = `${this.API_URL}/votes/`;
+    this.COMMENTS_ROUTE = `${this.API_URL}/comments/`;
     if (commentID) {
-      this.COMMENT_ROUTE = `${this.API_HOST}/comments/${commentID}/`;
+      this.COMMENT_ROUTE = `${this.API_URL}/comments/${commentID}/`;
     }
     this.REGISTRATION_ROUTE = `${this.HOST}/rest-auth/registration/`;
+    this.USER_STATISTICS_ROUTE = `${this.API_URL}/conversations/${conversationID}/user-statistics/`;
   }
 
   async authenticate() {
     if (this.authTokenExists()) {
-      return;
+      return this.getUser();
     }
     const user: User = this.getUser();
     if (user) {
@@ -52,6 +58,17 @@ export class API {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
+      }
+    });
+    return await response.json();
+  }
+
+  async getUserConversationStatistics() {
+    const response = await fetch(this.USER_STATISTICS_ROUTE, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${this.getUserToken()}`
       }
     });
     return await response.json();
@@ -165,12 +182,12 @@ export class API {
   private getUser(): any {
     let identifier = this.getUserIdentifierCookie();
     if (identifier) {
-      return {
-        name: `${identifier}-mautic`,
-        email: `${identifier}-mautic@mail.com`,
-        password1: `${identifier}-mautic`,
-        password2: `${identifier}-mautic`
-      };
+      let user: User = new User();
+      user.name = `${identifier}-mautic`;
+      user.email = `${identifier}-mautic@mail.com`;
+      user.password1 = `${identifier}-mautic`;
+      user.password2 = `${identifier}-mautic`;
+      return user;
     }
     return false;
   }
