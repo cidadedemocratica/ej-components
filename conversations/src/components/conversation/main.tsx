@@ -25,6 +25,7 @@ export class EjConversation {
   @Prop() newCommentContent: string = "";
   @Prop() api: API;
   @Prop() user: User = new User();
+  @Prop() newCommentMode: Boolean = false;
 
   @Listen("register")
   async registerHandler(event: any) {
@@ -93,42 +94,22 @@ export class EjConversation {
     }
   }
 
-  private displayNewCommentCard() {
+  private toggleCommentCard() {
+    let commentCard: HTMLElement = this.el.shadowRoot.querySelector(
+      ".comment-card"
+    );
     let newCommentCard: HTMLElement = this.el.shadowRoot.querySelector(
-      ".new-comment"
+      ".new-comment-card"
     );
-    let commentContainer: HTMLElement = this.el.shadowRoot.querySelector(
-      "#comment"
-    );
-    let voteOptionsContainer: HTMLElement = this.el.shadowRoot.querySelector(
-      "#choices"
-    );
-    let addCommentContainer: HTMLElement = this.el.shadowRoot.querySelector(
-      "#add-comment"
-    );
-    commentContainer.style.display = "none";
-    voteOptionsContainer.style.display = "none";
-    addCommentContainer.style.display = "none";
-    newCommentCard.style.display = "block";
-  }
-
-  private hideNewCommentCard() {
-    let newCommentCard: HTMLElement = this.el.shadowRoot.querySelector(
-      ".new-comment"
-    );
-    let commentContainer: HTMLElement = this.el.shadowRoot.querySelector(
-      "#comment"
-    );
-    let voteOptionsContainer: HTMLElement = this.el.shadowRoot.querySelector(
-      "#choices"
-    );
-    let addCommentContainer: HTMLElement = this.el.shadowRoot.querySelector(
-      "#add-comment"
-    );
-    commentContainer.style.display = "block";
-    voteOptionsContainer.style.display = "flex";
-    addCommentContainer.style.display = "block";
-    newCommentCard.style.display = "none";
+    if (this.newCommentMode) {
+      commentCard.style.display = "block";
+      newCommentCard.style.display = "none";
+      this.newCommentMode = false;
+    } else {
+      commentCard.style.display = "none";
+      newCommentCard.style.display = "block";
+      this.newCommentMode = true;
+    }
   }
 
   private async setCommentContent(event: any) {
@@ -137,7 +118,7 @@ export class EjConversation {
 
   private async addComment() {
     await this.api.createComment(this.newCommentContent, this.conversation);
-    this.hideNewCommentCard();
+    this.toggleCommentCard();
     this.comment = await this.api.getConversationNextComment(this.conversation);
     this.setCommentState();
   }
@@ -176,7 +157,7 @@ export class EjConversation {
   render() {
     if (this.api.authTokenExists()) {
       return (
-        <div class="card">
+        <div class="box">
           <div id="user-prop">{this.user.name}</div>
           <div class="header">
             <div class="title">
@@ -211,11 +192,11 @@ export class EjConversation {
               />
             </div>
           </div>
-          <div class="content">
+          <div class="comment">
             <div id="comment-header">
               <div>COMENTÁRIOS</div>
             </div>
-            <div class="content-card">
+            <div class="card comment-card">
               <div class="comment-owner">
                 <div>
                   <img
@@ -256,31 +237,35 @@ export class EjConversation {
               </div>
               <div class="remaining-votes">5/11</div>
             </div>
-          </div>
-          <div
-            class="add-comment"
-            onClick={this.displayNewCommentCard.bind(this)}
-          >
-            <div>
-              <img src={getAssetPath(`./assets/icons/icone-mais.png`)} alt="" />
-              <span>Criar Comentario</span>
-            </div>
-          </div>
-          <div class="new-comment">
-            <div id="advise">
-              Inclua um novo comentário e evite opiniões similares. Você pode
-              postar apenas um comentário.
-            </div>
-            <div id="input">
-              <textarea
-                onChange={(event: UIEvent) => this.setCommentContent(event)}
-              />
-            </div>
-            <div id="footer">
-              <div>
-                <div onClick={this.addComment.bind(this)}>Comentar</div>
-                <div onClick={this.hideNewCommentCard.bind(this)}>Fechar</div>
+            <div class="card new-comment-card">
+              <div id="advise">Deixe o seu comentário.</div>
+              <div id="input">
+                <textarea
+                  onChange={(event: UIEvent) => this.setCommentContent(event)}
+                />
               </div>
+              <div id="footer">
+                <div onClick={this.addComment.bind(this)}>
+                  enviar comentario
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="add-comment" onClick={this.toggleCommentCard.bind(this)}>
+            <div>
+              {!this.newCommentMode && (
+                <img
+                  src={getAssetPath(`./assets/icons/icone-mais.png`)}
+                  alt=""
+                />
+              )}
+              {this.newCommentMode && (
+                <img
+                  src={getAssetPath(`./assets/icons/icone-fechar.png`)}
+                  alt=""
+                />
+              )}
+              <span>Criar Comentario</span>
             </div>
           </div>
         </div>

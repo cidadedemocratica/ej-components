@@ -3,12 +3,52 @@ font-family: "Helvetica";
 src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf");
 }
 
-.card {
+:root {
+  --pink: #fb127e;
+}
+
+.box {
 	min-width: 300px;
 	text-align: center;
 	margin: auto;
 	color: white;
 	font-weight: 600;
+}
+
+.card {
+	font-size: 2.0rem;
+	padding: 20px;
+	text-align: center;
+	background-color: #EDEFEF;
+	margin: auto auto 30px auto;
+	position: relative;
+	color: #000937;
+}
+
+.fa {
+	font-size: 1.5rem;
+}
+.fa-times {
+	color: #de011e;
+}
+
+.fa-arrow-right {
+	color: #042a46;
+}
+
+.fa-check {
+	color: #16ab39;
+}
+
+.green {
+	border-color: #22b35c;
+}
+.pink {
+	border-color: #fb127e;
+}
+
+.red {
+	border-color: #f13c20;
 }
 
 .header  {
@@ -53,7 +93,7 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	margin-right: 5px;
 }
 
-.content {
+.comment {
 	margin: auto;
 	width: 80%;
 	padding-top: 10px;
@@ -69,14 +109,12 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	font-weight: bold;
 }
 
-.content-card {
-	font-size: 2.0rem;
-	padding: 20px;
-	text-align: center;
-	background-color: #EDEFEF;
+.comment-card {
 	max-width: 50%;
-	margin: auto auto 30px auto;
-	position: relative;
+}
+
+.new-comment-card {
+	display: none;
 }
 
 .comment-owner {
@@ -99,7 +137,6 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	font-size: 1rem;
 	color: #000937;
 }
-
 
 .comment-title {
 	color: #000937;
@@ -129,7 +166,6 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	color: #000937;
 }
 
-
 .add-comment {
 	width: 50%;
   margin: auto;
@@ -145,11 +181,11 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	height: 15px;
 }
 
-.new-comment {
+.new-comment-card {
 	display: none;
 }
 
-.new-comment #advise {
+.new-comment-card #advise {
 	width: 90%;
   margin: auto;
   padding: 20px 20px 5px 20px;
@@ -158,34 +194,34 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	font-weight: 100;
 }
 
-.new-comment #input {
-	width: 90%;
+.new-comment-card #input {
   margin: auto;
   padding: 20px 20px 20px 20px;
 }
 
-.new-comment #input > textarea {
-	width: 60%;
-  height: 80px;
-  border-radius: 1rem;
+.new-comment-card #input > textarea {
+	width: calc(100% - 10px);
+  height: 14vh;
 	padding: 7px;
-  border-style: none;
+  border-style: solid;
+	border-width: 1px;
+	border-color: #000937;
 }
 
-.new-comment #footer {
-	display: flex;
-	margin: auto;
+.new-comment-card #footer {
 	font-family: Raleway,sans-serif;
+	width: calc(100% - 30vw);
+	margin: auto;
 }
 
-.new-comment #footer > div {
+.new-comment-card #footer > div {
 	width: 100%;
-	display: flex;
 	margin-bottom: 10px;
-}
-
-.new-comment #footer > div > div {
-	width: 50%;
+	font-size: 3vw;
+	text-transform: uppercase;
+	background-color: #fb127e;
+	color: white;
+	padding: 20px 0 20px 0;
 }
 
 .register {
@@ -224,21 +260,6 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	background-position: center;
 }
 
-.fa {
-	font-size: 1.5rem;
-}
-.fa-times {
-	color: #de011e;
-}
-
-.fa-arrow-right {
-	color: #042a46;
-}
-
-.fa-check {
-	color: #16ab39;
-}
-
 .choice button {
 	justify-content: center;
 	background: 0 0;
@@ -267,24 +288,13 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	padding: 10px;
 }
 
-.green {
-	border-color: #22b35c;
-}
-.pink {
-	border-color: #fb127e;
-}
-
-.red {
-	border-color: #f13c20;
-}
-
 #user-prop {
 	display: none;
 }
 
 @media only screen and (max-width: 768px) {
-	.card .content .content-card,
-	.card .content .content-card #choices
+	.comment-card,
+	.comment-card #choices
 	{
 		max-width: unset;
 	}
