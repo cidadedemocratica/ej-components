@@ -23,6 +23,7 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	margin: auto auto 30px auto;
 	position: relative;
 	color: #000937;
+	max-width: 50%;
 }
 
 .fa {
@@ -109,14 +110,6 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	font-weight: bold;
 }
 
-.comment-card {
-	max-width: 50%;
-}
-
-.new-comment-card {
-	display: none;
-}
-
 .comment-owner {
 	margin-top: 30px;
 	margin-bottom: 20px;
@@ -201,7 +194,7 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 
 .new-comment-card #input > textarea {
 	width: calc(100% - 10px);
-  height: 14vh;
+  height: 80px;
 	padding: 7px;
   border-style: solid;
 	border-width: 1px;
@@ -210,14 +203,14 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 
 .new-comment-card #footer {
 	font-family: Raleway,sans-serif;
-	width: calc(100% - 30vw);
+	width: calc(100% - 20vw);
 	margin: auto;
 }
 
 .new-comment-card #footer > div {
 	width: 100%;
 	margin-bottom: 10px;
-	font-size: 3vw;
+	font-size: 2vh;
 	text-transform: uppercase;
 	background-color: #fb127e;
 	color: white;
@@ -305,7 +298,8 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 
 @media only screen and (max-width: 768px) {
 	.comment-card,
-	.comment-card #choices
+	.comment-card #choices,
+	.new-comment-card
 	{
 		max-width: unset;
 	}
