@@ -16,6 +16,7 @@ import { HTMLStencilElement } from "@stencil/core/internal";
   assetsDir: "./assets"
 })
 export class EjConversation {
+  @Prop() api: API;
   @Element() el!: HTMLStencilElement;
   @Prop() conversation: any = {};
   @Prop() host: string;
@@ -23,7 +24,6 @@ export class EjConversation {
   @Prop() cid: string;
   @Prop() comment: any = {};
   @Prop() newCommentContent: string = "";
-  @Prop() api: API;
   @Prop() user: User = new User();
   @Prop() newCommentMode: Boolean = false;
 
@@ -50,7 +50,7 @@ export class EjConversation {
     }
   }
 
-  async componentDidLoad() {
+  async componentWillLoad() {
     try {
       let queryParams: any = this.readQueryParams();
       if (queryParams) {
@@ -168,9 +168,6 @@ export class EjConversation {
   }
 
   render() {
-    console.log("user2");
-    console.log(this.user);
-    console.log("user2");
     if (this.api.authTokenExists()) {
       return (
         <div class="box">

@@ -6,11 +6,16 @@ export class User {
   displayName: string;
   stats: any;
 
-  constructor() {
-    this.name = "";
-    this.email = "";
-    this.password1 = "";
-    this.password2 = "";
+  constructor(
+    name?: string,
+    email?: string,
+    password1?: string,
+    password2?: string
+  ) {
+    this.name = name || "";
+    this.email = email || "";
+    this.password1 = password1 || "";
+    this.password2 = password2 || "";
     this.displayName = "";
     this.stats = {};
   }
@@ -79,9 +84,7 @@ export class API {
     if (this.COMMENT_ROUTE) {
       commentUrl = this.COMMENT_ROUTE;
     } else {
-      commentUrl = this.getRandomCommentUrl(
-        conversation.links["random-comment"]
-      );
+      commentUrl = this.getRandomCommentUrl(conversation);
     }
     const response = await fetch(commentUrl, {
       method: "GET",
@@ -171,7 +174,7 @@ export class API {
     return false;
   }
 
-  private getUserToken() {
+  getUserToken() {
     return localStorage.getItem("ejToken");
   }
 
@@ -179,15 +182,19 @@ export class API {
     localStorage.setItem("ejToken", token);
   }
 
-  private getUser(): any {
-    let identifier = this.getUserIdentifierCookie();
-    if (identifier) {
-      let user: User = new User();
-      user.name = `${identifier}-mautic`;
-      user.email = `${identifier}-mautic@mail.com`;
-      user.password1 = `${identifier}-mautic`;
-      user.password2 = `${identifier}-mautic`;
-      return user;
+  getUser(): any {
+    let cookie = this.getUserIdentifierCookie(document.cookie);
+    if (cookie) {
+      return new User(
+        `${cookie}-mautic`,
+        `${cookie}-mautic@mail.com`,
+        `${cookie}-mautic`,
+        `${cookie}-mautic`
+      );
+    }
+    let token: string = this.getUserToken();
+    if (token) {
+      return new User(`${token}`, `${token}@mail.com`, `${token}`, `${token}`);
     }
     return false;
   }
@@ -196,8 +203,7 @@ export class API {
    * This method will retrieve a mautic cookie and use it as
    * username on EJ
    */
-  private getUserIdentifierCookie(): string {
-    let cookies = document.cookie;
+  getUserIdentifierCookie(cookies: string): string {
     let cookieIndex = cookies.indexOf(this.MAUTIC_COOKIE);
     if (cookieIndex != -1) {
       let cookieKeyAndValue = cookies.substring(cookieIndex, cookies.length);
@@ -210,18 +216,19 @@ export class API {
     return "";
   }
 
-  private getCommentID(comment: any): number {
+  getCommentID(comment: any): number {
     let selfLink = comment.links["self"];
     let linkAsArray = selfLink.split("/");
     return Number(linkAsArray[linkAsArray.length - 2]);
   }
 
-  private getConversationID(conversation: any): number {
+  getConversationID(conversation: any): number {
     let selfLink = conversation.links["self"];
     return Number(selfLink.split("/").reverse()[1]);
   }
 
-  private getRandomCommentUrl(comment: any) {
+  getRandomCommentUrl(conversation: any) {
+    let comment: any = conversation.links["random-comment"];
     try {
       if (this.HOST.split(":")[0] == "https") {
         return comment.replace("http", "https");
