@@ -66,6 +66,7 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	left: 50%;
 	right: 50%;
 	bottom: -5px;
+	line-height: 1em;
 }
 
 .title  {
