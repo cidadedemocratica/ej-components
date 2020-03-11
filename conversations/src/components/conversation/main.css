@@ -76,6 +76,7 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	font-family: Helvetica;
 	max-width: 1000px;
 	margin: auto;
+	line-height: 1em;
 }
 
 .stats {

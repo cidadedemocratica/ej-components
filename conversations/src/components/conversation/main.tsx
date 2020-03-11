@@ -174,9 +174,7 @@ export class EjConversation {
           <div id="user-prop">{this.user.name}</div>
           <div class="header">
             <div class="title">
-              {this.conversation && (
-                <div id="conversation-title">{this.conversation.text}</div>
-              )}
+              {this.conversation && this.conversation.text}
             </div>
             <div class="stats">
               <div>
