@@ -52,7 +52,8 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 
 /* STYLE FOR BOARD */
 
-.board {
+#container2, #container3 {
+	display: none;
 }
 
 .board .background {
@@ -69,8 +70,8 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
   background-color: white;
   top: 5%;
   z-index: 1000;
-	left: 10vw;
-	width: 75vw;
+	left: 30vw;
+	width: 40vw;
 	max-width: unset;
 }
 
@@ -98,6 +99,7 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	font-family: Raleway,sans-serif;
 	text-align: center;
 	line-height: 1.4;
+	font-size: 3vh;
 }
 
 .skip-modal  {
@@ -107,6 +109,17 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	text-transform: uppercase;
 	color: #fb127e;
 	font-weight: bold;
+}
+
+.control-modal {
+	display: flex;
+	margin-bottom: 50px;
+	color: white;
+}
+
+.control-modal > div {
+	width: unset;
+	width: 40%;
 }
 
 
@@ -283,6 +296,7 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	color: white;
 	padding: 20px 0 20px 0;
 	text-align: center;
+	font-weight: bold;
 }
 
 .register {
@@ -371,4 +385,11 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	{
 		max-width: unset;
 	}
+.board-header h1, .board-header h2 {
+	font-size: 5vw;
+}
+.modal {
+	left: 13vw;
+	width: 75vw;
+}
 }

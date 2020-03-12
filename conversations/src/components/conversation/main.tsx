@@ -180,34 +180,7 @@ export class EjConversation {
     if (this.api.authTokenExists()) {
       return (
         <div>
-          <div class="board">
-            <div class="background"></div>
-            <div class="modal">
-              <div class="container">
-                <div class="board-header">
-                  <div class="img">
-                    <img
-                      src={getAssetPath(`./assets/icons/simbolo-ucc-m.png`)}
-                      alt=""
-                    />
-                  </div>
-                  <h1>todos importam na luta contra a corrupção.</h1>
-                  <h2>
-                    algum texto aleatorio aqui para termos uma noção de
-                    espaçamento.
-                  </h2>
-                </div>
-                <div class="card-btn">
-                  <div onClick={this.addComment.bind(this)}>
-                    veja como participar
-                  </div>
-                </div>
-                <div class="skip-modal">
-                  <span>pular apresentação</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          <ej-conversation-board></ej-conversation-board>
           <div class="box">
             <div id="user-prop">{this.user.name}</div>
             <div class="header">
