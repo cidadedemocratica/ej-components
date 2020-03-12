@@ -96,12 +96,16 @@ export class EjConversation {
   }
 
   private async setUserStatsState() {
-    let statsData: any = {
+    let voteStatsData: any = {
       ...(await this.api.getUserConversationStatistics())
     };
+    let commentStatsData: any = {
+      ...(await this.api.getUserCommentsStatistics())
+    };
     let userWithStats: User = { ...this.user };
-    userWithStats.stats = { ...statsData };
+    userWithStats.stats = { ...voteStatsData, ...commentStatsData };
     this.user = { ...userWithStats };
+    console.log(this.user);
   }
 
   private toggleCommentCard() {
@@ -127,10 +131,15 @@ export class EjConversation {
   }
 
   private async addComment() {
-    await this.api.createComment(this.newCommentContent, this.conversation);
-    this.toggleCommentCard();
-    this.comment = await this.api.getConversationNextComment(this.conversation);
-    this.setCommentState();
+    let userCanAdd: Boolean = await this.api.userCanAddNewComment();
+    if (userCanAdd) {
+      await this.api.createComment(this.newCommentContent, this.conversation);
+      this.toggleCommentCard();
+      this.comment = await this.api.getConversationNextComment(
+        this.conversation
+      );
+      this.setCommentState();
+    }
   }
 
   private async voteOnDisagree() {
@@ -289,6 +298,9 @@ export class EjConversation {
               )}
               <span>Criar Comentario</span>
             </div>
+          </div>
+          <div class="my-comments">
+            {this.user.stats.comments}/2 comentários
           </div>
           <div class="author">
             <span>Feito por: </span>

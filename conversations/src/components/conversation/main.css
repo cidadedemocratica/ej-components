@@ -1,10 +1,8 @@
+/* GENERIC ELEMENTS */
+
 @font-face {
 font-family: "Helvetica";
 src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf");
-}
-
-:root {
-  --pink: #fb127e;
 }
 
 .box {
@@ -52,6 +50,7 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	border-color: #f13c20;
 }
 
+/* STYLE FOR VOTE CARD */
 .header  {
 	background-color: #1D1088;
   font-size: 1.0rem;
@@ -176,6 +175,12 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	height: 15px;
 }
 
+.my-comments {
+	color: #000837;
+	margin-bottom: 20px;
+}
+
+/* STYLE FOR NEW COMMENT CARD */
 .new-comment-card {
 	display: none;
 }

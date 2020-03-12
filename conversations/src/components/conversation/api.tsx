@@ -29,6 +29,7 @@ export class API {
   REGISTRATION_ROUTE: string = "";
   COMMENT_ROUTE: string = "";
   USER_STATISTICS_ROUTE: string = "";
+  APPROVED_COMMENTS_ROUTE: string = "";
   MAUTIC_COOKIE: string = "mtc_id";
 
   constructor(host: string, conversationID: string, commentID?: string) {
@@ -42,6 +43,7 @@ export class API {
     }
     this.REGISTRATION_ROUTE = `${this.HOST}/rest-auth/registration/`;
     this.USER_STATISTICS_ROUTE = `${this.API_URL}/conversations/${conversationID}/user-statistics/`;
+    this.APPROVED_COMMENTS_ROUTE = `${this.API_URL}/conversations/${conversationID}/approved-comments/`;
   }
 
   async authenticate() {
@@ -105,6 +107,26 @@ export class API {
     } else {
       return {};
     }
+  }
+
+  async userCanAddNewComment() {
+    let stats = await this.getUserCommentsStatistics();
+    if (stats.comments >= 2) {
+      return false;
+    }
+    return true;
+  }
+
+  async getUserCommentsStatistics() {
+    const response = await fetch(this.APPROVED_COMMENTS_ROUTE, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${this.getUserToken()}`
+      }
+    });
+    let listOfComments: Array<any> = await response.json();
+    return { comments: listOfComments.length };
   }
 
   async computeDisagreeVote(comment: any) {
@@ -229,6 +251,18 @@ export class API {
 
   getRandomCommentUrl(conversation: any) {
     let comment: any = conversation.links["random-comment"];
+    try {
+      if (this.HOST.split(":")[0] == "https") {
+        return comment.replace("http", "https");
+      }
+      return comment;
+    } catch (error) {
+      return comment;
+    }
+  }
+
+  getApprovedCommentsUrl(conversation: any) {
+    let comment: any = conversation.links["approved-comments"];
     try {
       if (this.HOST.split(":")[0] == "https") {
         return comment.replace("http", "https");
