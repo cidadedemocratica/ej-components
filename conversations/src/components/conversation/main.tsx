@@ -179,132 +179,168 @@ export class EjConversation {
   render() {
     if (this.api.authTokenExists()) {
       return (
-        <div class="box">
-          <div id="user-prop">{this.user.name}</div>
-          <div class="header">
-            <div class="title">
-              {this.conversation && this.conversation.text}
+        <div>
+          <div class="board">
+            <div class="background"></div>
+            <div class="modal">
+              <div class="container">
+                <div class="board-header">
+                  <div class="img">
+                    <img
+                      src={getAssetPath(`./assets/icons/simbolo-ucc-m.png`)}
+                      alt=""
+                    />
+                  </div>
+                  <h1>todos importam na luta contra a corrupção.</h1>
+                  <h2>
+                    algum texto aleatorio aqui para termos uma noção de
+                    espaçamento.
+                  </h2>
+                </div>
+                <div class="card-btn">
+                  <div onClick={this.addComment.bind(this)}>
+                    veja como participar
+                  </div>
+                </div>
+                <div class="skip-modal">
+                  <span>pular apresentação</span>
+                </div>
+              </div>
             </div>
-            <div class="stats">
-              <div>
+          </div>
+          <div class="box">
+            <div id="user-prop">{this.user.name}</div>
+            <div class="header">
+              <div class="title">
+                {this.conversation && this.conversation.text}
+              </div>
+              <div class="stats">
+                <div>
+                  <img
+                    src={getAssetPath(
+                      `./assets/icons/icone-branco-comentarios.png`
+                    )}
+                    alt=""
+                  />
+                  {(this.conversation.statistics &&
+                    this.conversation.statistics.comments.approved) ||
+                    0}{" "}
+                  comentarios
+                </div>
+                <div>
+                  <img
+                    src={getAssetPath(`./assets/icons/icone-branco-votos.png`)}
+                    alt=""
+                  />
+                  {(this.conversation.statistics &&
+                    this.conversation.statistics.votes.total) ||
+                    0}{" "}
+                  votos
+                </div>
+              </div>
+              <div id="seta">
                 <img
                   src={getAssetPath(
-                    `./assets/icons/icone-branco-comentarios.png`
+                    `./assets/icons/seta-branca-para-fundo-azul.png`
                   )}
                   alt=""
                 />
-                {(this.conversation.statistics &&
-                  this.conversation.statistics.comments.approved) ||
-                  0}{" "}
-                comentarios
-              </div>
-              <div>
-                <img
-                  src={getAssetPath(`./assets/icons/icone-branco-votos.png`)}
-                  alt=""
-                />
-                {(this.conversation.statistics &&
-                  this.conversation.statistics.votes.total) ||
-                  0}{" "}
-                votos
               </div>
             </div>
-            <div id="seta">
-              <img
-                src={getAssetPath(
-                  `./assets/icons/seta-branca-para-fundo-azul.png`
+            <div class="comment">
+              <div id="comment-header">
+                <div>COMENTÁRIOS</div>
+              </div>
+              <div class="card comment-card">
+                <div class="comment-owner">
+                  <div>
+                    <img
+                      src={getAssetPath(`./assets/icons/simbolo-ucc-m.png`)}
+                      alt=""
+                    />
+                    <span>{this.user.displayName || "Participante"}</span>
+                  </div>
+                </div>
+                <div class="comment-title">
+                  {this.comment && <div>{this.comment.content}</div>}
+                </div>
+                <div id="choices">
+                  <div class="choice">
+                    <button onClick={this.voteOnAgree.bind(this)}>
+                      <div class="choice-btn green">
+                        <i class="fa fa-check"></i>
+                      </div>
+                      <div class="agree">Concordar</div>
+                    </button>
+                  </div>
+                  <div class="choice">
+                    <button onClick={this.voteOnSkip.bind(this)}>
+                      <div class="choice-btn red">
+                        <i class="fa fa-arrow-right"></i>
+                      </div>
+                      <div class="skip">Pular</div>
+                    </button>
+                  </div>
+                  <div class="choice">
+                    <button onClick={this.voteOnDisagree.bind(this)}>
+                      <div class="choice-btn pink">
+                        <i class="fa fa-times"></i>
+                      </div>
+                      <div class="disagree">Discordar</div>
+                    </button>
+                  </div>
+                </div>
+                <div class="remaining-votes">
+                  {(this.user.stats && this.user.stats.votes) || 0}/
+                  {(this.user.stats &&
+                    this.user.stats.missing_votes + this.user.stats.votes) ||
+                    0}
+                </div>
+              </div>
+              <div class="card new-comment-card">
+                <div id="advise">Deixe o seu comentário.</div>
+                <div id="input">
+                  <textarea
+                    onChange={(event: UIEvent) => this.setCommentContent(event)}
+                  />
+                </div>
+                <div class="card-btn">
+                  <div onClick={this.addComment.bind(this)}>
+                    enviar comentario
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="add-comment"
+              onClick={this.toggleCommentCard.bind(this)}
+            >
+              <div>
+                {!this.newCommentMode && (
+                  <img
+                    src={getAssetPath(`./assets/icons/icone-mais.png`)}
+                    alt=""
+                  />
                 )}
+                {this.newCommentMode && (
+                  <img
+                    src={getAssetPath(`./assets/icons/icone-fechar.png`)}
+                    alt=""
+                  />
+                )}
+                <span>Criar Comentario</span>
+              </div>
+            </div>
+            <div class="my-comments">
+              {this.user.stats.comments}/2 comentários
+            </div>
+            <div class="author">
+              <span>Feito por: </span>
+              <img
+                src={getAssetPath(`./assets/icons/logo-ej-mini.png`)}
                 alt=""
               />
             </div>
-          </div>
-          <div class="comment">
-            <div id="comment-header">
-              <div>COMENTÁRIOS</div>
-            </div>
-            <div class="card comment-card">
-              <div class="comment-owner">
-                <div>
-                  <img
-                    src={getAssetPath(`./assets/icons/simbolo-ucc-m.png`)}
-                    alt=""
-                  />
-                  <span>{this.user.displayName || "Participante"}</span>
-                </div>
-              </div>
-              <div class="comment-title">
-                {this.comment && <div>{this.comment.content}</div>}
-              </div>
-              <div id="choices">
-                <div class="choice">
-                  <button onClick={this.voteOnAgree.bind(this)}>
-                    <div class="choice-btn green">
-                      <i class="fa fa-check"></i>
-                    </div>
-                    <div class="agree">Concordar</div>
-                  </button>
-                </div>
-                <div class="choice">
-                  <button onClick={this.voteOnSkip.bind(this)}>
-                    <div class="choice-btn red">
-                      <i class="fa fa-arrow-right"></i>
-                    </div>
-                    <div class="skip">Pular</div>
-                  </button>
-                </div>
-                <div class="choice">
-                  <button onClick={this.voteOnDisagree.bind(this)}>
-                    <div class="choice-btn pink">
-                      <i class="fa fa-times"></i>
-                    </div>
-                    <div class="disagree">Discordar</div>
-                  </button>
-                </div>
-              </div>
-              <div class="remaining-votes">
-                {(this.user.stats && this.user.stats.votes) || 0}/
-                {(this.user.stats &&
-                  this.user.stats.missing_votes + this.user.stats.votes) ||
-                  0}
-              </div>
-            </div>
-            <div class="card new-comment-card">
-              <div id="advise">Deixe o seu comentário.</div>
-              <div id="input">
-                <textarea
-                  onChange={(event: UIEvent) => this.setCommentContent(event)}
-                />
-              </div>
-              <div id="footer">
-                <div onClick={this.addComment.bind(this)}>
-                  enviar comentario
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="add-comment" onClick={this.toggleCommentCard.bind(this)}>
-            <div>
-              {!this.newCommentMode && (
-                <img
-                  src={getAssetPath(`./assets/icons/icone-mais.png`)}
-                  alt=""
-                />
-              )}
-              {this.newCommentMode && (
-                <img
-                  src={getAssetPath(`./assets/icons/icone-fechar.png`)}
-                  alt=""
-                />
-              )}
-              <span>Criar Comentario</span>
-            </div>
-          </div>
-          <div class="my-comments">
-            {this.user.stats.comments}/2 comentários
-          </div>
-          <div class="author">
-            <span>Feito por: </span>
-            <img src={getAssetPath(`./assets/icons/logo-ej-mini.png`)} alt="" />
           </div>
         </div>
       );
