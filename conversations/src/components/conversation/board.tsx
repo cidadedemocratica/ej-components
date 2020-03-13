@@ -1,12 +1,4 @@
-import {
-  Component,
-  Prop,
-  Event,
-  h,
-  Element,
-  getAssetPath
-} from "@stencil/core";
-import { API } from "./api";
+import { Component, Prop, h, Element, getAssetPath } from "@stencil/core";
 import { HTMLStencilElement } from "@stencil/core/internal";
 
 @Component({

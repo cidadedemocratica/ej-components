@@ -184,9 +184,7 @@ export class EjConversation {
           <div class="box">
             <div id="user-prop">{this.user.name}</div>
             <div class="header">
-              <div class="title">
-                {this.conversation && this.conversation.text}
-              </div>
+              <h1> {this.conversation && this.conversation.text}</h1>
               <div class="stats">
                 <div>
                   <img
@@ -222,7 +220,7 @@ export class EjConversation {
             </div>
             <div class="comment">
               <div id="comment-header">
-                <div>COMENTÁRIOS</div>
+                <h2>comentários</h2>
               </div>
               <div class="card comment-card">
                 <div class="comment-owner">
