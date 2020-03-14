@@ -1,6 +1,6 @@
 {
   "name": "ej-conversations",
-  "version": "0.0.21-osf",
+  "version": "0.0.27-osf",
   "description": "EJ conversations component",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
