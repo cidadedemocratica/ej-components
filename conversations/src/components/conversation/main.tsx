@@ -146,8 +146,9 @@ export class EjConversation {
     let root: HTMLElement = this.el.shadowRoot.querySelector(
       ".card-transition"
     );
-    let card: HTMLElement = this.el.shadowRoot.querySelector(".comment-card");
-    let cloneCard = card.cloneNode(true);
+    let cloneCard: any = this.el.shadowRoot
+      .querySelector(".comment-card")
+      .cloneNode(true);
     cloneCard.classList.add("deck-transition");
     root.appendChild(cloneCard);
     setTimeout(
