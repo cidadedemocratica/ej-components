@@ -1,4 +1,4 @@
-/* GENERIC ELEMENTS */
+/* ======== GENERIC ELEMENTS ========*/
 
 @font-face {
 font-family: "Helvetica";
@@ -50,11 +50,16 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 .red {
 	border-color: #f13c20;
 }
+/* ======== GENERIC ELEMENTS ========*/
 
-/* STYLE FOR BOARD */
+/* ======== BOARDS ELEMENTS ========*/
 
 #container2, #container3 {
 	display: none;
+}
+
+#container3 .control-modal {
+	margin-top: 95px;
 }
 
 .board .background {
@@ -95,6 +100,7 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 
 .board-header h2 {
 	margin-bottom: 25px !important;
+	font-weight: 100;
 }
 
 .board-header h1, .board-header h2 {
@@ -110,7 +116,7 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 .skip-modal  {
 	width: 80%;
 	text-align: center;
-	margin: 50px auto 50px auto;
+	margin: 50px auto 30px auto;
 	text-transform: uppercase;
 	color: #fb127e;
 	font-weight: bold;
@@ -118,8 +124,8 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 
 .control-modal {
 	display: flex;
-	margin-bottom: 50px;
 	color: white;
+	margin-bottom: 10px;
 }
 
 .control-modal > div {
@@ -127,7 +133,34 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	width: 40%;
 }
 
-/* STYLE FOR COMMENT CARD */
+.steps {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 40px auto;
+    display: flex;
+		width: 35%;
+}
+
+#step2 .circle, #step3 .circle {
+	background-color: #909090;
+}
+
+#step1, #step2, #step3 {
+	flex-grow: 1;
+	width: 50%;
+}
+.circle {
+	width: 15px;
+  height: 15px;
+  background-color: white;
+  border-radius: 1rem;
+	margin: auto;
+	transition: all 0.5s;
+}
+/* ======== BOARDS ELEMENTS ========*/
+
+/* ======== COMMENT CARD ELEMENTS ========*/
 
 .card-transition {
 	position: relative;
@@ -299,7 +332,51 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	margin-bottom: 20px;
 }
 
-/* STYLE FOR NEW COMMENT CARD */
+.choice button {
+	justify-content: center;
+	background: 0 0;
+  border: none;
+  height: initial;
+  margin: 0;
+  padding: 0;
+	font-family: inherit;
+  color: inherit;
+  font-size: 0.8rem;
+  font-weight: inherit;
+	width: auto;
+}
+
+.choice-btn {
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+	border-style: solid;
+	border-width: 1px;
+	margin: auto auto 10px auto;
+	background-color: #ffffff;
+}
+
+.choice-btn i {
+	padding: 10px;
+}
+
+#user-prop {
+	display: none;
+}
+
+.author {
+	margin-bottom: 90px;
+}
+.author img {
+	vertical-align: middle;
+}
+.author span {
+	color: #000837;
+	font-weight: 100;
+}
+/* ======== COMMENT CARD ELEMENTS ========*/
+
+/* ======== NEW COMMENT CARD ELEMENTS ========*/
 .new-comment-card {
 	display: none;
 }
@@ -362,11 +439,8 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 }
 
 .card button {
-	margin: 30px 30px 30px 30px;
 	border-style: none;
-  background-color: white;
   border-radius: 1rem;
-  width: 7rem;
   height: 30px;
 	text-transform: uppercase;
 }
@@ -380,49 +454,7 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	margin: auto auto auto auto;
 	background-position: center;
 }
-
-.choice button {
-	justify-content: center;
-	background: 0 0;
-  border: none;
-  height: initial;
-  margin: 0;
-  padding: 0;
-	font-family: inherit;
-  color: inherit;
-  font-size: 0.8rem;
-  font-weight: inherit;
-	width: auto;
-}
-
-.choice-btn {
-	width: 44px;
-	height: 44px;
-	border-radius: 50%;
-	border-style: solid;
-	border-width: 1px;
-	margin: auto auto 10px auto;
-	background-color: #ffffff;
-}
-
-.choice-btn i {
-	padding: 10px;
-}
-
-#user-prop {
-	display: none;
-}
-
-.author {
-	margin-bottom: 90px;
-}
-.author img {
-	vertical-align: middle;
-}
-.author span {
-	color: #000837;
-	font-weight: 100;
-}
+/* ======== NEW COMMENT CARD ELEMENTS ========*/
 
 @media only screen and (max-width: 768px) {
 	.comment-card,
