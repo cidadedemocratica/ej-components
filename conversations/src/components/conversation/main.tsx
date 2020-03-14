@@ -295,6 +295,8 @@ export class EjConversation {
                       this.user.stats.missing_votes + this.user.stats.votes) ||
                       0}
                   </div>
+                  <div id="deck-1"></div>
+                  <div id="deck-2"></div>
                 </div>
               </div>
               <div class="card new-comment-card">

@@ -19,7 +19,7 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	padding: 20px;
 	text-align: center;
 	background-color: #EDEFEF;
-	margin: auto auto 30px auto;
+	margin: auto;
 	/*position: relative; */
 	color: #000937;
 	max-width: 50%;
@@ -144,6 +144,29 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	width: 100%;
 	height: 100%;
 }
+
+#deck-1 {
+	background-color: #d6dce0;
+	width: 97%;
+	height: 5px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -4px;
+	margin: auto;
+}
+
+#deck-2 {
+	background-color: #c4cdd2;
+	width: 94%;
+	height: 5px;
+	margin: auto;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -9px;
+}
+
 
 .header  {
 	background-color: #1D1088;
