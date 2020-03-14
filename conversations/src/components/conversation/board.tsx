@@ -1,4 +1,12 @@
-import { Component, Prop, h, Element, getAssetPath } from "@stencil/core";
+import {
+  Component,
+  Event,
+  EventEmitter,
+  Prop,
+  h,
+  Element,
+  getAssetPath
+} from "@stencil/core";
 import { HTMLStencilElement } from "@stencil/core/internal";
 
 @Component({
@@ -9,6 +17,7 @@ export class EjConversationBoard {
   @Element() el!: HTMLStencilElement;
   @Prop() currentContainer: number = 1;
   @Prop() currentStep: number = 1;
+  @Event() closeBoard: EventEmitter;
 
   nextBoard() {
     if (this.currentContainer == 3) {
@@ -71,6 +80,7 @@ export class EjConversationBoard {
   skip() {
     let board: HTMLElement = this.el.querySelector(".board");
     board.style.display = "none";
+    this.closeBoard.emit();
   }
 
   render() {

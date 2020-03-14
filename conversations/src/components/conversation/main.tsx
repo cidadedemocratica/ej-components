@@ -50,6 +50,12 @@ export class EjConversation {
     }
   }
 
+  @Listen("closeBoard")
+  async onCloseBoard() {
+    console.log("ok");
+    this.setCommentState();
+  }
+
   async componentWillLoad() {
     try {
       let queryParams: any = this.readQueryParams();
@@ -88,10 +94,18 @@ export class EjConversation {
   }
 
   private setCommentState() {
+    console.log(this.comment);
     if (!this.comment.content) {
       this.comment = {
         content: "Obrigado por participar!"
       };
+    }
+    if (
+      this.comment.content &&
+      this.comment.content == "Obrigado por participar!"
+    ) {
+      let choices: HTMLElement = this.el.shadowRoot.querySelector("#choices");
+      choices.style.display = "none";
     }
   }
 
@@ -167,25 +181,25 @@ export class EjConversation {
   }
 
   private async voteOnDisagree() {
-    this.deckTransition();
     await this.api.computeDisagreeVote(this.comment);
     this.comment = await this.api.getConversationNextComment(this.conversation);
+    this.deckTransition();
     this.setCommentState();
     this.setUserStatsState();
   }
 
   private async voteOnAgree() {
-    this.deckTransition();
     await this.api.computeAgreeVote(this.comment);
     this.comment = await this.api.getConversationNextComment(this.conversation);
+    this.deckTransition();
     this.setCommentState();
     this.setUserStatsState();
   }
 
   private async voteOnSkip() {
-    this.deckTransition();
     await this.api.computeSkipVote(this.comment);
     this.comment = await this.api.getConversationNextComment(this.conversation);
+    this.deckTransition();
     this.setCommentState();
     this.setUserStatsState();
   }
