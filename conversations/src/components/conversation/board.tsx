@@ -80,102 +80,118 @@ export class EjConversationBoard {
   skip() {
     let board: HTMLElement = this.el.querySelector(".board");
     board.style.display = "none";
+    this.userCheckedBoard();
     this.closeBoard.emit();
   }
 
+  userCheckedBoard() {
+    localStorage.setItem("userSawBoard", "yes");
+  }
+
+  showBoard() {
+    if (localStorage.getItem("userSawBoard")) {
+      return false;
+    }
+    return true;
+  }
+
   render() {
-    return (
-      <div class="board">
-        <div class="background"></div>
-        <div class="modal">
-          <div id="container1">
-            <div class="board-header">
-              <div class="img">
-                <img
-                  src={getAssetPath(`./assets/icons/simbolo-ucc-m.png`)}
-                  alt=""
-                />
+    if (this.showBoard()) {
+      return (
+        <div class="board">
+          <div class="background"></div>
+          <div class="modal">
+            <div id="container1">
+              <div class="board-header">
+                <div class="img">
+                  <img
+                    src={getAssetPath(`./assets/icons/simbolo-ucc-m.png`)}
+                    alt=""
+                  />
+                </div>
+                <h1>todos importam na luta contra a corrupção.</h1>
+                <h2>
+                  algum texto aleatorio aqui para termos uma noção de
+                  espaçamento.
+                </h2>
               </div>
-              <h1>todos importam na luta contra a corrupção.</h1>
-              <h2>
-                algum texto aleatorio aqui para termos uma noção de espaçamento.
-              </h2>
-            </div>
-            <div class="card-btn">
-              <div onClick={this.nextBoard.bind(this)}>
-                veja como participar
+              <div class="card-btn">
+                <div onClick={this.nextBoard.bind(this)}>
+                  veja como participar
+                </div>
               </div>
-            </div>
-            <div class="skip-modal" onClick={this.skip.bind(this)}>
-              <span>pular apresentação</span>
-            </div>
-          </div>
-          <div id="container2">
-            <div class="board-header">
-              <div class="img">
-                <img
-                  src={getAssetPath(
-                    `./assets/icons/icone-cards-onboarding.png`
-                  )}
-                  alt=""
-                />
-              </div>
-              <h1>Avalie comentarios</h1>
-              <h2>
-                Vote nos comentários dos participantes indicando se você
-                concorda ou discorda. Se não quiser comentar em um comentário
-                específico basta pular
-              </h2>
-            </div>
-            <div class="control-modal">
-              <div class="card-btn" onClick={this.previousBoard.bind(this)}>
-                <div>anterior</div>
-              </div>
-              <div class="card-btn" onClick={this.nextBoard.bind(this)}>
-                {" "}
-                <div>proximo</div>{" "}
+              <div class="skip-modal" onClick={this.skip.bind(this)}>
+                <span>pular apresentação</span>
               </div>
             </div>
-          </div>
-          <div id="container3">
-            <div class="board-header">
-              <div class="img">
-                <img
-                  src={getAssetPath(
-                    `./assets/icons/icone-adicionar-comentarios-onboarding.png`
-                  )}
-                  alt=""
-                />
+            <div id="container2">
+              <div class="board-header">
+                <div class="img">
+                  <img
+                    src={getAssetPath(
+                      `./assets/icons/icone-cards-onboarding.png`
+                    )}
+                    alt=""
+                  />
+                </div>
+                <h1>Avalie comentarios</h1>
+                <h2>
+                  Vote nos comentários dos participantes indicando se você
+                  concorda ou discorda. Se não quiser comentar em um comentário
+                  específico basta pular
+                </h2>
               </div>
-              <h1>Inclua comentários.</h1>
-              <h2>
-                Inclua o seu comentário, o que você pensa é muito importante
-                para nós.
-              </h2>
-            </div>
-            <div class="control-modal">
-              <div class="card-btn" onClick={this.previousBoard.bind(this)}>
-                <div>anterior</div>
-              </div>
-              <div class="card-btn" onClick={this.nextBoard.bind(this)}>
-                {" "}
-                <div>fechar</div>{" "}
+              <div class="control-modal">
+                <div class="card-btn" onClick={this.previousBoard.bind(this)}>
+                  <div>anterior</div>
+                </div>
+                <div class="card-btn" onClick={this.nextBoard.bind(this)}>
+                  {" "}
+                  <div>proximo</div>{" "}
+                </div>
               </div>
             </div>
-          </div>
-          <div class="steps">
-            <div id="step1">
-              <div class="circle"></div>
+            <div id="container3">
+              <div class="board-header">
+                <div class="img">
+                  <img
+                    src={getAssetPath(
+                      `./assets/icons/icone-adicionar-comentarios-onboarding.png`
+                    )}
+                    alt=""
+                  />
+                </div>
+                <h1>Inclua comentários.</h1>
+                <h2>
+                  Inclua o seu comentário, o que você pensa é muito importante
+                  para nós.
+                </h2>
+              </div>
+              <div class="control-modal">
+                <div class="card-btn" onClick={this.previousBoard.bind(this)}>
+                  <div>anterior</div>
+                </div>
+                <div class="card-btn" onClick={this.nextBoard.bind(this)}>
+                  {" "}
+                  <div>fechar</div>{" "}
+                </div>
+              </div>
             </div>
-            <div id="step2">
-              <div class="circle"></div>
-            </div>
-            <div id="step3">
-              <div class="circle"></div>
+            <div class="steps">
+              <div id="step1">
+                <div class="circle"></div>
+              </div>
+              <div id="step2">
+                <div class="circle"></div>
+              </div>
+              <div id="step3">
+                <div class="circle"></div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
+    return;
   }
 }

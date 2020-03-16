@@ -352,6 +352,9 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	background-color: #ffffff;
 }
 
+.choice button:focus {
+	outline: 0;
+}
 .choice-btn i {
 	padding: 10px;
 }
