@@ -52,7 +52,6 @@ export class EjConversation {
 
   @Listen("closeBoard")
   async onCloseBoard() {
-    console.log("ok");
     this.setCommentState();
   }
 
@@ -94,7 +93,6 @@ export class EjConversation {
   }
 
   private setCommentState() {
-    console.log(this.comment);
     if (!this.comment.content) {
       this.comment = {
         content: "Obrigado por participar!"
@@ -119,7 +117,6 @@ export class EjConversation {
     let userWithStats: User = { ...this.user };
     userWithStats.stats = { ...voteStatsData, ...commentStatsData };
     this.user = { ...userWithStats };
-    console.log(this.user);
   }
 
   private toggleCommentCard() {
@@ -153,6 +150,7 @@ export class EjConversation {
         this.conversation
       );
       this.setCommentState();
+      this.setUserStatsState();
     }
   }
 
@@ -218,7 +216,6 @@ export class EjConversation {
   }
 
   render() {
-    console.log("renderizou");
     if (this.api.authTokenExists()) {
       return (
         <div>

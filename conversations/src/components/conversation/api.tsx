@@ -29,7 +29,7 @@ export class API {
   REGISTRATION_ROUTE: string = "";
   COMMENT_ROUTE: string = "";
   USER_STATISTICS_ROUTE: string = "";
-  APPROVED_COMMENTS_ROUTE: string = "";
+  USER_APPROVED_COMMENTS_ROUTE: string = "";
   MAUTIC_COOKIE: string = "mtc_id";
 
   constructor(host: string, conversationID: string, commentID?: string) {
@@ -43,7 +43,7 @@ export class API {
     }
     this.REGISTRATION_ROUTE = `${this.HOST}/rest-auth/registration/`;
     this.USER_STATISTICS_ROUTE = `${this.API_URL}/conversations/${conversationID}/user-statistics/`;
-    this.APPROVED_COMMENTS_ROUTE = `${this.API_URL}/conversations/${conversationID}/approved-comments/`;
+    this.USER_APPROVED_COMMENTS_ROUTE = `${this.API_URL}/conversations/${conversationID}/user-approved-comments/`;
   }
 
   async authenticate() {
@@ -118,7 +118,7 @@ export class API {
   }
 
   async getUserCommentsStatistics() {
-    const response = await fetch(this.APPROVED_COMMENTS_ROUTE, {
+    const response = await fetch(this.USER_APPROVED_COMMENTS_ROUTE, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
