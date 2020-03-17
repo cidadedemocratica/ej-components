@@ -55,6 +55,7 @@ export class EjConversation {
   @Listen("closeBoard")
   async onCloseBoard() {
     this.setCommentState();
+    this.setUserStatsState();
   }
 
   async componentWillLoad() {
@@ -232,7 +233,7 @@ export class EjConversation {
           console.log("No token found to create EJ user");
         }
       }.bind(this),
-      20000
+      5000
     );
   }
 
