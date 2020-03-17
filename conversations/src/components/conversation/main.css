@@ -8,7 +8,7 @@
 	left: 0;
 	right: 0;
 	margin: auto;
-	bottom: calc(50vh + 40px);
+	bottom: calc(50% + 400px);
 }
 .lds-spinner div {
   transform-origin: 40px 40px;
@@ -557,5 +557,9 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 .modal {
 	left: 10%;
 	width: 80%;
+}
+
+.lds-spinner {
+	bottom: calc(50vh + 40px);
 }
 }
