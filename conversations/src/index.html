@@ -5,13 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <title>Stencil Component Starter</title>
 
+  <link rel="stylesheet" href="https://ejplatform.pencillabs.com.br/static/css/fontawesome-all.min.css" >
   <script type="module" src="/build/conversations.esm.js"></script>
   <script nomodule src="/build/conversations.js"></script>
-	<link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://ejplatform.pencillabs.com.br/static/css/fontawesome-all.min.css" >
+<style>
+
+/* https://github.com/ionic-team/stencil/issues/2072 */
+@font-face {
+  font-family: Folio;
+  font-style: normal;
+  font-weight: 400;
+  font-display: auto;
+	src: url('/build/assets/fonts/folio_bold_condensed.ttf');
+}
+
+@font-face {
+  font-family: Helvetica;
+  font-style: normal;
+  font-weight: 400;
+  font-display: auto;
+	src: url('/build/assets/fonts/helvetica_neue_lts_roman.otf');
+}
+</style>
+
 </head>
 <body>
 
-	<ej-conversation host="https://ejplatform.pencillabs.com.br" cid="50"></ej-conversation>
+	<ej-conversation host="http://localhost:8000" cid="1"></ej-conversation>
 </body>
 </html>

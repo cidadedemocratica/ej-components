@@ -13,7 +13,7 @@
 .lds-spinner div {
   transform-origin: 40px 40px;
   animation: lds-spinner 1.2s linear infinite;
-	color: white; 
+	color: white;
 }
 .lds-spinner div:after {
   content: " ";
@@ -85,11 +85,6 @@
 /* ======== SPINNER ELEMENTS ========*/
 
 /* ======== GENERIC ELEMENTS ========*/
-
-@font-face {
-font-family: "Helvetica";
-src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf");
-}
 
 .box {
 	text-align: center;
@@ -177,7 +172,7 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 
 .board-header h1 {
   font-size: 2.0rem;
-	font-weight: bold;
+	font-weight: 100;
 	position: relative;
 	text-transform: uppercase;
 	margin-bottom: 15px !important;
@@ -322,6 +317,7 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 .stats div {
 	flex-grow: 1;
 	color: #1db0f0;
+	font-family: Helvetica;
 }
 
 .stats img {
@@ -338,11 +334,12 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 
 #comment-header h2 {
 	font-size: calc(1.3em + 1vw);
+	font-family: Folio,sans-serif;
 	text-transform: uppercase;
 	padding: 30px 0 30px 0;
 	text-align: center;
 	color: #000937;
-	font-weight: bold;
+	font-weight: 100;
 }
 
 .comment-owner {
@@ -364,12 +361,16 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 .comment-owner div:first-child {
 	font-size: 1rem;
 	color: #000937;
+	font-family: Helvetica;
+	font-weight: 100;
 }
 
 .comment-title {
 	color: #000937;
 	font-size: 1.2rem;
 	margin: 50px 0 30px 0;
+	font-family: Helvetica;
+	font-weight: bold;
 }
 
 #choices {
@@ -402,6 +403,7 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	font-size: 1.5rem;
 	text-transform: uppercase;
 	font-weight: bold;
+	font-family: Folio;
 }
 
 .add-comment img {
@@ -442,7 +444,7 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	outline: 0;
 }
 .choice-btn i {
-	padding: 10px;
+	padding: 11px;
 }
 
 #user-prop {
@@ -528,6 +530,8 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
   border-radius: 1rem;
   height: 30px;
 	text-transform: uppercase;
+	font-family: Helvetica;
+	font-weight: 100;
 }
 
 .logo {
@@ -551,15 +555,27 @@ src: url("/build/assets/fonts/helveticaneue/Helvetica Neu Bold.ttf") format("ttf
 	{
 		max-width: unset;
 	}
-.board-header h1, .board-header h2 {
-	font-size: 5vw;
-}
-.modal {
-	left: 10%;
-	width: 80%;
+	.board-header h1, .board-header h2 {
+		font-size: 5vw;
+	}
+	.modal {
+		left: 10%;
+		width: 80%;
+	}
+
+	.lds-spinner {
+		bottom: calc(50vh + 40px);
+	}
+
+	.header h1 {
+		padding: 70px 5px 70px 5px;
+	}
+	.add-comment {
+		font-size: 1.1rem;
+	}
 }
 
-.lds-spinner {
-	bottom: calc(50vh + 40px);
-}
+@font-face {
+font-family: 'custom_helvetica';
+src: url('helvetica_neue_lts_roman.otf');
 }
