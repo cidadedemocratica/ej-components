@@ -113,6 +113,13 @@ export class EjConversation {
       let choices: HTMLElement = this.el.shadowRoot.querySelector("#choices");
       choices.style.display = "none";
     }
+
+    if (this.user.stats.createdComments == 2) {
+      let addCommentLink: HTMLElement = this.el.shadowRoot.querySelector(
+        ".add-comment"
+      );
+      addCommentLink.style.display = "none";
+    }
   }
 
   private async setUserStatsState() {
@@ -355,7 +362,11 @@ export class EjConversation {
               </div>
             </div>
             <div class="card new-comment-card">
-              <div id="advise">Deixe o seu comentário.</div>
+              <div class="advise">Deixe o seu comentário.</div>
+              <div class="advise remaining-comments">
+                Você ainda tem {Math.abs(this.user.stats.createdComments)}{" "}
+                comentários disponíveis
+              </div>
               <textarea
                 onChange={(event: UIEvent) => this.setCommentContent(event)}
               />
@@ -366,29 +377,34 @@ export class EjConversation {
                 <div>enviar comentario</div>
               </paper-button>
             </div>
-            <div
-              class="add-comment"
-              onClick={this.toggleCommentCard.bind(this)}
-            >
-              <div>
-                {!this.newCommentMode && (
-                  <img
-                    src={getAssetPath(`./assets/icons/icone-mais.png`)}
-                    alt=""
-                  />
-                )}
-                {this.newCommentMode && (
-                  <img
-                    src={getAssetPath(`./assets/icons/icone-fechar.png`)}
-                    alt=""
-                  />
-                )}
-                <span>Criar Comentario</span>
+            {this.user.stats.createdComments < 2 && (
+              <div
+                class="add-comment"
+                onClick={this.toggleCommentCard.bind(this)}
+              >
+                <div>
+                  {!this.newCommentMode && (
+                    <img
+                      src={getAssetPath(`./assets/icons/icone-mais.png`)}
+                      alt=""
+                    />
+                  )}
+                  {this.newCommentMode && (
+                    <img
+                      src={getAssetPath(`./assets/icons/icone-fechar.png`)}
+                      alt=""
+                    />
+                  )}
+                  <span>Criar Comentario</span>
+                </div>
               </div>
-            </div>
+            )}
           </div>
           <div class="my-comments">
-            {this.user.stats.comments}/2 comentários
+            {this.user.stats.createdComments}/2 comentários
+          </div>
+          <div class="my-comments">
+            {this.user.stats.pendingComments || 0} aguardando moderação
           </div>
           <div class="author">
             <span>Feito por: </span>

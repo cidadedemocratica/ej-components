@@ -308,7 +308,7 @@ h2 {
 .header h1  {
 	padding: 70px 5px 50px 5px;
 	color: #ffffff;
-	font-size: calc(1.3em + 1vw);
+	font-size: calc(1.5em + 1vw);
 	font-family: Helvetica;
 	max-width: 1000px;
 	margin: auto;
@@ -319,7 +319,7 @@ h2 {
 	display: flex;
   max-width: 50%;
   margin: auto;
-	padding-bottom: 40px;
+	padding-bottom: 135px;
 }
 
 .stats div {
@@ -341,7 +341,7 @@ h2 {
 }
 
 #comment-header h2 {
-	font-size: calc(1.3em + 1vw);
+	font-size: calc(1.5em + 1vw);
 	font-family: Folio,sans-serif;
 	text-transform: uppercase;
 	padding: 30px 0 30px 0;
@@ -422,6 +422,8 @@ h2 {
 .my-comments {
 	color: #000837;
 	margin-bottom: 20px;
+	font-family: Helvetica;
+	font-weight: 100;
 }
 
 .choice paper-button {
@@ -488,13 +490,16 @@ paper-button .green {
 	display: none;
 }
 
-.new-comment-card #advise {
-	width: 90%;
-  margin: auto;
-  padding: 20px 20px 5px 20px;
-	font-size: 1.2rem;
-	font-family: Raleway,sans-serif;
+.advise {
+  margin: 30px 0 30px 0;
+	font-size: 1.3rem;
+	font-family: Helvetica;
 	font-weight: 100;
+}
+
+.remaining-comments {
+	font-size: 1rem;
+	margin: 0 0 30px 0;
 }
 
 textarea {
@@ -503,6 +508,8 @@ textarea {
   border-style: solid;
 	border-width: 1px;
 	border-color: #000937;
+	box-sizing: border-box;
+	padding: 10px;
 }
 
 .card-btn {
@@ -570,9 +577,14 @@ textarea {
 	{
 		max-width: unset;
 	}
+
+	.stats {
+		padding-bottom: 40px;
+	}
+
 	.board-header h1 {
 		font-size: 9vw;
-	} 
+	}
 
 	.board-header h2 {
 		font-size: 5vw;
@@ -587,8 +599,9 @@ textarea {
 	}
 
 	.header h1 {
-		padding: 70px 5px 70px 5px;
+		padding: 70px 10px 70px 10px;
 	}
+
 	.add-comment {
 		font-size: 1.1rem;
 	}
@@ -596,9 +609,11 @@ textarea {
 	.card-btn {
 		width: calc(100% - 40px);
 	}
+
 	textarea {
 		width: 100%;
 	}
+
 	.add-comment {
 		width: unset;
 	}

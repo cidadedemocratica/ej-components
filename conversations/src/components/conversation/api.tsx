@@ -29,7 +29,8 @@ export class API {
   REGISTRATION_ROUTE: string = "";
   COMMENT_ROUTE: string = "";
   USER_STATISTICS_ROUTE: string = "";
-  USER_APPROVED_COMMENTS_ROUTE: string = "";
+  USER_COMMENTS_ROUTE: string = "";
+  USER_PENDING_COMMENTS_ROUTE: string = "";
   MAUTIC_COOKIE: string = "mtc_id";
 
   constructor(host: string, conversationID: string, commentID?: string) {
@@ -43,7 +44,8 @@ export class API {
     }
     this.REGISTRATION_ROUTE = `${this.HOST}/rest-auth/registration/`;
     this.USER_STATISTICS_ROUTE = `${this.API_URL}/conversations/${conversationID}/user-statistics/`;
-    this.USER_APPROVED_COMMENTS_ROUTE = `${this.API_URL}/conversations/${conversationID}/user-approved-comments/`;
+    this.USER_COMMENTS_ROUTE = `${this.API_URL}/conversations/${conversationID}/user-comments/`;
+    this.USER_PENDING_COMMENTS_ROUTE = `${this.API_URL}/conversations/${conversationID}/user-pending-comments/`;
   }
 
   async authenticate() {
@@ -111,14 +113,20 @@ export class API {
 
   async userCanAddNewComment() {
     let stats = await this.getUserCommentsStatistics();
-    if (stats.comments >= 2) {
+    if (stats.createdComments >= 2) {
       return false;
     }
     return true;
   }
 
   async getUserCommentsStatistics() {
-    const response = await fetch(this.USER_APPROVED_COMMENTS_ROUTE, {
+    let created: number = await this.getUserCreatedCommentsCount();
+    let pending: number = await this.getUserPendingCommentsCount();
+    return { createdComments: created, pendingComments: pending };
+  }
+
+  async getUserCreatedCommentsCount() {
+    const response = await fetch(this.USER_COMMENTS_ROUTE, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -126,7 +134,19 @@ export class API {
       }
     });
     let listOfComments: Array<any> = await response.json();
-    return { comments: listOfComments.length };
+    return listOfComments.length;
+  }
+
+  async getUserPendingCommentsCount() {
+    const response = await fetch(this.USER_PENDING_COMMENTS_ROUTE, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${this.getUserToken()}`
+      }
+    });
+    let pendingComments: Array<any> = await response.json();
+    return pendingComments.length;
   }
 
   async computeDisagreeVote(comment: any) {
