@@ -106,7 +106,7 @@
 }
 
 .fa {
-	font-size: 1.5rem;
+	font-size: 1.3rem;
 }
 .fa-times {
 	color: #de011e;
@@ -130,6 +130,15 @@
 .red {
 	border-color: #f13c20;
 }
+
+h1 {
+	font-family: Folio;
+}
+
+h2 {
+	font-family: Helvetica;
+}
+
 /* ======== GENERIC ELEMENTS ========*/
 
 /* ======== BOARDS ELEMENTS ========*/
@@ -187,7 +196,6 @@
 	color: #1D1088;
   width: 80%;
 	margin: auto;
-	font-family: Raleway,sans-serif;
 	text-align: center;
 	line-height: 1.4;
 	font-size: 3vh;
@@ -416,10 +424,10 @@
 	margin-bottom: 20px;
 }
 
-.choice button {
+.choice paper-button {
 	justify-content: center;
 	background: 0 0;
-  border: none;
+  border-radius: 50%;
   height: initial;
   margin: 0;
   padding: 0;
@@ -427,17 +435,29 @@
   color: inherit;
   font-size: 0.8rem;
   font-weight: inherit;
-	width: auto;
-}
-
-.choice-btn {
-	width: 44px;
+	min-width: 44px;
 	height: 44px;
-	border-radius: 50%;
+	background-color: white;
 	border-style: solid;
 	border-width: 1px;
-	margin: auto auto 10px auto;
-	background-color: #ffffff;
+}
+
+.choice > div {
+	margin-top: 10px;
+	font-family: Helvetica;
+	font-weight: 100;
+}
+
+paper-button .red {
+	border-color: red;
+}
+
+paper-button .pink {
+	border-color: pink;
+}
+
+paper-button .green {
+	border-color: pink;
 }
 
 .choice button:focus {
@@ -477,15 +497,9 @@
 	font-weight: 100;
 }
 
-.new-comment-card #input {
-  margin: auto;
-  padding: 20px 20px 20px 20px;
-}
-
-.new-comment-card #input > textarea {
-	width: calc(100% - 10px);
+textarea {
+	width: calc(100% - 80px);
   height: 80px;
-	padding: 7px;
   border-style: solid;
 	border-width: 1px;
 	border-color: #000937;
@@ -500,13 +514,14 @@
 .card-btn > div {
 	width: 100%;
 	margin-bottom: 10px;
-	font-size: 2vh;
+	font-size: 3vh;
 	text-transform: uppercase;
 	background-color: #fb127e;
 	color: white;
 	padding: 20px 0 20px 0;
 	text-align: center;
-	font-weight: bold;
+	font-family: Folio;
+	font-weight: 100;
 }
 
 .register {
@@ -545,7 +560,7 @@
 }
 /* ======== NEW COMMENT CARD ELEMENTS ========*/
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1024px) {
 	.comment-card,
 	.comment-card #choices,
 	.new-comment-card,
@@ -555,7 +570,11 @@
 	{
 		max-width: unset;
 	}
-	.board-header h1, .board-header h2 {
+	.board-header h1 {
+		font-size: 9vw;
+	} 
+
+	.board-header h2 {
 		font-size: 5vw;
 	}
 	.modal {
@@ -573,6 +592,17 @@
 	.add-comment {
 		font-size: 1.1rem;
 	}
+
+	.card-btn {
+		width: calc(100% - 40px);
+	}
+	textarea {
+		width: 100%;
+	}
+	.add-comment {
+		width: unset;
+	}
+
 }
 
 @font-face {

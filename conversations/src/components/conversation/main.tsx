@@ -8,6 +8,7 @@ import {
 } from "@stencil/core";
 import { API, User } from "./api";
 import { HTMLStencilElement } from "@stencil/core/internal";
+import "@polymer/paper-button/paper-button.js";
 
 @Component({
   tag: "ej-conversation",
@@ -316,28 +317,31 @@ export class EjConversation {
                 </div>
                 <div id="choices">
                   <div class="choice">
-                    <button onClick={this.voteOnAgree.bind(this)}>
-                      <div class="choice-btn green">
-                        <i class="fa fa-check"></i>
-                      </div>
-                      <div class="agree">Concordar</div>
-                    </button>
+                    <paper-button
+                      class="green"
+                      onClick={this.voteOnAgree.bind(this)}
+                    >
+                      <i class="fa fa-check"></i>
+                    </paper-button>
+                    <div class="agree">Concordar</div>
                   </div>
                   <div class="choice">
-                    <button onClick={this.voteOnSkip.bind(this)}>
-                      <div class="choice-btn red">
-                        <i class="fa fa-arrow-right"></i>
-                      </div>
-                      <div class="skip">Pular</div>
-                    </button>
+                    <paper-button
+                      class="pink"
+                      onClick={this.voteOnSkip.bind(this)}
+                    >
+                      <i class="fa fa-arrow-right"></i>
+                    </paper-button>
+                    <div class="skip">Pular</div>
                   </div>
                   <div class="choice">
-                    <button onClick={this.voteOnDisagree.bind(this)}>
-                      <div class="choice-btn pink">
-                        <i class="fa fa-times"></i>
-                      </div>
-                      <div class="disagree">Discordar</div>
-                    </button>
+                    <paper-button
+                      class="red"
+                      onClick={this.voteOnDisagree.bind(this)}
+                    >
+                      <i class="fa fa-times"></i>
+                    </paper-button>
+                    <div class="disagree">Discordar</div>
                   </div>
                 </div>
                 <div class="remaining-votes">
@@ -352,16 +356,15 @@ export class EjConversation {
             </div>
             <div class="card new-comment-card">
               <div id="advise">Deixe o seu comentário.</div>
-              <div id="input">
-                <textarea
-                  onChange={(event: UIEvent) => this.setCommentContent(event)}
-                />
-              </div>
-              <div class="card-btn">
-                <div onClick={this.addComment.bind(this)}>
-                  enviar comentario
-                </div>
-              </div>
+              <textarea
+                onChange={(event: UIEvent) => this.setCommentContent(event)}
+              />
+              <paper-button
+                class="card-btn"
+                onClick={this.addComment.bind(this)}
+              >
+                <div>enviar comentario</div>
+              </paper-button>
             </div>
             <div
               class="add-comment"
