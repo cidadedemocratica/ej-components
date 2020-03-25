@@ -619,8 +619,3 @@ textarea {
 	}
 
 }
-
-@font-face {
-font-family: 'custom_helvetica';
-src: url('helvetica_neue_lts_roman.otf');
-}

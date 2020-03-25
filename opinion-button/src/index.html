@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+  <title>Stencil Component Starter</title>
+
+  <script type="module" src="/build/opinion-button.esm.js"></script>
+  <script nomodule src="/build/opinion-button.js"></script>
+
+</head>
+<style>
+/* https://github.com/ionic-team/stencil/issues/2072 */
+@font-face {
+  font-family: Folio;
+  font-style: normal;
+  font-weight: 400;
+  font-display: auto;
+	src: url('/build/assets/fonts/folio_bold_condensed.ttf');
+}
+
+@font-face {
+  font-family: Helvetica;
+  font-style: normal;
+  font-weight: 400;
+  font-display: auto;
+	src: url('/build/assets/fonts/helvetica_neue_lts_roman.otf');
+}
+</style>
+<body>
+	<ej-opinion-button></ej-opinion-button>
+</body>
+</html>
