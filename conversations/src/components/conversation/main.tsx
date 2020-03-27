@@ -328,7 +328,10 @@ export class EjConversation {
                       class="green"
                       onClick={this.voteOnAgree.bind(this)}
                     >
-                      <i class="fa fa-check"></i>
+                      <img
+                        src={getAssetPath(`./assets/icons/icone-concorda.png`)}
+                        alt=""
+                      />
                     </paper-button>
                     <div class="agree">Concordar</div>
                   </div>
@@ -337,7 +340,10 @@ export class EjConversation {
                       class="pink"
                       onClick={this.voteOnSkip.bind(this)}
                     >
-                      <i class="fa fa-arrow-right"></i>
+                      <img
+                        src={getAssetPath(`./assets/icons/icone-pular.png`)}
+                        alt=""
+                      />
                     </paper-button>
                     <div class="skip">Pular</div>
                   </div>
@@ -346,7 +352,10 @@ export class EjConversation {
                       class="red"
                       onClick={this.voteOnDisagree.bind(this)}
                     >
-                      <i class="fa fa-times"></i>
+                      <img
+                        src={getAssetPath(`./assets/icons/icone-discordo.png`)}
+                        alt=""
+                      />
                     </paper-button>
                     <div class="disagree">Discordar</div>
                   </div>

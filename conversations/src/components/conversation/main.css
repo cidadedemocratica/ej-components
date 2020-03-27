@@ -102,22 +102,7 @@
 	margin: auto auto 30px auto;
 	/*position: relative; */
 	color: #000937;
-	max-width: 20%;
-}
-
-.fa {
-	font-size: 1.3rem;
-}
-.fa-times {
-	color: #de011e;
-}
-
-.fa-arrow-right {
-	color: #042a46;
-}
-
-.fa-check {
-	color: #16ab39;
+	max-width: 50%;
 }
 
 .green {
