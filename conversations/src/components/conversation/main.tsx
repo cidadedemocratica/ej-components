@@ -4,7 +4,7 @@ import {
   Listen,
   h,
   Element,
-  getAssetPath
+  getAssetPath,
 } from "@stencil/core";
 import { API, User } from "./api";
 import { HTMLStencilElement } from "@stencil/core/internal";
@@ -14,7 +14,7 @@ import "@polymer/paper-button/paper-button.js";
   tag: "ej-conversation",
   styleUrls: ["main.css", "assets/css/all.css"],
   shadow: true,
-  assetsDir: "./assets"
+  assetsDir: "./assets",
 })
 export class EjConversation {
   @Prop() api: API;
@@ -74,7 +74,7 @@ export class EjConversation {
       this.user = { ...(await this.api.authenticate()) };
       this.conversation = { ...(await this.api.getConversation()) };
       this.comment = {
-        ...(await this.api.getConversationNextComment(this.conversation))
+        ...(await this.api.getConversationNextComment(this.conversation)),
       };
       this.setUserStatsState();
       this.setCommentState();
@@ -103,7 +103,7 @@ export class EjConversation {
   private setCommentState() {
     if (!this.comment.content) {
       this.comment = {
-        content: "Obrigado por participar!"
+        content: "Obrigado por participar!",
       };
     }
     if (
@@ -124,10 +124,10 @@ export class EjConversation {
 
   private async setUserStatsState() {
     let voteStatsData: any = {
-      ...(await this.api.getUserConversationStatistics())
+      ...(await this.api.getUserConversationStatistics()),
     };
     let commentStatsData: any = {
-      ...(await this.api.getUserCommentsStatistics())
+      ...(await this.api.getUserCommentsStatistics()),
     };
     let userWithStats: User = { ...this.user };
     userWithStats.stats = { ...voteStatsData, ...commentStatsData };
@@ -179,14 +179,14 @@ export class EjConversation {
     cloneCard.classList.add("deck-transition");
     root.appendChild(cloneCard);
     setTimeout(
-      function() {
+      function () {
         cloneCard.style.transform = "translate(100vw) translate(0, 30px)";
         cloneCard.style.opacity = "0.5";
       }.bind(this),
       1000
     );
     setTimeout(
-      function() {
+      function () {
         cloneCard.parentNode.removeChild(cloneCard);
       }.bind(this),
       2000
@@ -232,7 +232,7 @@ export class EjConversation {
 
   private async checkToken() {
     setTimeout(
-      async function() {
+      async function () {
         let user = this.api.getUser();
         if (user) {
           this.prepareComponentToRender();
@@ -294,14 +294,14 @@ export class EjConversation {
                   0}{" "}
                 votos
               </div>
-            </div>
-            <div id="seta">
-              <img
-                src={getAssetPath(
-                  `./assets/icons/seta-branca-para-fundo-azul.png`
-                )}
-                alt=""
-              />
+              <div id="seta">
+                <img
+                  src={getAssetPath(
+                    `./assets/icons/seta-branca-para-fundo-azul.png`
+                  )}
+                  alt=""
+                />
+              </div>
             </div>
           </div>
           <div class="comment">

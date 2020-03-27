@@ -102,7 +102,7 @@
 	margin: auto auto 30px auto;
 	/*position: relative; */
 	color: #000937;
-	max-width: 50%;
+	max-width: 20%;
 }
 
 .fa {
@@ -290,7 +290,7 @@ h2 {
 
 .header  {
 	background-color: #1D1088;
-  font-size: 1.0rem;
+  font-size: calc(1vh + 1vw);
   width: 100%;
 	font-family: Raleway,sans-serif;
 	font-weight: 100;
@@ -299,10 +299,12 @@ h2 {
 
 #seta {
 	position: absolute;
-	left: 50%;
-	right: 50%;
-	bottom: -5px;
-	line-height: 1em;
+	left: calc(50% - 8px);
+	bottom: -8px;
+}
+
+#seta img {
+	margin: unset;
 }
 
 .header h1  {
@@ -317,7 +319,7 @@ h2 {
 
 .stats {
 	display: flex;
-  max-width: 50%;
+  max-width: 25%;
   margin: auto;
 	padding-bottom: 135px;
 }
@@ -616,6 +618,10 @@ textarea {
 
 	.add-comment {
 		width: unset;
+	}
+
+	.stats {
+		max-width: 40%;
 	}
 
 }
