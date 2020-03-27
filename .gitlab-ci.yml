@@ -1,10 +1,25 @@
+image: node:10
+
 test:
-  image: node:10
   script:
     - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
     - apt update && apt install git -y
     - git clone -b $CI_COMMIT_REF_NAME https://gitlab+deploy-token-147653:i6FB3YR1UUsD4EtCkL1H@gitlab.com/pencillabs/ej/conversation-component.git
     - cd conversation-component/conversations
     - npm install @stencil/core@latest --save-exact && node_modules/@stencil/core/bin/stencil test --spec
+  artifacts:
+    paths:
+      - conversations/
   tags:
     - osf
+      
+publish-npm:
+  variables:
+    NPM_TOKEN: "72a41f77-7f73-4318-8269-6879c2e9959c"
+  script:
+    - cd conversations
+    - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
+    - make publish
+  tags:
+    - osf
+      

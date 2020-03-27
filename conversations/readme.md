@@ -70,3 +70,17 @@ Instead, use a prefix that fits your company or any name for a group of related 
 - Run `npm install my-component --save`
 - Add an import to the npm packages `import my-component;`
 - Then you can use the element anywhere in your template, JSX, html etc
+
+## Versioning Policy
+
+ej-conversations follows the [semantic versioning (semver)](https://semver.org/)
+
+That means that with a version number x.y.x:
+
+- When releasing **bug fixes** on code, we make a **patch** release by changing the **z** number
+- When releasing **new backward-compatible functionality** in public API,  a **functionality marked as deprecated** and a **substantial new feature or improvements** introduced within the private code, we make a **minor** release by changing the **y** number and reset to 0 the patch version.
+- When releasing **backward-incompatible changes**, we make a **major** release by changing the **x** number and reset to 0 the patch and the minor versions.
+
+### Backward-incompatible Changes
+
+Backward-incompatible changes are unexpected and inconvenient, so we try to minimize the number of major releases. Thus, major releases must be happening when ej-conversations bring a new step in the project, and new features must be release in minor versions.
