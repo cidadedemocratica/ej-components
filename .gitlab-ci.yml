@@ -18,7 +18,7 @@ publish-npm:
     NPM_TOKEN: "f5282cc6-7ab5-4cec-85fd-089521eaddd8"
   script:
     - cd conversations
-    - npm install -g @stencil/core@latest --save-exact
+    - npm install -g @stencil/core@latest --save-exact && npm install
     - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
     - make publish
   tags:
@@ -26,4 +26,6 @@ publish-npm:
   only:
     refs:
       - master
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /deploy-to-npm/
 
