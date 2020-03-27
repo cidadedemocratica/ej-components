@@ -12,14 +12,15 @@ test:
       - conversations/
   tags:
     - osf
-      
+
 publish-npm:
   variables:
-    NPM_TOKEN: "72a41f77-7f73-4318-8269-6879c2e9959c"
+    NPM_TOKEN: "f5282cc6-7ab5-4cec-85fd-089521eaddd8"
   script:
     - cd conversations
+    - npm install -g @stencil/core@latest --save-exact
     - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
     - make publish
   tags:
     - osf
-      
+
