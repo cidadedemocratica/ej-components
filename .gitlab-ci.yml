@@ -23,4 +23,7 @@ publish-npm:
     - make publish
   tags:
     - osf
+  only:
+    refs:
+      - master
 
