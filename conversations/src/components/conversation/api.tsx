@@ -66,8 +66,8 @@ export class API {
     const response = await fetch(this.CONVERSATIONS_ROUTE, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     });
     return await response.json();
   }
@@ -77,8 +77,8 @@ export class API {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Token ${this.getUserToken()}`
-      }
+        Authorization: `Token ${this.getUserToken()}`,
+      },
     });
     return await response.json();
   }
@@ -94,8 +94,8 @@ export class API {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Token ${this.getUserToken()}`
-      }
+        Authorization: `Token ${this.getUserToken()}`,
+      },
     });
     if (response.ok) {
       let bodyResponse: any;
@@ -130,8 +130,8 @@ export class API {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Token ${this.getUserToken()}`
-      }
+        Authorization: `Token ${this.getUserToken()}`,
+      },
     });
     let listOfComments: Array<any> = await response.json();
     return listOfComments.length;
@@ -142,8 +142,8 @@ export class API {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Token ${this.getUserToken()}`
-      }
+        Authorization: `Token ${this.getUserToken()}`,
+      },
     });
     let pendingComments: Array<any> = await response.json();
     return pendingComments.length;
@@ -154,9 +154,9 @@ export class API {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Token ${this.getUserToken()}`
+        Authorization: `Token ${this.getUserToken()}`,
       },
-      body: JSON.stringify({ comment: this.getCommentID(comment), choice: -1 })
+      body: JSON.stringify({ comment: this.getCommentID(comment), choice: -1 }),
     });
   }
 
@@ -165,9 +165,9 @@ export class API {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Token ${this.getUserToken()}`
+        Authorization: `Token ${this.getUserToken()}`,
       },
-      body: JSON.stringify({ comment: this.getCommentID(comment), choice: 0 })
+      body: JSON.stringify({ comment: this.getCommentID(comment), choice: 0 }),
     });
   }
 
@@ -176,9 +176,9 @@ export class API {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Token ${this.getUserToken()}`
+        Authorization: `Token ${this.getUserToken()}`,
       },
-      body: JSON.stringify({ comment: this.getCommentID(comment), choice: 1 })
+      body: JSON.stringify({ comment: this.getCommentID(comment), choice: 1 }),
     });
   }
 
@@ -186,15 +186,15 @@ export class API {
     let data = {
       content: content,
       conversation: this.getConversationID(conversation),
-      status: "approved"
+      status: "approved",
     };
     await fetch(this.COMMENTS_ROUTE, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Token ${this.getUserToken()}`
+        Authorization: `Token ${this.getUserToken()}`,
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     });
   }
 
@@ -202,9 +202,9 @@ export class API {
     const response = await fetch(this.REGISTRATION_ROUTE, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     });
     return response.json();
   }
