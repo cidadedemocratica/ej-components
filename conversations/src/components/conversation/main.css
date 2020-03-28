@@ -129,7 +129,7 @@ h2 {
 /* ======== BOARDS ELEMENTS ========*/
 
 #container1 h1 {
-	margin-bottom: 80px !important;
+	margin-bottom: 60px !important;
 }
 
 #container2, #container3 {
@@ -169,7 +169,7 @@ h2 {
 }
 
 .board-header h1 {
-  font-size: 2.0rem;
+  font-size: 5vh;
 	font-weight: 100;
 	position: relative;
 	text-transform: uppercase;
@@ -179,6 +179,7 @@ h2 {
 .board-header h2 {
 	margin-bottom: 25px !important;
 	font-weight: 100;
+	font-size: 4vh;
 }
 
 .board-header h1, .board-header h2 {
@@ -187,7 +188,6 @@ h2 {
 	margin: auto;
 	text-align: center;
 	line-height: 1.4;
-	font-size: 3vh;
 }
 
 .skip-modal  {
@@ -197,6 +197,7 @@ h2 {
 	text-transform: uppercase;
 	color: #fb127e;
 	font-weight: bold;
+	font-size: 3vh;
 }
 
 .control-modal {
@@ -663,5 +664,9 @@ textarea {
 	}
 	.board-header h2 {
 		font-size: 2vh;
+	}
+
+	.skip-modal {
+		font-size: 1.6vh;
 	}
 }
