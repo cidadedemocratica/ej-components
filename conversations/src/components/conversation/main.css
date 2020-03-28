@@ -137,7 +137,7 @@ h2 {
 }
 
 #container3 .control-modal {
-	margin-top: 95px;
+	margin-top: 60px;
 }
 
 .background {
@@ -625,6 +625,10 @@ textarea {
 		width: calc(100% - 40px);
 	}
 
+	.card-btn > div {
+		font-size: 2vh;
+	}
+
 	textarea {
 		width: 100%;
 	}
@@ -652,5 +656,12 @@ textarea {
 
 	.register-card paper-button {
 		font-size: 1.5vh;
+	}
+
+	.board-header h1 {
+		font-size: 3vh;
+	}
+	.board-header h2 {
+		font-size: 2vh;
 	}
 }
