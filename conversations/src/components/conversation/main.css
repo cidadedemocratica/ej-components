@@ -523,16 +523,24 @@ textarea {
 	margin-top: 70px;
 }
 
-.register-card div:first-child {
+.register-card div {
 	margin-bottom: 10px;
 }
 
+.register-card .welcome {
+	font-size: calc(2vh + 2vw);
+	margin-bottom: 20px;
+}
+
 .register-card input {
-	border-style: none;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #000937;
 	border-radius: 1rem;
-  border-style: none;
-  padding-left: 10px;
+  padding: 8px;
   min-height: 25px;
+	box-sizing: border-box;
+	width: 40%;
 }
 
 .card button {
@@ -544,10 +552,25 @@ textarea {
 	font-weight: 100;
 }
 
+.register-card paper-button {
+	border-style: none;
+  border-radius: 1rem;
+  height: 30px;
+	text-transform: uppercase;
+	font-weight: 100;
+	background-color: #000937;
+	color: white;
+	font-family: Folio;
+	font-size: 3.5vh;
+	box-shadow: 0px 0px 2px 0px;
+	width: calc(45% - 30px);
+	max-width: 150px;
+}
+
+
 .logo {
 	background-image: url(https://ejplatform.pencillabs.com.br/static/img/logo/logo.svg);
-	width: 80px;
-	height: 80px;
+	height: 40px;
 	background-repeat: no-repeat;
 	background-size: contain;
 	margin: auto auto auto auto;
@@ -610,4 +633,20 @@ textarea {
 		max-width: 40%;
 	}
 
+}
+
+@media only screen and (max-width: 800px) {
+	.register-card input {
+		width: 100%; 
+		max-width: 300px;
+	}
+
+	.register-card paper-button {
+		width: 60%;
+	}
+
+
+	.register-card paper-button {
+		font-size: 1.5vh;
+	}
 }

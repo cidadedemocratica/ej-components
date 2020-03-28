@@ -9,6 +9,7 @@ import {
 } from "@stencil/core";
 import { API, User } from "./api";
 import { HTMLStencilElement } from "@stencil/core/internal";
+import "@polymer/paper-button/paper-button.js";
 
 @Component({
   tag: "ej-conversation-register",
@@ -40,9 +41,11 @@ export class EjConversationRegister {
 
   private async registerUser() {
     try {
-      let response = await this.api.createUser(this.user);
-      this.api.setUserTokenOnLocalStorage(response.key);
-      this.register.emit(this.user);
+      if (this.user.email && this.user.name) {
+        let response = await this.api.createUser(this.user);
+        this.api.setUserTokenOnLocalStorage(response.key);
+        this.register.emit(this.user);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -52,7 +55,7 @@ export class EjConversationRegister {
     return (
       <div class="box">
         <div class="header">
-          <h1> Bem vindo!. Registre-se para participar.</h1>
+          <h1> Registre-se para participar.</h1>
           <div class="stats">
             <div>
               <img
@@ -81,6 +84,9 @@ export class EjConversationRegister {
           </div>
         </div>
         <div class="register-card card">
+          <div class="welcome">
+            <span>Bem vindo!</span>
+          </div>
           <div class="logo"></div>
           <div class="register">
             <div id="register-name">
@@ -99,7 +105,9 @@ export class EjConversationRegister {
                 id="mail"
               />
             </div>
-            <button onClick={() => this.registerUser()}>Participar</button>
+            <paper-button onClick={() => this.registerUser()}>
+              Participar
+            </paper-button>
           </div>
         </div>
       </div>
