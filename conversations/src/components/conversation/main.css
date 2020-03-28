@@ -518,15 +518,16 @@ textarea {
 	font-weight: 100;
 }
 
-.register {
+.register-card {
 	padding: 20px 30px 30px 30px;
+	margin-top: 70px;
 }
 
-.register div:first-child {
+.register-card div:first-child {
 	margin-bottom: 10px;
 }
 
-.register input {
+.register-card input {
 	border-style: none;
 	border-radius: 1rem;
   border-style: none;

@@ -31,8 +31,8 @@ export class EjConversation {
 
   @Listen("register")
   async registerHandler(event: any) {
-    console.log(event);
-    console.log("registrou");
+    this.user = { ...(await this.api.authenticate()) };
+    this.showRegisterComponent = false;
   }
 
   componentWillLoad() {
@@ -71,8 +71,6 @@ export class EjConversation {
   render() {
     if (!this.api.authTokenExists() && !this.showRegisterComponent) {
       this.checkToken();
-      console.log("render");
-      console.log(this.api.authTokenExists());
       return (
         <div>
           <div id="user-prop">{this.user.name}</div>

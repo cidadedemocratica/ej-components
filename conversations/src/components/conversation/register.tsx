@@ -4,13 +4,14 @@ import {
   Event,
   EventEmitter,
   h,
-  Element
+  Element,
+  getAssetPath,
 } from "@stencil/core";
 import { API, User } from "./api";
 import { HTMLStencilElement } from "@stencil/core/internal";
 
 @Component({
-  tag: "ej-conversation-register"
+  tag: "ej-conversation-register",
 })
 export class EjConversationRegister {
   // Indicate that name should be a public property on the component
@@ -49,26 +50,57 @@ export class EjConversationRegister {
 
   render() {
     return (
-      <div class="card">
-        <div class="logo"></div>
-        <div class="register">
-          <div id="register-name">
-            <input
-              onChange={(event: UIEvent) => this.setUserName(event)}
-              placeholder="Seu Nome"
-              type="text"
-              id="name"
-            />
+      <div class="box">
+        <div class="header">
+          <h1> Bem vindo!. Registre-se para participar.</h1>
+          <div class="stats">
+            <div>
+              <img
+                src={getAssetPath(
+                  `./assets/icons/icone-branco-comentarios.png`
+                )}
+                alt=""
+              />
+              0 comentarios
+            </div>
+            <div>
+              <img
+                src={getAssetPath(`./assets/icons/icone-branco-votos.png`)}
+                alt=""
+              />
+              0 votos
+            </div>
+            <div id="seta">
+              <img
+                src={getAssetPath(
+                  `./assets/icons/seta-branca-para-fundo-azul.png`
+                )}
+                alt=""
+              />
+            </div>
           </div>
-          <div id="register-email">
-            <input
-              onChange={(event: UIEvent) => this.setUserEmail(event)}
-              placeholder="Seu Email"
-              type="text"
-              id="mail"
-            />
+        </div>
+        <div class="register-card card">
+          <div class="logo"></div>
+          <div class="register">
+            <div id="register-name">
+              <input
+                onChange={(event: UIEvent) => this.setUserName(event)}
+                placeholder="Seu Nome"
+                type="text"
+                id="name"
+              />
+            </div>
+            <div id="register-email">
+              <input
+                onChange={(event: UIEvent) => this.setUserEmail(event)}
+                placeholder="Seu Email"
+                type="text"
+                id="mail"
+              />
+            </div>
+            <button onClick={() => this.registerUser()}>Participar</button>
           </div>
-          <button onClick={() => this.registerUser()}>Participar</button>
         </div>
       </div>
     );
