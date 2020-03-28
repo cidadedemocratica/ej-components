@@ -26,6 +26,7 @@ publish-npm:
   only:
     refs:
       - master
-    variables:
-      - $CI_COMMIT_MESSAGE =~ /deploy-to-npm/
+    changes:
+      # deploy to npm only when package.json changes
+      - "conversations/package.json"
 

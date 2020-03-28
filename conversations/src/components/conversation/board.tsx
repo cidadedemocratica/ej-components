@@ -5,12 +5,12 @@ import {
   Prop,
   h,
   Element,
-  getAssetPath
+  getAssetPath,
 } from "@stencil/core";
 import { HTMLStencilElement } from "@stencil/core/internal";
 
 @Component({
-  tag: "ej-conversation-board"
+  tag: "ej-conversation-board",
 })
 export class EjConversationBoard {
   // Indicate that name should be a public property on the component
@@ -110,10 +110,6 @@ export class EjConversationBoard {
                   />
                 </div>
                 <h1>todos importam na luta contra a corrupção.</h1>
-                <h2>
-                  algum texto aleatorio aqui para termos uma noção de
-                  espaçamento.
-                </h2>
               </div>
               <div class="card-btn">
                 <div onClick={this.nextBoard.bind(this)}>
@@ -138,7 +134,7 @@ export class EjConversationBoard {
                 <h2>
                   Vote nos comentários dos participantes indicando se você
                   concorda ou discorda. Se não quiser comentar em um comentário
-                  específico basta pular
+                  específico basta pular.
                 </h2>
               </div>
               <div class="control-modal">

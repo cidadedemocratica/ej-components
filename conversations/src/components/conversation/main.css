@@ -128,6 +128,10 @@ h2 {
 
 /* ======== BOARDS ELEMENTS ========*/
 
+#container1 h1 {
+	margin-bottom: 80px !important;
+}
+
 #container2, #container3 {
 	display: none;
 }
@@ -210,7 +214,7 @@ h2 {
     position: absolute;
     left: 0;
     right: 0;
-    margin: 40px auto;
+    margin: 25px auto;
     display: flex;
 		width: 35%;
 }
