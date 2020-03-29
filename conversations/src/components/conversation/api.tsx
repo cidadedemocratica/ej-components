@@ -32,6 +32,7 @@ export class API {
   USER_COMMENTS_ROUTE: string = "";
   USER_PENDING_COMMENTS_ROUTE: string = "";
   MAUTIC_COOKIE: string = "mtc_id";
+  VOTE_CHOICES: any = { skip: 0, agree: 1, disagree: -1 };
 
   constructor(host: string, conversationID: string, commentID?: string) {
     this.HOST = host;
@@ -63,24 +64,11 @@ export class API {
   }
 
   async getConversation() {
-    const response = await fetch(this.CONVERSATIONS_ROUTE, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    return await response.json();
+    return this.httpRequest(this.CONVERSATIONS_ROUTE);
   }
 
   async getUserConversationStatistics() {
-    const response = await fetch(this.USER_STATISTICS_ROUTE, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${this.getUserToken()}`,
-      },
-    });
-    return await response.json();
+    return this.httpRequest(this.USER_STATISTICS_ROUTE);
   }
 
   async getConversationNextComment(conversation: any) {
@@ -90,25 +78,7 @@ export class API {
     } else {
       commentUrl = this.getRandomCommentUrl(conversation);
     }
-    const response = await fetch(commentUrl, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${this.getUserToken()}`,
-      },
-    });
-    if (response.ok) {
-      let bodyResponse: any;
-      try {
-        bodyResponse = await response.json();
-      } catch (error) {
-        console.info("no comments to show");
-        return {};
-      }
-      return bodyResponse;
-    } else {
-      return {};
-    }
+    return await this.httpRequest(commentUrl);
   }
 
   async userCanAddNewComment() {
@@ -126,60 +96,21 @@ export class API {
   }
 
   async getUserCreatedCommentsCount() {
-    const response = await fetch(this.USER_COMMENTS_ROUTE, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${this.getUserToken()}`,
-      },
-    });
-    let listOfComments: Array<any> = await response.json();
-    return listOfComments.length;
+    const response = await this.httpRequest(this.USER_COMMENTS_ROUTE);
+    return response.length;
   }
 
   async getUserPendingCommentsCount() {
-    const response = await fetch(this.USER_PENDING_COMMENTS_ROUTE, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${this.getUserToken()}`,
-      },
-    });
-    let pendingComments: Array<any> = await response.json();
-    return pendingComments.length;
+    const response = await this.httpRequest(this.USER_PENDING_COMMENTS_ROUTE);
+    return response.length;
   }
 
-  async computeDisagreeVote(comment: any) {
-    await fetch(this.VOTES_ROUTE, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${this.getUserToken()}`,
-      },
-      body: JSON.stringify({ comment: this.getCommentID(comment), choice: -1 }),
+  async computeVote(comment: any, choice: string) {
+    let body: string = JSON.stringify({
+      comment: this.getCommentID(comment),
+      choice: this.VOTE_CHOICES[choice],
     });
-  }
-
-  async computeSkipVote(comment: any) {
-    await fetch(this.VOTES_ROUTE, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${this.getUserToken()}`,
-      },
-      body: JSON.stringify({ comment: this.getCommentID(comment), choice: 0 }),
-    });
-  }
-
-  async computeAgreeVote(comment: any) {
-    await fetch(this.VOTES_ROUTE, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${this.getUserToken()}`,
-      },
-      body: JSON.stringify({ comment: this.getCommentID(comment), choice: 1 }),
-    });
+    await this.httpRequest(this.VOTES_ROUTE, body);
   }
 
   async createComment(content: any, conversation: any) {
@@ -188,25 +119,41 @@ export class API {
       conversation: this.getConversationID(conversation),
       status: "approved",
     };
-    await fetch(this.COMMENTS_ROUTE, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${this.getUserToken()}`,
-      },
-      body: JSON.stringify(data),
-    });
+    await this.httpRequest(this.COMMENTS_ROUTE, JSON.stringify(data));
   }
 
   async createUser(data: any) {
-    const response = await fetch(this.REGISTRATION_ROUTE, {
-      method: "POST",
+    return await this.httpRequest(
+      this.REGISTRATION_ROUTE,
+      JSON.stringify(data)
+    );
+  }
+
+  async httpRequest(route: string, payload?: string) {
+    let requestOpts: any = {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
-    });
-    return response.json();
+    };
+    if (payload) {
+      requestOpts["body"] = payload;
+      requestOpts["method"] = "POST";
+    }
+    if (this.getUserToken()) {
+      requestOpts.headers["Authorization"] = `Token ${this.getUserToken()}`;
+    }
+    const response = await fetch(route, requestOpts);
+    if (response.ok) {
+      try {
+        return await response.json();
+      } catch (error) {
+        console.error("could not send request");
+        return {};
+      }
+    } else {
+      return [];
+    }
   }
 
   authTokenExists() {

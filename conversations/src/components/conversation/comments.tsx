@@ -97,7 +97,9 @@ export class EjConversationComments {
       let addCommentLink: HTMLElement = this.el.shadowRoot.querySelector(
         ".add-comment"
       );
-      addCommentLink.style.display = "none";
+      if (addCommentLink) {
+        addCommentLink.style.display = "none";
+      }
     }
   }
 
