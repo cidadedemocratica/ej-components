@@ -15,7 +15,7 @@ test:
 
 publish-npm:
   variables:
-    NPM_TOKEN: "679675ce-c51d-4090-8531-7956410cc387"
+    NPM_TOKEN: "d4da3499-2c61-4f58-92d8-eea6394e3cec"
   script:
     - cd conversations
     - npm install -g @stencil/core@latest --save-exact && npm install
