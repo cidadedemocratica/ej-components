@@ -1,13 +1,14 @@
-import { Component, h } from "@stencil/core";
+import { Component, h, Prop } from "@stencil/core";
 
 @Component({
-  tag: "ej-conversation-spinner"
+  tag: "ej-conversation-spinner",
 })
 export class EjConversationSpinner {
+  @Prop() background: string = "";
   render() {
     return (
       <div>
-        <div class="background">
+        <div class={this.background}>
           <div class="lds-spinner">
             <div></div>
             <div></div>

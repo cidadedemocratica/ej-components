@@ -153,6 +153,22 @@ h2 {
   background-color: black;
 }
 
+.loading {
+	display: none;
+}
+.no-background .lds-spinner {
+	position: unset;
+	width: 80px;
+	height: 35px;
+}
+
+.no-background .lds-spinner div::after {
+	top: 26px;
+	width: 3px;
+	height: 7px;
+	background: #000937; 
+}
+
 .modal {
 	position: absolute;
   background-color: white;

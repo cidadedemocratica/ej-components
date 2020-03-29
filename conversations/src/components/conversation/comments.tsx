@@ -38,10 +38,10 @@ export class EjConversationComments {
   }
 
   async componentWillLoad() {
-    this.prepareComponentToRender();
+    this.prepareToLoad();
   }
 
-  async prepareComponentToRender() {
+  async prepareToLoad() {
     try {
       let queryParams: any = this.queryParams;
       this.api = this.newAPI(queryParams);
@@ -176,11 +176,35 @@ export class EjConversationComments {
   }
 
   private async vote(choice: string) {
+    this.showLoading();
     await this.api.computeVote(this.comment, choice);
     this.comment = await this.api.getConversationNextComment(this.conversation);
+    this.hideLoading();
     this.deckTransition();
     this.setUICommentState();
     this.setUserStats();
+  }
+
+  private showLoading() {
+    let loading: HTMLElement = this.el.shadowRoot.querySelector(".loading");
+    loading.style.display = "block";
+    let agreeButton: any = this.el.shadowRoot.querySelector(".green");
+    let disagreeButton: any = this.el.shadowRoot.querySelector(".red");
+    let skipButton: any = this.el.shadowRoot.querySelector(".pink");
+    agreeButton.disabled = true;
+    disagreeButton.disabled = true;
+    skipButton.disabled = true;
+  }
+
+  private hideLoading() {
+    let loading: HTMLElement = this.el.shadowRoot.querySelector(".loading");
+    loading.style.display = "none";
+    let agreeButton: any = this.el.shadowRoot.querySelector(".green");
+    let disagreeButton: any = this.el.shadowRoot.querySelector(".red");
+    let skipButton: any = this.el.shadowRoot.querySelector(".pink");
+    agreeButton.disabled = false;
+    disagreeButton.disabled = false;
+    skipButton.disabled = false;
   }
 
   render() {
@@ -241,6 +265,9 @@ export class EjConversationComments {
                 </div>
                 <div class="comment-title">
                   {this.comment && <div>{this.comment.content}</div>}
+                </div>
+                <div class="loading">
+                  <ej-conversation-spinner background="no-background"></ej-conversation-spinner>
                 </div>
                 <div id="choices">
                   <div class="choice">

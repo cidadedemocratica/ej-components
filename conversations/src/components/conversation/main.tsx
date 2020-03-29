@@ -73,7 +73,7 @@ export class EjConversation {
       return (
         <div>
           <div id="user-prop">{this.user.name}</div>
-          <ej-conversation-spinner></ej-conversation-spinner>
+          <ej-conversation-spinner background="background"></ej-conversation-spinner>
         </div>
       );
     }
