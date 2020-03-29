@@ -12,7 +12,7 @@ it("should render spinner component", async () => {
        <mock:shadow-root>
          <div>
           <div id="user-prop"></div>
-           <ej-conversation-spinner></ej-conversation-spinner>
+           <ej-conversation-spinner background="background"></ej-conversation-spinner>
          </div>
        </mock:shadow-root>
      </ej-conversation>
