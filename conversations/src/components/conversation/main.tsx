@@ -9,7 +9,6 @@ import {
 } from "@stencil/core";
 import { API, User } from "./api";
 import { HTMLStencilElement } from "@stencil/core/internal";
-import "@polymer/paper-button/paper-button.js";
 
 @Component({
   tag: "ej-conversation",
@@ -30,7 +29,7 @@ export class EjConversation {
   @Event() tokenExists: EventEmitter;
 
   @Listen("register")
-  async registerHandler(event: any) {
+  async registerHandler() {
     this.user = { ...(await this.api.authenticate()) };
     this.showRegisterComponent = false;
   }

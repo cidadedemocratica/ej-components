@@ -33,8 +33,8 @@ export class EjConversationComments {
   @Listen("closeBoard", { target: "window" })
   async onCloseBoard() {
     console.log("Board visualizado");
-    this.setCommentState();
-    this.setUserStatsState();
+    this.setUICommentState();
+    this.setUserStats();
   }
 
   async componentWillLoad() {
@@ -44,45 +44,45 @@ export class EjConversationComments {
   async prepareComponentToRender() {
     try {
       let queryParams: any = this.queryParams;
-      if (queryParams) {
-        this.api = new API(this.host, queryParams.cid, queryParams.commentId);
-      } else {
-        this.api = new API(this.host, this.cid);
-      }
+      this.api = this.newAPI(queryParams);
       this.conversation = { ...(await this.api.getConversation()) };
       this.comment = {
         ...(await this.api.getConversationNextComment(this.conversation)),
       };
-      this.setUserStatsState();
-      this.setCommentState();
+      this.setUserStats();
+      this.setUICommentState();
       this.voteUsingQueryParams(queryParams);
     } catch (err) {
       console.log(err);
     }
   }
 
+  private newAPI(queryParams: any) {
+    if (queryParams) {
+      return new API(this.host, queryParams.cid, queryParams.commentId);
+    }
+    return new API(this.host, this.cid);
+  }
+
   private voteUsingQueryParams(queryParams: any) {
     if (queryParams) {
-      if (queryParams.choice == "agree") {
-        this.voteOnAgree();
-      }
-      if (queryParams.choice == "disagree") {
-        this.voteOnDisagree();
-      }
-      if (queryParams.choice == "skip") {
-        this.voteOnSkip();
-      }
+      this.vote(queryParams.choice);
     }
     //from here component will use this.api.COMMENTS_ROUTE.
     this.api.COMMENT_ROUTE = "";
   }
 
-  private setCommentState() {
+  private setUICommentState() {
     if (!this.comment.content) {
       this.comment = {
         content: "Obrigado por participar!",
       };
     }
+    this.hideChoices();
+    this.toogleAddCommentButton();
+  }
+
+  private hideChoices() {
     if (
       this.comment.content &&
       this.comment.content == "Obrigado por participar!"
@@ -90,6 +90,9 @@ export class EjConversationComments {
       let choices: HTMLElement = this.el.shadowRoot.querySelector("#choices");
       choices.style.display = "none";
     }
+  }
+
+  private toogleAddCommentButton() {
     if (this.user.stats.createdComments == 2) {
       let addCommentLink: HTMLElement = this.el.shadowRoot.querySelector(
         ".add-comment"
@@ -98,7 +101,7 @@ export class EjConversationComments {
     }
   }
 
-  private async setUserStatsState() {
+  private async setUserStats() {
     let voteStatsData: any = {
       ...(await this.api.getUserConversationStatistics()),
     };
@@ -141,8 +144,8 @@ export class EjConversationComments {
       this.comment = await this.api.getConversationNextComment(
         this.conversation
       );
-      this.setCommentState();
-      this.setUserStatsState();
+      this.setUICommentState();
+      this.setUserStats();
     }
   }
 
@@ -170,28 +173,12 @@ export class EjConversationComments {
     );
   }
 
-  private async voteOnDisagree() {
-    await this.api.computeDisagreeVote(this.comment);
+  private async vote(choice: string) {
+    await this.api.computeVote(this.comment, choice);
     this.comment = await this.api.getConversationNextComment(this.conversation);
     this.deckTransition();
-    this.setCommentState();
-    this.setUserStatsState();
-  }
-
-  private async voteOnAgree() {
-    await this.api.computeAgreeVote(this.comment);
-    this.comment = await this.api.getConversationNextComment(this.conversation);
-    this.deckTransition();
-    this.setCommentState();
-    this.setUserStatsState();
-  }
-
-  private async voteOnSkip() {
-    await this.api.computeSkipVote(this.comment);
-    this.comment = await this.api.getConversationNextComment(this.conversation);
-    this.deckTransition();
-    this.setCommentState();
-    this.setUserStatsState();
+    this.setUICommentState();
+    this.setUserStats();
   }
 
   render() {
@@ -257,7 +244,7 @@ export class EjConversationComments {
                   <div class="choice">
                     <paper-button
                       class="green"
-                      onClick={this.voteOnAgree.bind(this)}
+                      onClick={() => this.vote("agree")}
                     >
                       <img
                         src={getAssetPath(`./assets/icons/icone-concorda.png`)}
@@ -269,7 +256,7 @@ export class EjConversationComments {
                   <div class="choice">
                     <paper-button
                       class="pink"
-                      onClick={this.voteOnSkip.bind(this)}
+                      onClick={() => this.vote("skip")}
                     >
                       <img
                         src={getAssetPath(`./assets/icons/icone-pular.png`)}
@@ -281,7 +268,7 @@ export class EjConversationComments {
                   <div class="choice">
                     <paper-button
                       class="red"
-                      onClick={this.voteOnDisagree.bind(this)}
+                      onClick={() => this.vote("disagree")}
                     >
                       <img
                         src={getAssetPath(`./assets/icons/icone-discordo.png`)}
