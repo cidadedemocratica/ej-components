@@ -318,7 +318,14 @@ export class EjConversationComments {
               </div>
             </div>
             <div class="card new-comment-card">
-              <div class="advise">Deixe o seu comentário.</div>
+              <div class="advise">
+                Deixe o seu comentário. Ele entrará para votação em até no
+                máximo 48 horas de acordo com os{" "}
+                <a target="_blank" href="https://www.ejparticipe.org/usage/">
+                  termos de uso
+                </a>{" "}
+                da ferramenta.
+              </div>
               <div class="advise remaining-comments">
                 Você ainda tem {Math.abs(this.user.stats.createdComments - 2)}{" "}
                 comentários disponíveis

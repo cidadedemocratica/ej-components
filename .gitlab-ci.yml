@@ -1,6 +1,10 @@
 image: node:10
+stages:
+  - test
+  - publish
 
-test:
+run_tests:
+  stage: test
   script:
     - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
     - apt update && apt install git -y
@@ -13,9 +17,10 @@ test:
   tags:
     - osf
 
-publish-npm:
+publish_to_npm:
+  stage: publish
   variables:
-    NPM_TOKEN: "d4da3499-2c61-4f58-92d8-eea6394e3cec"
+    NPM_TOKEN: "e8a867aa-3840-4d03-83df-7fbb6f25ae4e"
   script:
     - cd conversations
     - npm install -g @stencil/core@latest --save-exact && npm install
@@ -29,4 +34,3 @@ publish-npm:
     changes:
       # deploy to npm only when package.json changes
       - "conversations/package.json"
-
