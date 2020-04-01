@@ -17,6 +17,7 @@ export class EjConversationBoard {
   @Element() el!: HTMLStencilElement;
   @Prop() currentContainer: number = 1;
   @Prop() currentStep: number = 1;
+  @Prop() theme: string;
   @Event() closeBoard: EventEmitter;
 
   nextBoard() {
@@ -102,26 +103,31 @@ export class EjConversationBoard {
           <div class="background"></div>
           <div class="modal">
             <div id="container1">
-              <div class="board-header">
+              <div class={"board-header " + `board-header-${this.theme}`}>
                 <div class="img">
                   <img
-                    src={getAssetPath(`./assets/icons/simbolo-ucc-m.png`)}
+                    src={getAssetPath(
+                      `./assets/icons/board-logo-${this.theme}.png`
+                    )}
                     alt=""
                   />
                 </div>
                 <h1>todos importam na luta contra a corrupção.</h1>
               </div>
-              <div class="card-btn">
+              <div class={"card-btn " + `card-btn-${this.theme}`}>
                 <div onClick={this.nextBoard.bind(this)}>
                   veja como participar
                 </div>
               </div>
-              <div class="skip-modal" onClick={this.skip.bind(this)}>
+              <div
+                class={"skip-modal " + `skip-modal-${this.theme}`}
+                onClick={this.skip.bind(this)}
+              >
                 <span>pular apresentação</span>
               </div>
             </div>
             <div id="container2">
-              <div class="board-header">
+              <div class={"board-header " + `board-header-${this.theme}`}>
                 <div class="img">
                   <img
                     src={getAssetPath(
@@ -138,17 +144,23 @@ export class EjConversationBoard {
                 </h2>
               </div>
               <div class="control-modal">
-                <div class="card-btn" onClick={this.previousBoard.bind(this)}>
+                <div
+                  class={"card-btn " + `card-btn-${this.theme}`}
+                  onClick={this.previousBoard.bind(this)}
+                >
                   <div>anterior</div>
                 </div>
-                <div class="card-btn" onClick={this.nextBoard.bind(this)}>
+                <div
+                  class={"card-btn " + `card-btn-${this.theme}`}
+                  onClick={this.nextBoard.bind(this)}
+                >
                   {" "}
                   <div>proximo</div>{" "}
                 </div>
               </div>
             </div>
             <div id="container3">
-              <div class="board-header">
+              <div class={"board-header " + `board-header-${this.theme}`}>
                 <div class="img">
                   <img
                     src={getAssetPath(
@@ -164,10 +176,16 @@ export class EjConversationBoard {
                 </h2>
               </div>
               <div class="control-modal">
-                <div class="card-btn" onClick={this.previousBoard.bind(this)}>
+                <div
+                  class={"card-btn " + `card-btn-${this.theme}`}
+                  onClick={this.previousBoard.bind(this)}
+                >
                   <div>anterior</div>
                 </div>
-                <div class="card-btn" onClick={this.nextBoard.bind(this)}>
+                <div
+                  class={"card-btn " + `card-btn-${this.theme}`}
+                  onClick={this.nextBoard.bind(this)}
+                >
                   {" "}
                   <div>fechar</div>{" "}
                 </div>

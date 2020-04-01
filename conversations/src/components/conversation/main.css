@@ -86,6 +86,44 @@
 
 /* ======== GENERIC ELEMENTS ========*/
 
+#open {
+	transform: unset;
+}
+#close {
+	transform: rotate(46deg);
+}
+
+.header-votorantim {
+	color: #f14236;
+	background-color: #2d294e !important;
+}
+
+.header-votorantim .stats > div {
+	color: #1aa1db !important;
+}
+
+.add-comment-votorantim {
+	color: #f14236 !important;
+}
+
+.card-btn-votorantim > div {
+	background-color:  #f14236!important;
+}
+
+.skip-modal-votorantim {
+	color: #f14236 !important;
+}
+
+.board-header-votorantim h1,
+.board-header-votorantim h2 {
+	color: #2d294e !important
+}
+
+.board-header-votorantim img {
+	width: 200px;
+	height: 120px;
+}
+
 .box {
 	text-align: center;
 	margin: auto;
@@ -166,7 +204,7 @@ h2 {
 	top: 26px;
 	width: 3px;
 	height: 7px;
-	background: #000937; 
+	background: #000937;
 }
 
 .modal {
@@ -662,7 +700,7 @@ textarea {
 
 @media only screen and (max-width: 800px) {
 	.register-card input {
-		width: 100%; 
+		width: 100%;
 		max-width: 300px;
 	}
 

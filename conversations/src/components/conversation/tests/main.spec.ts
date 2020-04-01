@@ -47,10 +47,11 @@ it("should render comments component", async () => {
        <mock:shadow-root>
          <div>
           <div id="user-prop"></div>
-           <ej-conversation-board></ej-conversation-board>
+           <ej-conversation-board theme="osf"></ej-conversation-board>
            <ej-conversation-comments
             cid=""
             host=""
+            theme="osf"
           ></ej-conversation-comments>
          </div>
        </mock:shadow-root>

@@ -29,6 +29,7 @@ export class EjConversationComments {
   @Prop() newCommentMode: boolean = false;
   @Prop() showRegisterComponent: boolean = false;
   @Prop() queryParams: any;
+  @Prop() theme: string;
 
   @Listen("closeBoard", { target: "window" })
   async onCloseBoard() {
@@ -213,7 +214,7 @@ export class EjConversationComments {
         <div class="box">
           <div id="user-prop">{this.user.name}</div>
           <div id="user-prop">{this.showRegisterComponent}</div>
-          <div class="header">
+          <div class={"header " + `header-${this.theme}`}>
             <h1> {this.conversation && this.conversation.text}</h1>
             <div class="stats">
               <div>
@@ -254,10 +255,12 @@ export class EjConversationComments {
             </div>
             <div class="card-transition">
               <div class="card comment-card">
-                <div class="comment-owner">
+                <div class={"comment-owner " + `comment-owner-${this.theme}`}>
                   <div>
                     <img
-                      src={getAssetPath(`./assets/icons/simbolo-ucc-m.png`)}
+                      src={getAssetPath(
+                        `./assets/icons/profile-${this.theme}.png`
+                      )}
                       alt=""
                     />
                     <span>{this.user.displayName || "Participante"}</span>
@@ -334,7 +337,7 @@ export class EjConversationComments {
                 onChange={(event: UIEvent) => this.setCommentContent(event)}
               />
               <paper-button
-                class="card-btn"
+                class={"card-btn " + `card-btn-${this.theme}`}
                 onClick={this.addComment.bind(this)}
               >
                 <div>enviar comentario</div>
@@ -342,20 +345,26 @@ export class EjConversationComments {
             </div>
             {this.user.stats.createdComments < 2 && (
               <div
-                class="add-comment"
+                class={"add-comment " + `add-comment-${this.theme}`}
                 onClick={this.toggleCommentCard.bind(this)}
               >
                 <div>
                   {!this.newCommentMode && (
                     <img
-                      src={getAssetPath(`./assets/icons/icone-mais.png`)}
+                      src={getAssetPath(
+                        `./assets/icons/icone-mais-${this.theme}.svg`
+                      )}
                       alt=""
+                      id="open"
                     />
                   )}
                   {this.newCommentMode && (
                     <img
-                      src={getAssetPath(`./assets/icons/icone-fechar.png`)}
+                      src={getAssetPath(
+                        `./assets/icons/icone-fechar-${this.theme}.svg`
+                      )}
                       alt=""
+                      id="close"
                     />
                   )}
                   <span>Criar Comentario</span>

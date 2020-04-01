@@ -23,6 +23,7 @@ export class EjConversation {
   //cid == conversation_id
   @Prop() cid: string;
   @Prop() user: User = new User();
+  @Prop() theme: string = "osf";
   @Prop() showRegisterComponent: boolean = false;
   @Prop() queryParams: any = null;
   @Event() closeBoard: EventEmitter;
@@ -88,11 +89,12 @@ export class EjConversation {
     return (
       <div>
         <div id="user-prop">{this.user.name}</div>
-        <ej-conversation-board></ej-conversation-board>
+        <ej-conversation-board theme={this.theme}></ej-conversation-board>
         <ej-conversation-comments
           cid={this.cid}
           host={this.host}
           user={this.user}
+          theme={this.theme}
           queryParams={this.queryParams}
         ></ej-conversation-comments>
       </div>
