@@ -8,6 +8,7 @@ import {
   getAssetPath,
 } from "@stencil/core";
 import { HTMLStencilElement } from "@stencil/core/internal";
+import "@polymer/paper-button/paper-button.js";
 
 @Component({
   tag: "ej-conversation-board",
@@ -15,8 +16,8 @@ import { HTMLStencilElement } from "@stencil/core/internal";
 export class EjConversationBoard {
   // Indicate that name should be a public property on the component
   @Element() el!: HTMLStencilElement;
-  @Prop() currentContainer: number = 1;
-  @Prop() currentStep: number = 1;
+  @Prop() currentContainer: number = 0;
+  @Prop() currentStep: number = 0;
   @Prop() theme: string;
   @Event() closeBoard: EventEmitter;
 
@@ -96,12 +97,77 @@ export class EjConversationBoard {
     return true;
   }
 
+  lgpdAgree() {
+    localStorage.setItem("lgpd", "agree");
+    this.nextBoard();
+  }
+
+  lgpdDisagree() {
+    localStorage.setItem("lgpd", "disagree");
+    this.skip();
+    this.closeBoard.emit({ blockedByLGPD: true });
+  }
+
   render() {
     if (this.showBoard()) {
       return (
         <div class="board">
           <div class="background"></div>
           <div class="modal">
+            <div id="container0">
+              <div class={"board-header " + `board-header-${this.theme}`}>
+                <div class="img">
+                  <img
+                    src={getAssetPath(
+                      `./assets/icons/board-logo-${this.theme}.png`
+                    )}
+                    alt=""
+                  />
+                </div>
+                <h1>todos importam na luta contra a corrupção.</h1>
+                <div class="lgpd">
+                  <span>
+                    <i>
+                      Ao participar desta seção, você nos ajuda a entender sua
+                      opinião sobre a luta anticorrupção e como percebe
+                      determinadas afirmações. Usaremos estes dados apenas para
+                      melhorar a comunicação da Unidos Contra a Corrupção com
+                      você e outras pessoas, conforme descrito em nossa{" "}
+                      <a
+                        target="_blank"
+                        href="http://privacidade.transparenciainternacional.org.br/unidos-contra-a-corrupcao/"
+                      >
+                        Política de Privacidade
+                      </a>
+                      . Ao clicar no botão abaixo, entenderemos que está de
+                      acordo com estes termos e aceita nos ajudar a melhorar
+                      nossa comunicação.
+                    </i>
+                  </span>
+                </div>
+                <div class="lgpd-modal">
+                  <div>
+                    <paper-button
+                      class={"lgpd-card-btn " + `lgpd-card-btn-${this.theme}`}
+                      onClick={this.lgpdAgree.bind(this)}
+                    >
+                      aceito e vou responder
+                    </paper-button>
+                  </div>
+                  <div>
+                    <paper-button
+                      class={
+                        "lgpd-card-btn-unfocused " +
+                        `lgpd-card-btn-${this.theme}`
+                      }
+                      onClick={this.lgpdDisagree.bind(this)}
+                    >
+                      não estou de acordo
+                    </paper-button>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div id="container1">
               <div class={"board-header " + `board-header-${this.theme}`}>
                 <div class="img">
@@ -171,8 +237,12 @@ export class EjConversationBoard {
                 </div>
                 <h1>Inclua comentários.</h1>
                 <h2>
-                  Inclua o seu comentário, o que você pensa é muito importante
-                  para nós.
+                  Além de votar, você também pode incluir comentários. Tudo isso
+                  é feito na plataforma&nbsp;
+                  <a target="_blank" href="https://www.ejparticipe.org/start/">
+                    EJ
+                  </a>
+                  , um software livre brasileiro para coleta de opiniões.
                 </h2>
               </div>
               <div class="control-modal">
@@ -192,6 +262,9 @@ export class EjConversationBoard {
               </div>
             </div>
             <div class="steps">
+              <div id="step0">
+                <div class="circle"></div>
+              </div>
               <div id="step1">
                 <div class="circle"></div>
               </div>

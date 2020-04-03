@@ -30,16 +30,21 @@ export class EjConversationComments {
   @Prop() showRegisterComponent: boolean = false;
   @Prop() queryParams: any;
   @Prop() theme: string;
+  @Prop() LGPDDenied: boolean = false;
 
   @Listen("closeBoard", { target: "window" })
-  async onCloseBoard() {
+  async onCloseBoard(event?: any) {
     console.log("Board visualizado");
-    this.setUICommentState();
+    this.setUICommentState(event);
     this.setUserStats();
   }
 
   async componentWillLoad() {
     this.prepareToLoad();
+  }
+
+  componentDidRender() {
+    this.setUICommentState();
   }
 
   async prepareToLoad() {
@@ -51,7 +56,6 @@ export class EjConversationComments {
         ...(await this.api.getConversationNextComment(this.conversation)),
       };
       this.setUserStats();
-      this.setUICommentState();
       this.voteUsingQueryParams(queryParams);
     } catch (err) {
       console.log(err);
@@ -73,28 +77,41 @@ export class EjConversationComments {
     this.api.COMMENT_ROUTE = "";
   }
 
-  private setUICommentState() {
-    if (!this.comment.content) {
+  private setUICommentState(event?: any) {
+    if (this.comment && !this.comment.content) {
       this.comment = {
         content: "Obrigado por participar!",
       };
     }
-    this.hideChoices();
+    if (this.userBlocksDataCollect(event)) {
+      this.LGPDDenied = true;
+    }
+    this.toggleChoices();
     this.toogleAddCommentButton();
   }
 
-  private hideChoices() {
+  private userBlocksDataCollect(event: any) {
+    if (event) {
+      return event && event.detail && event.detail.blockedByLGPD;
+    }
+    return localStorage.getItem("lgpd") == "disagree";
+  }
+
+  private toggleChoices() {
+    let choices: HTMLElement = this.el.shadowRoot.querySelector("#choices");
     if (
-      this.comment.content &&
-      this.comment.content == "Obrigado por participar!"
+      (this.comment.content &&
+        this.comment.content == "Obrigado por participar!") ||
+      this.LGPDDenied
     ) {
-      let choices: HTMLElement = this.el.shadowRoot.querySelector("#choices");
       choices.style.display = "none";
+    } else {
+      choices.style.display = "flex";
     }
   }
 
   private toogleAddCommentButton() {
-    if (this.user.stats.createdComments == 2) {
+    if (this.user.stats.createdComments == 2 || this.LGPDDenied) {
       let addCommentLink: HTMLElement = this.el.shadowRoot.querySelector(
         ".add-comment"
       );
@@ -208,6 +225,12 @@ export class EjConversationComments {
     skipButton.disabled = false;
   }
 
+  private resetLGPD() {
+    localStorage.removeItem("userSawBoard");
+    localStorage.removeItem("lgpd");
+    location.reload();
+  }
+
   render() {
     return (
       <div>
@@ -267,7 +290,19 @@ export class EjConversationComments {
                   </div>
                 </div>
                 <div class="comment-title">
-                  {this.comment && <div>{this.comment.content}</div>}
+                  {!this.LGPDDenied && this.comment && (
+                    <div>{this.comment.content}</div>
+                  )}
+                  {this.LGPDDenied && (
+                    <div>
+                      Estamos tristes em não poder contar com a sua opinião.
+                      Caso mude de ideia,
+                      <div onClick={this.resetLGPD.bind(this)}>
+                        <a href="">acesse aqui</a>
+                      </div>
+                      e concorde com a nossa política de privacidade.
+                    </div>
+                  )}
                 </div>
                 <div class="loading">
                   <ej-conversation-spinner background="no-background"></ej-conversation-spinner>
@@ -380,7 +415,12 @@ export class EjConversationComments {
           </div>
           <div class="author">
             <span>Feito por: </span>
-            <img src={getAssetPath(`./assets/icons/logo-ej-mini.png`)} alt="" />
+            <a target="_blank" href="https://www.ejparticipe.org/start/">
+              <img
+                src={getAssetPath(`./assets/icons/logo-ej-mini.png`)}
+                alt=""
+              />
+            </a>
           </div>
         </div>
       </div>

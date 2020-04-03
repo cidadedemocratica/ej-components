@@ -20,7 +20,7 @@ run_tests:
 publish_to_npm:
   stage: publish
   variables:
-    NPM_TOKEN: "e8a867aa-3840-4d03-83df-7fbb6f25ae4e"
+    NPM_TOKEN: "e5585806-c701-4516-8d28-3734184abefa"
   script:
     - cd conversations
     - npm install -g @stencil/core@latest --save-exact && npm install

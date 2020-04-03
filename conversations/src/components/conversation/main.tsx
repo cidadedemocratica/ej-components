@@ -26,7 +26,6 @@ export class EjConversation {
   @Prop() theme: string = "osf";
   @Prop() showRegisterComponent: boolean = false;
   @Prop() queryParams: any = null;
-  @Event() closeBoard: EventEmitter;
   @Event() tokenExists: EventEmitter;
 
   @Listen("register")

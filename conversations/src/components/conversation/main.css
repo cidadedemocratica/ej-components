@@ -166,11 +166,48 @@ h2 {
 
 /* ======== BOARDS ELEMENTS ========*/
 
+.lgpd {
+	font-size: 2vh;
+	width: 90%;
+	margin: 10px auto;
+	text-align: center;
+	font-family: Helvetica;
+}
+
+.lgpd-modal > div {
+	width: 50%;
+	margin: auto;
+}
+
+.lgpd-card-btn, .lgpd-card-btn-unfocused {
+	margin: unset;
+	width: 100%;
+	margin-bottom: 10px;
+	font-size: 2.5vh;
+	text-transform: uppercase;
+	text-align: center;
+	font-family: Folio;
+	font-weight: 100;
+}
+.lgpd-card-btn {
+	background-color: #fb127e;
+	color: white;
+}
+
+.lgpd-card-btn-unfocused {
+	background-color: white;
+	color: #fb127e;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #fb127e;
+}
+
+
 #container1 h1 {
 	margin-bottom: 60px !important;
 }
 
-#container2, #container3 {
+#container1, #container2, #container3 {
 	display: none;
 }
 
@@ -212,7 +249,7 @@ h2 {
   background-color: white;
   top: 5%;
   z-index: 1000;
-	left: calc(50% - 269px);
+	left: calc(45% - 269px);
 	width: 40vw;
 	max-width: unset;
 }
@@ -274,11 +311,11 @@ h2 {
 		width: 35%;
 }
 
-#step2 .circle, #step3 .circle {
+#step1 .circle, #step2 .circle, #step3 .circle {
 	background-color: #909090;
 }
 
-#step1, #step2, #step3 {
+#step0, #step1, #step2, #step3 {
 	flex-grow: 1;
 	width: 50%;
 }
@@ -577,6 +614,20 @@ textarea {
 	font-weight: 100;
 }
 
+.card-btn-unfocused > div {
+	width: 100%;
+	margin-bottom: 10px;
+	font-size: 3vh;
+	text-transform: uppercase;
+	background-color: white;
+	color: #fb127e ;
+	padding: 20px 0 20px 0;
+	text-align: center;
+	font-family: Folio;
+	font-weight: 100;
+}
+
+
 .register-card {
 	padding: 20px 30px 30px 30px;
 	margin-top: 70px;
@@ -722,5 +773,9 @@ textarea {
 
 	.skip-modal {
 		font-size: 1.6vh;
+	}
+
+	.lgpd-modal > div {
+		width: 70%;
 	}
 }
