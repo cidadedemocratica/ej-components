@@ -106,6 +106,7 @@ export class EjConversationBoard {
     localStorage.setItem("lgpd", "disagree");
     this.skip();
     this.closeBoard.emit({ blockedByLGPD: true });
+    location.reload();
   }
 
   render() {

@@ -628,6 +628,10 @@ textarea {
 }
 
 
+.lgpd-register-denied {
+	font-size: 3vh;
+}
+
 .register-card {
 	padding: 20px 30px 30px 30px;
 	margin-top: 70px;

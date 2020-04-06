@@ -79,10 +79,13 @@ export class EjConversation {
     }
     if (this.showRegisterComponent) {
       return (
-        <ej-conversation-register
-          host={this.host}
-          user={this.user}
-        ></ej-conversation-register>
+        <div>
+          <ej-conversation-board theme={this.theme}></ej-conversation-board>
+          <ej-conversation-register
+            host={this.host}
+            user={this.user}
+          ></ej-conversation-register>
+        </div>
       );
     }
     return (

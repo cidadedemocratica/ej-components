@@ -27,9 +27,12 @@ it("should render register component", async () => {
   expect(page.root).toEqualHtml(`
      <ej-conversation show-register-component="true" cid="" host="">
        <mock:shadow-root>
+       <div>
+        <ej-conversation-board theme="osf"></ej-conversation-board>
         <ej-conversation-register
           host=""
         ></ej-conversation-register>
+        </div>
        </mock:shadow-root>
      </ej-conversation>
   `);
