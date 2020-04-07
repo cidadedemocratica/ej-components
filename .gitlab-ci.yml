@@ -1,7 +1,8 @@
 image: node:10
 stages:
   - test
-  - publish
+  # TODO: fix this https://gitlab.com/pencillabs/ej/conversation-component/-/issues/1
+  # - publish
 
 run_tests:
   stage: test
@@ -16,21 +17,20 @@ run_tests:
       - conversations/
   tags:
     - osf
-
-publish_to_npm:
-  stage: publish
-  variables:
-    NPM_TOKEN: "e5585806-c701-4516-8d28-3734184abefa"
-  script:
-    - cd conversations
-    - npm install -g @stencil/core@latest --save-exact && npm install
-    - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
-    - make publish
-  tags:
-    - osf
-  only:
-    refs:
-      - master
-    changes:
-      # deploy to npm only when package.json changes
-      - "conversations/package.json"
+  # publish_to_npm:
+  #   stage: publish
+  #   variables:
+  #     NPM_TOKEN: "e5585806-c701-4516-8d28-3734184abefa"
+  #   script:
+  #     - cd conversations
+  #     - npm install -g @stencil/core@latest --save-exact && npm install
+  #     - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
+  #     - make publish
+  #   tags:
+  #     - osf
+  #   only:
+  #     refs:
+  #       - master
+  #     changes:
+  #       # deploy to npm only when package.json changes
+  #       - "conversations/package.json"

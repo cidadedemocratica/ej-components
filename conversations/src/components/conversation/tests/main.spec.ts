@@ -31,6 +31,7 @@ it("should render register component", async () => {
         <ej-conversation-board theme="osf"></ej-conversation-board>
         <ej-conversation-register
           host=""
+          theme="osf"
         ></ej-conversation-register>
         </div>
        </mock:shadow-root>

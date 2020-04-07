@@ -25,6 +25,7 @@ export class EjConversation {
   @Prop() user: User = new User();
   @Prop() theme: string = "osf";
   @Prop() showRegisterComponent: boolean = false;
+  @Prop() showBoardComponent: boolean = true;
   @Prop() queryParams: any = null;
   @Event() tokenExists: EventEmitter;
 
@@ -81,7 +82,9 @@ export class EjConversation {
     if (this.showRegisterComponent) {
       return (
         <div>
-          <ej-conversation-board theme={this.theme}></ej-conversation-board>
+          {this.showBoardComponent && (
+            <ej-conversation-board theme={this.theme}></ej-conversation-board>
+          )}
           <ej-conversation-register
             host={this.host}
             user={this.user}
@@ -93,7 +96,9 @@ export class EjConversation {
     return (
       <div>
         <div id="user-prop">{this.user.name}</div>
-        <ej-conversation-board theme={this.theme}></ej-conversation-board>
+        {this.showBoardComponent && (
+          <ej-conversation-board theme={this.theme}></ej-conversation-board>
+        )}
         <ej-conversation-comments
           cid={this.cid}
           host={this.host}
