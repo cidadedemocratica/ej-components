@@ -32,6 +32,7 @@ export class EjConversation {
   async registerHandler() {
     this.user = { ...(await this.api.authenticate()) };
     this.showRegisterComponent = false;
+    location.reload();
   }
 
   componentWillLoad() {
@@ -84,6 +85,7 @@ export class EjConversation {
           <ej-conversation-register
             host={this.host}
             user={this.user}
+            theme={this.theme}
           ></ej-conversation-register>
         </div>
       );

@@ -643,6 +643,11 @@ textarea {
 	width: 40%;
 }
 
+.register-error {
+	font-size: 1.5vh;
+	color: red;
+}
+
 .card button {
 	border-style: none;
   border-radius: 1rem;

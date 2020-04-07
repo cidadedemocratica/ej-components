@@ -28,6 +28,12 @@ export class EjConversationRegister {
   @Prop() user: User = new User();
   @Event() register: EventEmitter;
   @Prop() LGPDDenied: boolean = false;
+  @Prop() theme: string = "osf";
+  @Prop() registerErrors: any = { name: "" };
+  errorsTranslation: any = {
+    "Error: Ensure this field has at least 5 characters.":
+      "Seu nome deve ter no mínimo 5 caracteres.",
+  };
 
   @Listen("closeBoard", { target: "window" })
   async onCloseBoard(event?: any) {
@@ -76,14 +82,15 @@ export class EjConversationRegister {
         this.register.emit(this.user);
       }
     } catch (error) {
-      console.log(error);
+      let errorObj = { name: this.errorsTranslation[error.message] };
+      this.registerErrors = { ...errorObj };
     }
   }
 
   render() {
     return (
       <div class="box">
-        <div class="header">
+        <div class={"header " + `header-${this.theme}`}>
           <h1> Registre-se para participar.</h1>
           <div class="stats">
             <div>
@@ -127,6 +134,9 @@ export class EjConversationRegister {
                   id="name"
                 />
               </div>
+              {this.registerErrors && (
+                <div class="register-error">{this.registerErrors.name}</div>
+              )}
               <div id="register-email">
                 <input
                   onChange={(event: UIEvent) => this.setUserEmail(event)}

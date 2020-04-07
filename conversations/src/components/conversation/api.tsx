@@ -123,10 +123,14 @@ export class API {
   }
 
   async createUser(data: any) {
-    return await this.httpRequest(
-      this.REGISTRATION_ROUTE,
-      JSON.stringify(data)
-    );
+    try {
+      return await this.httpRequest(
+        this.REGISTRATION_ROUTE,
+        JSON.stringify(data)
+      );
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async httpRequest(route: string, payload?: string) {
@@ -152,7 +156,8 @@ export class API {
         return {};
       }
     } else {
-      return [];
+      let invalidResponse = await response.json();
+      throw new Error(invalidResponse.name);
     }
   }
 
