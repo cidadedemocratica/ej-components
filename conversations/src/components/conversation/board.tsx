@@ -20,6 +20,21 @@ export class EjConversationBoard {
   @Prop() currentStep: number = 0;
   @Prop() theme: string;
   @Event() closeBoard: EventEmitter;
+  themeOptions: any = {
+    osf: {
+      h1: "todos importam na luta contra a corrupção",
+      lgpdText:
+        "Ao participar desta seção, você nos ajuda a entender sua opinião sobre a luta anticorrupção e como percebe determinadas afirmações. Usaremos estes dados apenas para melhorar a comunicação da Unidos Contra a Corrupção com você e outras pessoas, conforme descrito em nossa",
+      privacyPolitic:
+        "http://privacidade.transparenciainternacional.org.br/unidos-contra-a-corrupcao/",
+    },
+    votorantim: {
+      h1: "AGENTES DA CIDADANIA",
+      lgpdText:
+        "Ao participar você nos ajuda a entender sua opinião sobre questões de cidadania. Isso nos permite saber quais informações te interessam mais e como podemos nos mobilizar juntos! Suas opiniões serão tratadas de acordo com a nossa",
+      privacyPolitic: "https://www.ejparticipe.org/usage/",
+    },
+  };
 
   nextBoard() {
     if (this.currentContainer == 3) {
@@ -125,18 +140,14 @@ export class EjConversationBoard {
                     alt=""
                   />
                 </div>
-                <h1>todos importam na luta contra a corrupção.</h1>
+                <h1>{this.themeOptions[this.theme].h1}</h1>
                 <div class="lgpd">
                   <span>
                     <i>
-                      Ao participar desta seção, você nos ajuda a entender sua
-                      opinião sobre a luta anticorrupção e como percebe
-                      determinadas afirmações. Usaremos estes dados apenas para
-                      melhorar a comunicação da Unidos Contra a Corrupção com
-                      você e outras pessoas, conforme descrito em nossa{" "}
+                      {this.themeOptions[this.theme].lgpdText}
                       <a
                         target="_blank"
-                        href="http://privacidade.transparenciainternacional.org.br/unidos-contra-a-corrupcao/"
+                        href={this.themeOptions[this.theme].privacyPolitic}
                       >
                         Política de Privacidade
                       </a>
@@ -149,7 +160,7 @@ export class EjConversationBoard {
                 <div class="lgpd-modal">
                   <div>
                     <paper-button
-                      class={"lgpd-card-btn " + `lgpd-card-btn-${this.theme}`}
+                      class={"lgpd-card-btn " + `card-btn-${this.theme}`}
                       onClick={this.lgpdAgree.bind(this)}
                     >
                       aceito e vou responder
@@ -159,7 +170,7 @@ export class EjConversationBoard {
                     <paper-button
                       class={
                         "lgpd-card-btn-unfocused " +
-                        `lgpd-card-btn-${this.theme}`
+                        `card-btn-unfocused-${this.theme}`
                       }
                       onClick={this.lgpdDisagree.bind(this)}
                     >
@@ -181,16 +192,23 @@ export class EjConversationBoard {
                 </div>
                 <h1>todos importam na luta contra a corrupção.</h1>
               </div>
-              <div class={"card-btn " + `card-btn-${this.theme}`}>
-                <div onClick={this.nextBoard.bind(this)}>
-                  veja como participar
+              <div class="engage-modal">
+                <div>
+                  <paper-button
+                    onClick={this.nextBoard.bind(this)}
+                    class={"card-btn " + `card-btn-${this.theme}`}
+                  >
+                    veja como participar
+                  </paper-button>
                 </div>
-              </div>
-              <div
-                class={"skip-modal " + `skip-modal-${this.theme}`}
-                onClick={this.skip.bind(this)}
-              >
-                <span>pular apresentação</span>
+                <div>
+                  <paper-button
+                    onClick={this.skip.bind(this)}
+                    class={"skip-modal " + `skip-modal-${this.theme}`}
+                  >
+                    pular apresentação
+                  </paper-button>
+                </div>
               </div>
             </div>
             <div id="container2">
@@ -211,18 +229,21 @@ export class EjConversationBoard {
                 </h2>
               </div>
               <div class="control-modal">
-                <div
-                  class={"card-btn " + `card-btn-${this.theme}`}
-                  onClick={this.previousBoard.bind(this)}
-                >
-                  <div>anterior</div>
+                <div>
+                  <paper-button
+                    onClick={this.previousBoard.bind(this)}
+                    class={"card-btn " + `card-btn-${this.theme}`}
+                  >
+                    anterior
+                  </paper-button>
                 </div>
-                <div
-                  class={"card-btn " + `card-btn-${this.theme}`}
-                  onClick={this.nextBoard.bind(this)}
-                >
-                  {" "}
-                  <div>proximo</div>{" "}
+                <div>
+                  <paper-button
+                    onClick={this.nextBoard.bind(this)}
+                    class={"card-btn " + `card-btn-${this.theme}`}
+                  >
+                    proximo
+                  </paper-button>
                 </div>
               </div>
             </div>
@@ -247,18 +268,21 @@ export class EjConversationBoard {
                 </h2>
               </div>
               <div class="control-modal">
-                <div
-                  class={"card-btn " + `card-btn-${this.theme}`}
-                  onClick={this.previousBoard.bind(this)}
-                >
-                  <div>anterior</div>
+                <div>
+                  <paper-button
+                    onClick={this.previousBoard.bind(this)}
+                    class={"card-btn " + `card-btn-${this.theme}`}
+                  >
+                    anterior
+                  </paper-button>
                 </div>
-                <div
-                  class={"card-btn " + `card-btn-${this.theme}`}
-                  onClick={this.nextBoard.bind(this)}
-                >
-                  {" "}
-                  <div>fechar</div>{" "}
+                <div>
+                  <paper-button
+                    onClick={this.nextBoard.bind(this)}
+                    class={"card-btn " + `card-btn-${this.theme}`}
+                  >
+                    fechar
+                  </paper-button>
                 </div>
               </div>
             </div>

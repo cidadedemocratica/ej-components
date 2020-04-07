@@ -106,8 +106,13 @@
 	color: #f14236 !important;
 }
 
-.card-btn-votorantim > div {
+.card-btn-votorantim {
 	background-color:  #f14236!important;
+}
+
+.card-btn-unfocused-votorantim {
+	color:  #f14236!important;
+	background-color:  white!important;
 }
 
 .skip-modal-votorantim {
@@ -174,12 +179,13 @@ h2 {
 	font-family: Helvetica;
 }
 
-.lgpd-modal > div {
+.lgpd-modal > div, .engage-modal > div {
 	width: 50%;
 	margin: auto;
+	text-align: center;
 }
 
-.lgpd-card-btn, .lgpd-card-btn-unfocused {
+.lgpd-card-btn, .lgpd-card-btn-unfocused, .card-btn {
 	margin: unset;
 	width: 100%;
 	margin-bottom: 10px;
@@ -189,7 +195,7 @@ h2 {
 	font-family: Folio;
 	font-weight: 100;
 }
-.lgpd-card-btn {
+.lgpd-card-btn, .card-btn {
 	background-color: #fb127e;
 	color: white;
 }
@@ -284,7 +290,6 @@ h2 {
 .skip-modal  {
 	width: 80%;
 	text-align: center;
-	margin: 50px auto 30px auto;
 	text-transform: uppercase;
 	color: #fb127e;
 	font-weight: bold;
@@ -298,8 +303,8 @@ h2 {
 }
 
 .control-modal > div {
-	width: unset;
 	width: 40%;
+	margin: auto;
 }
 
 .steps {
@@ -595,25 +600,6 @@ textarea {
 	padding: 10px;
 }
 
-.card-btn {
-	font-family: Raleway,sans-serif;
-	width: calc(100% - 20vw);
-	margin: auto;
-}
-
-.card-btn > div {
-	width: 100%;
-	margin-bottom: 10px;
-	font-size: 3vh;
-	text-transform: uppercase;
-	background-color: #fb127e;
-	color: white;
-	padding: 20px 0 20px 0;
-	text-align: center;
-	font-family: Folio;
-	font-weight: 100;
-}
-
 .card-btn-unfocused > div {
 	width: 100%;
 	margin-bottom: 10px;
@@ -729,10 +715,6 @@ textarea {
 
 	.add-comment {
 		font-size: 1.1rem;
-	}
-
-	.card-btn {
-		width: calc(100% - 40px);
 	}
 
 	.card-btn > div {
