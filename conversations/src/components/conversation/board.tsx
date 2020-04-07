@@ -144,7 +144,7 @@ export class EjConversationBoard {
                 <div class="lgpd">
                   <span>
                     <i>
-                      {this.themeOptions[this.theme].lgpdText}
+                      {this.themeOptions[this.theme].lgpdText}&nbsp;
                       <a
                         target="_blank"
                         href={this.themeOptions[this.theme].privacyPolitic}
@@ -190,7 +190,7 @@ export class EjConversationBoard {
                     alt=""
                   />
                 </div>
-                <h1>todos importam na luta contra a corrupção.</h1>
+                <h1>{this.themeOptions[this.theme].h1}</h1>
               </div>
               <div class="engage-modal">
                 <div>
