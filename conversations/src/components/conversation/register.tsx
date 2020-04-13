@@ -10,7 +10,6 @@ import {
 } from "@stencil/core";
 import { API, User } from "./api/api";
 import { HTMLStencilElement } from "@stencil/core/internal";
-import "@polymer/paper-button/paper-button.js";
 
 @Component({
   tag: "ej-conversation-register",
@@ -146,9 +145,9 @@ export class EjConversationRegister {
                   id="mail"
                 />
               </div>
-              <paper-button onClick={() => this.registerUser()}>
+              <button type="button" onClick={() => this.registerUser()}>
                 Participar
-              </paper-button>
+              </button>
             </div>
           )}
           {this.LGPDDenied && (

@@ -115,7 +115,7 @@
 	background-color:  white!important;
 }
 
-.skip-modal-votorantim {
+.skip-card-votorantim {
 	color: #f14236 !important;
 }
 
@@ -185,22 +185,26 @@ h2 {
 	text-align: center;
 }
 
-.lgpd-card-btn, .lgpd-card-btn-unfocused, .card-btn {
+.lgpd-card-btn, .lgpd-card-btn-unfocused, .skip-card, .card-btn {
 	margin: unset;
-	width: 100%;
 	margin-bottom: 10px;
 	font-size: 2.5vh;
 	text-transform: uppercase;
 	text-align: center;
 	font-family: Folio;
 	font-weight: 100;
+	border-style: none;
+	box-sizing: content-box;
+	padding: 11px 9px 11px 9px;
+	border-radius: 0.2rem;
+	width: 75%;
 }
 .lgpd-card-btn, .card-btn {
 	background-color: #fb127e;
 	color: white;
 }
 
-.lgpd-card-btn-unfocused {
+.lgpd-card-btn-unfocused, .skip-card {
 	background-color: white;
 	color: #fb127e;
 	border-style: solid;
@@ -255,7 +259,7 @@ h2 {
   background-color: white;
   top: 5%;
   z-index: 1000;
-	left: calc(45% - 269px);
+	left: calc(50% - 271px);
 	width: 40vw;
 	max-width: unset;
 }
@@ -287,24 +291,17 @@ h2 {
 	line-height: 1.4;
 }
 
-.skip-modal  {
-	width: 80%;
-	text-align: center;
-	text-transform: uppercase;
-	color: #fb127e;
-	font-weight: bold;
-	font-size: 3vh;
-}
-
 .control-modal {
 	display: flex;
 	color: white;
 	margin-bottom: 10px;
+	width: 80%;
+	margin: auto auto 10px auto;
+	text-align: center;
 }
 
-.control-modal > div {
-	width: 40%;
-	margin: auto;
+.control-modal div {
+	flex-grow: 1;
 }
 
 .steps {
@@ -514,22 +511,26 @@ h2 {
 	font-weight: 100;
 }
 
-.choice paper-button {
+.choice button {
 	justify-content: center;
 	background: 0 0;
-  border-radius: 50%;
-  height: initial;
+  border-radius: 50% !important;
   margin: 0;
-  padding: 0;
+  padding: 1px;
 	font-family: inherit;
   color: inherit;
   font-size: 0.8rem;
   font-weight: inherit;
 	min-width: 44px;
-	height: 44px;
+	height: 44px !important;
 	background-color: white;
-	border-style: solid;
+	border-style: solid !important;
 	border-width: 1px;
+	box-sizing: content-box;
+}
+
+.choice button img {
+	vertical-align: middle;
 }
 
 .choice > div {
@@ -576,6 +577,10 @@ paper-button .green {
 /* ======== NEW COMMENT CARD ELEMENTS ========*/
 .new-comment-card {
 	display: none;
+}
+
+.new-comment-card button {
+	margin-top: 20px;
 }
 
 .advise {
@@ -650,14 +655,14 @@ textarea {
 
 .card button {
 	border-style: none;
-  border-radius: 1rem;
+  border-radius: 0.4rem;
   height: 30px;
 	text-transform: uppercase;
 	font-family: Helvetica;
 	font-weight: 100;
 }
 
-.register-card paper-button {
+.register-card button {
 	border-style: none;
   border-radius: 1rem;
   height: 30px;
@@ -666,9 +671,10 @@ textarea {
 	background-color: #000937;
 	color: white;
 	font-family: Folio;
-	font-size: 3.5vh;
+	font-size: 2.5vh;
 	box-shadow: 0px 0px 2px 0px;
-	width: calc(45% - 30px);
+	box-sizing: content-box;
+	padding: 4px 10px 4px 10px;
 	max-width: 150px;
 }
 
@@ -762,11 +768,8 @@ textarea {
 		font-size: 2vh;
 	}
 
-	.skip-modal {
+	.skip-card {
 		font-size: 1.6vh;
 	}
 
-	.lgpd-modal > div {
-		width: 70%;
-	}
 }

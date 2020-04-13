@@ -8,7 +8,6 @@ import {
 } from "@stencil/core";
 import { API, User } from "./api/api";
 import { HTMLStencilElement } from "@stencil/core/internal";
-import "@polymer/paper-button/paper-button.js";
 
 @Component({
   tag: "ej-conversation-comments",
@@ -42,6 +41,7 @@ export class EjConversationComments {
 
   async componentWillLoad() {
     this.prepareToLoad();
+    console.log(document.createElement("foo"));
   }
 
   componentDidRender() {
@@ -319,31 +319,26 @@ export class EjConversationComments {
                 </div>
                 <div id="choices">
                   <div class="choice">
-                    <paper-button
-                      class="green"
-                      onClick={() => this.vote("agree")}
-                    >
+                    <button class="green" onClick={() => this.vote("agree")}>
                       <img
                         src={getAssetPath(`./assets/icons/icone-concorda.png`)}
                         alt=""
                       />
-                    </paper-button>
+                    </button>
                     <div class="agree">Concordar</div>
                   </div>
                   <div class="choice">
-                    <paper-button
-                      class="pink"
-                      onClick={() => this.vote("skip")}
-                    >
+                    <button class="pink" onClick={() => this.vote("skip")}>
                       <img
                         src={getAssetPath(`./assets/icons/icone-pular.png`)}
                         alt=""
                       />
-                    </paper-button>
+                    </button>
                     <div class="skip">Pular</div>
                   </div>
                   <div class="choice">
-                    <paper-button
+                    <button
+                      type="button"
                       class="red"
                       onClick={() => this.vote("disagree")}
                     >
@@ -351,7 +346,7 @@ export class EjConversationComments {
                         src={getAssetPath(`./assets/icons/icone-discordo.png`)}
                         alt=""
                       />
-                    </paper-button>
+                    </button>
                     <div class="disagree">Discordar</div>
                   </div>
                 </div>
@@ -384,12 +379,12 @@ export class EjConversationComments {
               {this.commentsError && (
                 <div class="api-error">{this.commentsError.name}</div>
               )}
-              <paper-button
+              <button
                 class={"card-btn " + `card-btn-${this.theme}`}
                 onClick={this.addComment.bind(this)}
               >
                 <div>enviar comentario</div>
-              </paper-button>
+              </button>
             </div>
             {this.user.stats.createdComments < 2 && (
               <div

@@ -8,7 +8,6 @@ import {
   getAssetPath,
 } from "@stencil/core";
 import { HTMLStencilElement } from "@stencil/core/internal";
-import "@polymer/paper-button/paper-button.js";
 
 @Component({
   tag: "ej-conversation-board",
@@ -159,15 +158,15 @@ export class EjConversationBoard {
                 </div>
                 <div class="lgpd-modal">
                   <div>
-                    <paper-button
+                    <button
                       class={"lgpd-card-btn " + `card-btn-${this.theme}`}
                       onClick={this.lgpdAgree.bind(this)}
                     >
                       aceito e vou responder
-                    </paper-button>
+                    </button>
                   </div>
                   <div>
-                    <paper-button
+                    <button
                       class={
                         "lgpd-card-btn-unfocused " +
                         `card-btn-unfocused-${this.theme}`
@@ -175,7 +174,7 @@ export class EjConversationBoard {
                       onClick={this.lgpdDisagree.bind(this)}
                     >
                       não estou de acordo
-                    </paper-button>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -194,20 +193,20 @@ export class EjConversationBoard {
               </div>
               <div class="engage-modal">
                 <div>
-                  <paper-button
+                  <button
                     onClick={this.nextBoard.bind(this)}
                     class={"card-btn " + `card-btn-${this.theme}`}
                   >
                     veja como participar
-                  </paper-button>
+                  </button>
                 </div>
                 <div>
-                  <paper-button
+                  <button
                     onClick={this.skip.bind(this)}
-                    class={"skip-modal " + `skip-modal-${this.theme}`}
+                    class={"skip-card " + `skip-card-${this.theme}`}
                   >
                     pular apresentação
-                  </paper-button>
+                  </button>
                 </div>
               </div>
             </div>
@@ -230,20 +229,20 @@ export class EjConversationBoard {
               </div>
               <div class="control-modal">
                 <div>
-                  <paper-button
+                  <button
                     onClick={this.previousBoard.bind(this)}
                     class={"card-btn " + `card-btn-${this.theme}`}
                   >
                     anterior
-                  </paper-button>
+                  </button>
                 </div>
                 <div>
-                  <paper-button
+                  <button
                     onClick={this.nextBoard.bind(this)}
                     class={"card-btn " + `card-btn-${this.theme}`}
                   >
                     proximo
-                  </paper-button>
+                  </button>
                 </div>
               </div>
             </div>
@@ -269,20 +268,20 @@ export class EjConversationBoard {
               </div>
               <div class="control-modal">
                 <div>
-                  <paper-button
+                  <button
                     onClick={this.previousBoard.bind(this)}
                     class={"card-btn " + `card-btn-${this.theme}`}
                   >
                     anterior
-                  </paper-button>
+                  </button>
                 </div>
                 <div>
-                  <paper-button
+                  <button
                     onClick={this.nextBoard.bind(this)}
                     class={"card-btn " + `card-btn-${this.theme}`}
                   >
                     fechar
-                  </paper-button>
+                  </button>
                 </div>
               </div>
             </div>
