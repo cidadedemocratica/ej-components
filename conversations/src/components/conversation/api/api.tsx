@@ -20,33 +20,13 @@ export class User {
     this.stats = {};
   }
 }
-export class API {
-  HOST: string = "";
-  API_URL: string = "";
-  CONVERSATIONS_ROUTE: string = "";
-  VOTES_ROUTE: string = "";
-  COMMENTS_ROUTE: string = "";
-  REGISTRATION_ROUTE: string = "";
-  COMMENT_ROUTE: string = "";
-  USER_STATISTICS_ROUTE: string = "";
-  USER_COMMENTS_ROUTE: string = "";
-  USER_PENDING_COMMENTS_ROUTE: string = "";
-  MAUTIC_COOKIE: string = "mtc_id";
-  VOTE_CHOICES: any = { skip: 0, agree: 1, disagree: -1 };
 
+import { APIConfig } from "./api_config";
+
+export class API {
+  config: APIConfig;
   constructor(host: string, conversationID: string, commentID?: string) {
-    this.HOST = host;
-    this.API_URL = `${this.HOST}/api/v1`;
-    this.CONVERSATIONS_ROUTE = `${this.API_URL}/conversations/${conversationID}/`;
-    this.VOTES_ROUTE = `${this.API_URL}/votes/`;
-    this.COMMENTS_ROUTE = `${this.API_URL}/comments/`;
-    if (commentID) {
-      this.COMMENT_ROUTE = `${this.API_URL}/comments/${commentID}/`;
-    }
-    this.REGISTRATION_ROUTE = `${this.HOST}/rest-auth/registration/`;
-    this.USER_STATISTICS_ROUTE = `${this.API_URL}/conversations/${conversationID}/user-statistics/`;
-    this.USER_COMMENTS_ROUTE = `${this.API_URL}/conversations/${conversationID}/user-comments/`;
-    this.USER_PENDING_COMMENTS_ROUTE = `${this.API_URL}/conversations/${conversationID}/user-pending-comments/`;
+    this.config = new APIConfig(host, conversationID, commentID);
   }
 
   async authenticate() {
@@ -64,17 +44,17 @@ export class API {
   }
 
   async getConversation() {
-    return this.httpRequest(this.CONVERSATIONS_ROUTE);
+    return this.httpRequest(this.config.CONVERSATIONS_ROUTE);
   }
 
   async getUserConversationStatistics() {
-    return this.httpRequest(this.USER_STATISTICS_ROUTE);
+    return this.httpRequest(this.config.USER_STATISTICS_ROUTE);
   }
 
   async getConversationNextComment(conversation: any) {
     let commentUrl: string = "";
-    if (this.COMMENT_ROUTE) {
-      commentUrl = this.COMMENT_ROUTE;
+    if (this.config.COMMENT_ROUTE) {
+      commentUrl = this.config.COMMENT_ROUTE;
     } else {
       commentUrl = this.getRandomCommentUrl(conversation);
     }
@@ -96,21 +76,23 @@ export class API {
   }
 
   async getUserCreatedCommentsCount() {
-    const response = await this.httpRequest(this.USER_COMMENTS_ROUTE);
+    const response = await this.httpRequest(this.config.USER_COMMENTS_ROUTE);
     return response.length;
   }
 
   async getUserPendingCommentsCount() {
-    const response = await this.httpRequest(this.USER_PENDING_COMMENTS_ROUTE);
+    const response = await this.httpRequest(
+      this.config.USER_PENDING_COMMENTS_ROUTE
+    );
     return response.length;
   }
 
   async computeVote(comment: any, choice: string) {
     let body: string = JSON.stringify({
       comment: this.getCommentID(comment),
-      choice: this.VOTE_CHOICES[choice],
+      choice: this.config.VOTE_CHOICES[choice],
     });
-    await this.httpRequest(this.VOTES_ROUTE, body);
+    await this.httpRequest(this.config.VOTES_ROUTE, body);
   }
 
   async createComment(content: any, conversation: any) {
@@ -119,13 +101,13 @@ export class API {
       conversation: this.getConversationID(conversation),
       status: "approved",
     };
-    await this.httpRequest(this.COMMENTS_ROUTE, JSON.stringify(data));
+    await this.httpRequest(this.config.COMMENTS_ROUTE, JSON.stringify(data));
   }
 
   async createUser(data: any) {
     try {
       return await this.httpRequest(
-        this.REGISTRATION_ROUTE,
+        this.config.REGISTRATION_ROUTE,
         JSON.stringify(data)
       );
     } catch (error) {
@@ -198,7 +180,7 @@ export class API {
    * username on EJ
    */
   getUserIdentifierCookie(cookies: string): string {
-    let cookieIndex = cookies.indexOf(this.MAUTIC_COOKIE);
+    let cookieIndex = cookies.indexOf(this.config.MAUTIC_COOKIE);
     if (cookieIndex != -1) {
       let cookieKeyAndValue = cookies.substring(cookieIndex, cookies.length);
       let cookieValue = cookieKeyAndValue.split("=")[1];
@@ -224,7 +206,7 @@ export class API {
   getRandomCommentUrl(conversation: any) {
     let comment: any = conversation.links["random-comment"];
     try {
-      if (this.HOST.split(":")[0] == "https") {
+      if (this.config.HOST.split(":")[0] == "https") {
         return comment.replace("http", "https");
       }
       return comment;
@@ -236,7 +218,7 @@ export class API {
   getApprovedCommentsUrl(conversation: any) {
     let comment: any = conversation.links["approved-comments"];
     try {
-      if (this.HOST.split(":")[0] == "https") {
+      if (this.config.HOST.split(":")[0] == "https") {
         return comment.replace("http", "https");
       }
       return comment;

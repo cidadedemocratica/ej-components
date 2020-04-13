@@ -8,7 +8,7 @@ import {
   Element,
   getAssetPath,
 } from "@stencil/core";
-import { API, User } from "./api";
+import { API, User } from "./api/api";
 import { HTMLStencilElement } from "@stencil/core/internal";
 import "@polymer/paper-button/paper-button.js";
 

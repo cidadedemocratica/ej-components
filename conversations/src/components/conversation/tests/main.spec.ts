@@ -1,6 +1,6 @@
 import { newSpecPage } from "@stencil/core/testing";
 import { EjConversation } from "../main";
-import { API } from "../api";
+import { API } from "../api/api";
 
 it("should render spinner component", async () => {
   const page = await newSpecPage({
@@ -40,7 +40,7 @@ it("should render register component", async () => {
 });
 
 it("should render comments component", async () => {
-  jest.mock("../api");
+  jest.mock("../api/api");
   API.prototype.authTokenExists = jest.fn().mockReturnValue(true);
   const page = await newSpecPage({
     components: [EjConversation],

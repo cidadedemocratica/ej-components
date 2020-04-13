@@ -7,7 +7,7 @@ import {
   Event,
   EventEmitter,
 } from "@stencil/core";
-import { API, User } from "./api";
+import { API, User } from "./api/api";
 import { HTMLStencilElement } from "@stencil/core/internal";
 
 @Component({

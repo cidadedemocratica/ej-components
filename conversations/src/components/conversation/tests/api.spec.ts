@@ -1,4 +1,4 @@
-import { API } from "../api";
+import { API } from "../api/api";
 
 it("should check user token", () => {
   const api = new API("http://localhost", "1");
@@ -55,7 +55,7 @@ it("should return commentID from EJ data", () => {
     status: "approved",
     created: "2020-02-05T20:08:49.749127Z",
     rejection_reason: 0,
-    rejection_reason_text: ""
+    rejection_reason_text: "",
   };
   let commentID: number = api.getCommentID(comment);
   expect(commentID).toBe(29);
@@ -75,7 +75,7 @@ it("should return conversationID from EJ data", () => {
       "random-comment":
         "http://localhost:8000/api/v1/conversations/5/random-comment/",
       clusterization: null,
-      author: "http://localhost:8000/api/v1/users/6/"
+      author: "http://localhost:8000/api/v1/users/6/",
     },
     title: "participação",
     text: "O componente permite a participação do usuário?",
@@ -85,8 +85,8 @@ it("should return conversationID from EJ data", () => {
     statistics: {
       votes: { agree: 1, disagree: 2, skip: 0, total: 3 },
       comments: { approved: 9, rejected: 0, pending: 0, total: 9 },
-      participants: { voters: 1, commenters: 3 }
-    }
+      participants: { voters: 1, commenters: 3 },
+    },
   };
   let conversationID: number = api.getConversationID(conversation);
   expect(conversationID).toBe(5);
@@ -106,7 +106,7 @@ it("should return comment url from EJ data", () => {
       "random-comment":
         "http://localhost:8000/api/v1/conversations/5/random-comment/",
       clusterization: null,
-      author: "http://localhost:8000/api/v1/users/6/"
+      author: "http://localhost:8000/api/v1/users/6/",
     },
     title: "participação",
     text: "O componente permite a participação do usuário?",
@@ -116,8 +116,8 @@ it("should return comment url from EJ data", () => {
     statistics: {
       votes: { agree: 1, disagree: 2, skip: 0, total: 3 },
       comments: { approved: 9, rejected: 0, pending: 0, total: 9 },
-      participants: { voters: 1, commenters: 3 }
-    }
+      participants: { voters: 1, commenters: 3 },
+    },
   };
   let commentURL: number = api.getRandomCommentUrl(conversation);
   expect(commentURL).toBe(
@@ -139,7 +139,7 @@ it("should return comment url with https from EJ data", () => {
       "random-comment":
         "http://localhost:8000/api/v1/conversations/5/random-comment/",
       clusterization: null,
-      author: "http://localhost:8000/api/v1/users/6/"
+      author: "http://localhost:8000/api/v1/users/6/",
     },
     title: "participação",
     text: "O componente permite a participação do usuário?",
@@ -149,8 +149,8 @@ it("should return comment url with https from EJ data", () => {
     statistics: {
       votes: { agree: 1, disagree: 2, skip: 0, total: 3 },
       comments: { approved: 9, rejected: 0, pending: 0, total: 9 },
-      participants: { voters: 1, commenters: 3 }
-    }
+      participants: { voters: 1, commenters: 3 },
+    },
   };
   let commentURL: number = api.getRandomCommentUrl(conversation);
   expect(commentURL).toBe(
