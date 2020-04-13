@@ -643,7 +643,7 @@ textarea {
 	width: 40%;
 }
 
-.register-error {
+.api-error {
 	font-size: 1.5vh;
 	color: red;
 }

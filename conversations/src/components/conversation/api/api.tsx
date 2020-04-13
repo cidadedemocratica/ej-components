@@ -25,6 +25,7 @@ import { APIConfig } from "./api_config";
 
 export class API {
   config: APIConfig;
+  COMMENTS_PER_USER: number = 2;
   constructor(host: string, conversationID: string, commentID?: string) {
     this.config = new APIConfig(host, conversationID, commentID);
   }
@@ -63,7 +64,7 @@ export class API {
 
   async userCanAddNewComment() {
     let stats = await this.getUserCommentsStatistics();
-    if (stats.createdComments >= 2) {
+    if (stats.createdComments >= this.COMMENTS_PER_USER) {
       return false;
     }
     return true;
@@ -101,7 +102,10 @@ export class API {
       conversation: this.getConversationID(conversation),
       status: "approved",
     };
-    await this.httpRequest(this.config.COMMENTS_ROUTE, JSON.stringify(data));
+    return await this.httpRequest(
+      this.config.COMMENTS_ROUTE,
+      JSON.stringify(data)
+    );
   }
 
   async createUser(data: any) {
@@ -116,19 +120,7 @@ export class API {
   }
 
   async httpRequest(route: string, payload?: string) {
-    let requestOpts: any = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    if (payload) {
-      requestOpts["body"] = payload;
-      requestOpts["method"] = "POST";
-    }
-    if (this.getUserToken()) {
-      requestOpts.headers["Authorization"] = `Token ${this.getUserToken()}`;
-    }
+    let requestOpts = this.getHttpRequestOpts(payload);
     const response = await fetch(route, requestOpts);
     if (response.ok) {
       try {
@@ -225,5 +217,22 @@ export class API {
     } catch (error) {
       return comment;
     }
+  }
+
+  private getHttpRequestOpts(payload: string) {
+    let requestOpts: any = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    if (payload) {
+      requestOpts["body"] = payload;
+      requestOpts["method"] = "POST";
+    }
+    if (this.getUserToken()) {
+      requestOpts.headers["Authorization"] = `Token ${this.getUserToken()}`;
+    }
+    return requestOpts;
   }
 }

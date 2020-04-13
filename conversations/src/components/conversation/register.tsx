@@ -82,8 +82,9 @@ export class EjConversationRegister {
         this.register.emit(this.user);
       }
     } catch (error) {
-      let errorObj = { name: this.errorsTranslation[error.message] };
-      this.registerErrors = { ...errorObj };
+      this.registerErrors = {
+        ...{ name: this.errorsTranslation[error.message] },
+      };
     }
   }
 
@@ -135,7 +136,7 @@ export class EjConversationRegister {
                 />
               </div>
               {this.registerErrors && (
-                <div class="register-error">{this.registerErrors.name}</div>
+                <div class="api-error">{this.registerErrors.name}</div>
               )}
               <div id="register-email">
                 <input

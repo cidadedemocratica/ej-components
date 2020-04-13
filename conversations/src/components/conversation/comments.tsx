@@ -31,6 +31,7 @@ export class EjConversationComments {
   @Prop() queryParams: any;
   @Prop() theme: string;
   @Prop() LGPDDenied: boolean = false;
+  @Prop() commentsError: any = { name: "" };
 
   @Listen("closeBoard", { target: "window" })
   async onCloseBoard(event?: any) {
@@ -74,7 +75,7 @@ export class EjConversationComments {
       this.vote(queryParams.choice);
     }
     //from here component will use this.api.COMMENTS_ROUTE.
-    this.api.COMMENT_ROUTE = "";
+    this.api.config.COMMENT_ROUTE = "";
   }
 
   private setUICommentState(event?: any) {
@@ -90,7 +91,7 @@ export class EjConversationComments {
     this.toogleAddCommentButton();
   }
 
-  private userBlocksDataCollect(event: any) {
+  userBlocksDataCollect(event: any) {
     if (event) {
       return event && event.detail && event.detail.blockedByLGPD;
     }
@@ -159,13 +160,22 @@ export class EjConversationComments {
   private async addComment() {
     let userCanAdd: Boolean = await this.api.userCanAddNewComment();
     if (userCanAdd) {
-      await this.api.createComment(this.newCommentContent, this.conversation);
-      this.toggleCommentCard();
-      this.comment = await this.api.getConversationNextComment(
-        this.conversation
-      );
-      this.setUICommentState();
-      this.setUserStats();
+      try {
+        await this.api.createComment(this.newCommentContent, this.conversation);
+        this.toggleCommentCard();
+        this.comment = await this.api.getConversationNextComment(
+          this.conversation
+        );
+        this.setUICommentState();
+        this.setUserStats();
+      } catch (e) {
+        this.commentsError = {
+          ...{
+            name:
+              "Repetido! Esse comentário já existe na conversa. Tente uma redação diferente e envie novamente",
+          },
+        };
+      }
     }
   }
 
@@ -371,6 +381,9 @@ export class EjConversationComments {
               <textarea
                 onChange={(event: UIEvent) => this.setCommentContent(event)}
               />
+              {this.commentsError && (
+                <div class="api-error">{this.commentsError.name}</div>
+              )}
               <paper-button
                 class={"card-btn " + `card-btn-${this.theme}`}
                 onClick={this.addComment.bind(this)}
