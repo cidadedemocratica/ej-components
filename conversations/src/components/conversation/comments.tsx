@@ -135,6 +135,7 @@ export class EjConversationComments {
   }
 
   private toggleCommentCard() {
+    this.commentsError = {};
     let commentCard: HTMLElement = this.el.shadowRoot.querySelector(
       ".comment-card"
     );
