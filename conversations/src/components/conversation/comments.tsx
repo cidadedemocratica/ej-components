@@ -34,9 +34,9 @@ export class EjConversationComments {
 
   @Listen("closeBoard", { target: "window" })
   async onCloseBoard(event?: any) {
-    console.log("Board visualizado");
     this.setUICommentState(event);
     this.setUserStats();
+    this.voteUsingejQueryParams(this.ejQueryParams);
   }
 
   async componentWillLoad() {
@@ -69,6 +69,9 @@ export class EjConversationComments {
   }
 
   private voteUsingejQueryParams(ejQueryParams: any) {
+    if (!localStorage.getItem("userSawBoard")) {
+      return;
+    }
     if (ejQueryParams.cid && ejQueryParams.commentId && ejQueryParams.choice) {
       this.vote(ejQueryParams.choice);
     }
