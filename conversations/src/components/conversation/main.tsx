@@ -57,10 +57,10 @@ export class EjConversation {
   }
 
   getEJQueryParams(search: string) {
+    let cid: string = "";
+    let commentId: string = "";
+    let choice: string = "";
     if (search != "/" && search != "") {
-      let cid: string = "";
-      let commentId: string = "";
-      let choice: string = "";
       let params: any = search.split("&");
       for (let param of params) {
         if (param.match(/^cid/)) {
@@ -73,8 +73,8 @@ export class EjConversation {
           choice = param.split("=")[1];
         }
       }
-      return { cid: cid, commentId: commentId, choice: choice };
     }
+    return { cid: cid, commentId: commentId, choice: choice };
   }
 
   render() {

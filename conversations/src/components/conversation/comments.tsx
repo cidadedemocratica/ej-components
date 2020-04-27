@@ -49,14 +49,13 @@ export class EjConversationComments {
 
   async prepareToLoad() {
     try {
-      let ejQueryParams: any = this.ejQueryParams;
-      this.api = this.newAPI(ejQueryParams);
+      this.api = this.newAPI(this.ejQueryParams);
       this.conversation = { ...(await this.api.getConversation()) };
       this.comment = {
         ...(await this.api.getConversationNextComment(this.conversation)),
       };
       this.setUserStats();
-      this.voteUsingejQueryParams(ejQueryParams);
+      this.voteUsingejQueryParams(this.ejQueryParams);
     } catch (err) {
       console.log(err);
     }
