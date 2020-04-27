@@ -26,7 +26,7 @@ export class EjConversation {
   @Prop() theme: string = "osf";
   @Prop() showRegisterComponent: boolean = false;
   @Prop() showBoardComponent: boolean = true;
-  @Prop() queryParams: any = null;
+  @Prop() ejQueryParams: any = null;
   @Event() tokenExists: EventEmitter;
 
   @Listen("register")
@@ -38,7 +38,7 @@ export class EjConversation {
 
   componentWillLoad() {
     this.api = new API(this.host, this.cid);
-    this.queryParams = this.readQueryParams();
+    this.ejQueryParams = this.getEJQueryParams(document.location.search);
   }
 
   private async checkToken() {
@@ -56,16 +56,24 @@ export class EjConversation {
     );
   }
 
-  private readQueryParams() {
-    let pathname: string = document.location.search;
-    if (pathname != "/" && pathname != "") {
-      let params: any = pathname.slice(1).split("&");
-      let cid: string = params[0].split("=")[1];
-      let commentId: string = params[1].split("=")[1];
-      let choice: string = params[2].split("=")[1];
+  getEJQueryParams(search: string) {
+    if (search != "/" && search != "") {
+      let cid: string = "";
+      let commentId: string = "";
+      let choice: string = "";
+      let params: any = search.split("&");
+      for (let param of params) {
+        if (param.match(/^cid/)) {
+          cid = param.split("=")[1];
+        }
+        if (param.match(/^comment_id/)) {
+          commentId = param.split("=")[1];
+        }
+        if (param.match(/^choice/)) {
+          choice = param.split("=")[1];
+        }
+      }
       return { cid: cid, commentId: commentId, choice: choice };
-    } else {
-      return false;
     }
   }
 
@@ -104,7 +112,7 @@ export class EjConversation {
           host={this.host}
           user={this.user}
           theme={this.theme}
-          queryParams={this.queryParams}
+          ejQueryParams={this.ejQueryParams}
         ></ej-conversation-comments>
       </div>
     );

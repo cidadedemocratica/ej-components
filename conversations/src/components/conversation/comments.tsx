@@ -27,7 +27,7 @@ export class EjConversationComments {
   @Prop() user: User;
   @Prop() newCommentMode: boolean = false;
   @Prop() showRegisterComponent: boolean = false;
-  @Prop() queryParams: any;
+  @Prop() ejQueryParams: any;
   @Prop() theme: string;
   @Prop() LGPDDenied: boolean = false;
   @Prop() commentsError: any = { name: "" };
@@ -41,7 +41,6 @@ export class EjConversationComments {
 
   async componentWillLoad() {
     this.prepareToLoad();
-    console.log(document.createElement("foo"));
   }
 
   componentDidRender() {
@@ -50,29 +49,29 @@ export class EjConversationComments {
 
   async prepareToLoad() {
     try {
-      let queryParams: any = this.queryParams;
-      this.api = this.newAPI(queryParams);
+      let ejQueryParams: any = this.ejQueryParams;
+      this.api = this.newAPI(ejQueryParams);
       this.conversation = { ...(await this.api.getConversation()) };
       this.comment = {
         ...(await this.api.getConversationNextComment(this.conversation)),
       };
       this.setUserStats();
-      this.voteUsingQueryParams(queryParams);
+      this.voteUsingejQueryParams(ejQueryParams);
     } catch (err) {
       console.log(err);
     }
   }
 
-  private newAPI(queryParams: any) {
-    if (queryParams) {
-      return new API(this.host, queryParams.cid, queryParams.commentId);
+  private newAPI(ejQueryParams?: any) {
+    if (ejQueryParams.cid && ejQueryParams.commentId && ejQueryParams.choice) {
+      return new API(this.host, ejQueryParams.cid, ejQueryParams.commentId);
     }
     return new API(this.host, this.cid);
   }
 
-  private voteUsingQueryParams(queryParams: any) {
-    if (queryParams) {
-      this.vote(queryParams.choice);
+  private voteUsingejQueryParams(ejQueryParams: any) {
+    if (ejQueryParams.cid && ejQueryParams.commentId && ejQueryParams.choice) {
+      this.vote(ejQueryParams.choice);
     }
     //from here component will use this.api.COMMENTS_ROUTE.
     this.api.config.COMMENT_ROUTE = "";
@@ -206,7 +205,11 @@ export class EjConversationComments {
 
   private async vote(choice: string) {
     this.showLoading();
-    await this.api.computeVote(this.comment, choice);
+    try {
+      await this.api.computeVote(this.comment, choice);
+    } catch (e) {
+      console.log("could not compute vote");
+    }
     this.comment = await this.api.getConversationNextComment(this.conversation);
     this.hideLoading();
     this.deckTransition();

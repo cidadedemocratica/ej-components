@@ -62,3 +62,26 @@ it("should render comments component", async () => {
      </ej-conversation>
   `);
 });
+
+it("should read ej params from url", () => {
+  let search: string =
+    "?utm_medium=direct&utm_campaign=primconv&cid=1&comment_id=28&choice=agree";
+  const component = new EjConversation();
+  let ejQueryParams: any = component.getEJQueryParams(search);
+  expect(ejQueryParams).toStrictEqual({
+    cid: "1",
+    commentId: "28",
+    choice: "agree",
+  });
+});
+
+it("should return empty object from url with no ej params", () => {
+  let search: string = "?utm_medium=direct&utm_campaign=primconv";
+  const component = new EjConversation();
+  let ejQueryParams: any = component.getEJQueryParams(search);
+  expect(ejQueryParams).toStrictEqual({
+    cid: "",
+    commentId: "",
+    choice: "",
+  });
+});
