@@ -48,23 +48,30 @@
         m=d.getElementsByTagName(t)[0];a.async=1;a.src=u;m.parentNode.insertBefore(a,m)
     })(window,document,'script','http://mautic.local/mtc.js','mt');
 
+    mt('send', 'pageview');
+
+	function getCookie(cookieName) {
+		var cookies = document.cookie;
+		var cookieIndex = cookies.indexOf(cookieName);
+		var cookieValue = '';
+		if (cookieIndex != -1) {
+			var cookieKeyAndValue = cookies.substring(cookieIndex, cookies.length);
+			cookieValue = cookieKeyAndValue.split("=")[1];
+			if (cookieValue.indexOf(";") != -1) {
+				cookieValue = cookieValue.split(";")[0];
+			}
+		}
+		return cookieValue;
+	}
     setTimeout(function() {
-    var cookies = document.cookie;
-    let cookieIndex = cookies.indexOf("_ga");
-    let cookieValue = '';
-    if (cookieIndex != -1) {
-      let cookieKeyAndValue = cookies.substring(cookieIndex, cookies.length);
-      cookieValue = cookieKeyAndValue.split("=")[1];
-      if (cookieValue.indexOf(";") != -1) {
-        cookieValue = cookieValue.split(";")[0];
-      }
-    }
-    if(cookieValue) {
-    	mt('send', 'pageview', {gid: cookieValue});
-    } else {
-    	mt('send', 'pageview');
-    }
-    }, 500);
+	var mtc_id = getCookie("mtc_id");
+	var _ga = getCookie("_ga");
+	var ej_host = "http://localhost:8000";
+	    fetch(`${ej_host}/mautic/contacts/?mtc_id=${mtc_id}&_ga=${_ga}`)
+		    .then(res => {
+			    console.log(res)
+		    })
+    }, 6000);
 </script>
 </body>
 </html>
