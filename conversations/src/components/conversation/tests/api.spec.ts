@@ -28,7 +28,7 @@ it("should return user when cookie exists", () => {
   const api = new API("http://localhost", "1");
   api.setUserTokenOnLocalStorage("sometoken2");
   api.getUserIdentifierCookie = jest.fn().mockReturnValue("12345678");
-  expect(api.getUser().name).toBe("12345678-mautic");
+  expect(api.getUser().name).toBe("Participante anônimo");
 });
 
 it("should return mautic cookie from a list of cookies", () => {

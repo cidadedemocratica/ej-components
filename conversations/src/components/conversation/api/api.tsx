@@ -154,7 +154,7 @@ export class API {
     let cookie = this.getUserIdentifierCookie(document.cookie);
     if (cookie) {
       return new User(
-        `${cookie}-mautic`,
+        `Participante anônimo`,
         `${cookie}-mautic@mail.com`,
         `${cookie}-mautic`,
         `${cookie}-mautic`
