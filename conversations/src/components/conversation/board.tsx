@@ -30,7 +30,7 @@ export class EjConversationBoard {
     votorantim: {
       h1: "AGENTES DA CIDADANIA",
       lgpdText:
-        "Ao participar você nos ajuda a entender sua opinião sobre questões de cidadania. Isso nos permite saber quais informações te interessam mais e como podemos nos mobilizar juntos! Suas opiniões serão tratadas de acordo com a nossa",
+        "Ao participar dessa pesquisa, você nos ajuda a entender as questões da cidade de Votorantim e o que podemos fazer para melhorar a cidadania. Suas opiniões serão tratadas de acordo com a nossa",
       privacyPolitic: "https://www.ejparticipe.org/usage/",
     },
   };
