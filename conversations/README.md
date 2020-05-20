@@ -36,11 +36,13 @@ https://www.npmjs.com/package/ej-conversations
 Para utilizar o componente em um site qualquer, os seguintes passos são
 necessários:
 
-1. Inclusão do pacote npm do componente no header do site.
+1. Publicação do componente via `make publish`;
+
+2. Inclusão do pacote npm do componente no header do site;
 
 	`<script src='https://unpkg.com/ej-conversations@1.3.1/dist/conversations.js'></script>`
 
-2. Inclusão do componente no body da pagina em que o usuário deseje fazer uso.
+3. Inclusão do componente no body da pagina em que o usuário deseje fazer uso;
 
 	`<ej-conversation host=https://www.ejplatform.org cid="54"></ej-conversation>`
 
