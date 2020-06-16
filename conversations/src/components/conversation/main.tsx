@@ -24,31 +24,47 @@ export class EjConversation {
   @Prop() cid: string;
   @Prop() user: User = new User();
   @Prop() theme: string = "osf";
-  @Prop() showRegisterComponent: boolean = false;
   @Prop() showBoardComponent: boolean = true;
   @Prop() ejQueryParams: any = null;
+  @Prop() authenticateWith: string = "register";
   @Event() tokenExists: EventEmitter;
 
   @Listen("register")
   async registerHandler() {
-    this.user = { ...(await this.api.authenticate()) };
-    this.showRegisterComponent = false;
+    this.user = await this.api.authenticate();
+    this.authenticateWith = "register";
     location.reload();
   }
 
   componentWillLoad() {
-    this.api = new API(this.host, this.cid);
     this.ejQueryParams = this.getEJQueryParams(document.location.search);
+    this.api = this.newAPI();
   }
 
-  private async checkToken() {
+  private newAPI() {
+    if (
+      this.ejQueryParams.cid &&
+      this.ejQueryParams.commentId &&
+      this.ejQueryParams.choice
+    ) {
+      return new API(
+        this.host,
+        this.ejQueryParams.cid,
+        this.authenticateWith,
+        this.ejQueryParams.commentId
+      );
+    }
+    return new API(this.host, this.cid, this.authenticateWith);
+  }
+
+  private async waitUserToken() {
     setTimeout(
       async function () {
         let user = this.api.getUser();
         if (user) {
           this.user = { ...(await this.api.authenticate()) };
         } else {
-          this.showRegisterComponent = true;
+          this.authenticateWith = "register";
           console.log("No token found to create EJ user");
         }
       }.bind(this),
@@ -77,30 +93,32 @@ export class EjConversation {
     return { cid: cid, commentId: commentId, choice: choice };
   }
 
-  render() {
-    if (!this.api.authTokenExists() && !this.showRegisterComponent) {
-      this.checkToken();
-      return (
-        <div>
-          <div id="user-prop">{this.user.name}</div>
-          <ej-conversation-spinner background="background"></ej-conversation-spinner>
-        </div>
-      );
-    }
-    if (this.showRegisterComponent) {
-      return (
-        <div>
-          {this.showBoardComponent && (
-            <ej-conversation-board theme={this.theme}></ej-conversation-board>
-          )}
-          <ej-conversation-register
-            host={this.host}
-            user={this.user}
-            theme={this.theme}
-          ></ej-conversation-register>
-        </div>
-      );
-    }
+  spinnerComponent() {
+    return (
+      <div>
+        <div id="user-prop">{this.user.name}</div>
+        <ej-conversation-spinner background="background"></ej-conversation-spinner>
+      </div>
+    );
+  }
+
+  registerComponent() {
+    return (
+      <div>
+        {this.showBoardComponent && (
+          <ej-conversation-board theme={this.theme}></ej-conversation-board>
+        )}
+        <ej-conversation-register
+          host={this.host}
+          user={this.user}
+          theme={this.theme}
+          api={this.api}
+        ></ej-conversation-register>
+      </div>
+    );
+  }
+
+  commentsComponent() {
     return (
       <div>
         <div id="user-prop">{this.user.name}</div>
@@ -113,8 +131,20 @@ export class EjConversation {
           user={this.user}
           theme={this.theme}
           ejQueryParams={this.ejQueryParams}
+          api={this.api}
         ></ej-conversation-comments>
       </div>
     );
+  }
+
+  render() {
+    if (!this.api.authTokenExists() && this.authenticateWith != "register") {
+      this.waitUserToken();
+      return this.spinnerComponent();
+    }
+    if (this.authenticateWith == "register") {
+      return this.registerComponent();
+    }
+    return this.commentsComponent();
   }
 }

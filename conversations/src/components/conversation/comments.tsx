@@ -49,7 +49,6 @@ export class EjConversationComments {
 
   async prepareToLoad() {
     try {
-      this.api = this.newAPI(this.ejQueryParams);
       this.conversation = { ...(await this.api.getConversation()) };
       this.comment = {
         ...(await this.api.getConversationNextComment(this.conversation)),
@@ -59,13 +58,6 @@ export class EjConversationComments {
     } catch (err) {
       console.log(err);
     }
-  }
-
-  private newAPI(ejQueryParams?: any) {
-    if (ejQueryParams.cid && ejQueryParams.commentId && ejQueryParams.choice) {
-      return new API(this.host, ejQueryParams.cid, ejQueryParams.commentId);
-    }
-    return new API(this.host, this.cid);
   }
 
   private voteUsingejQueryParams(ejQueryParams: any) {
@@ -130,9 +122,9 @@ export class EjConversationComments {
     let commentStatsData: any = {
       ...(await this.api.getUserCommentsStatistics()),
     };
-    let userWithStats: User = { ...this.user };
+    let userWithStats: User = this.user;
     userWithStats.stats = { ...voteStatsData, ...commentStatsData };
-    this.user = { ...userWithStats };
+    this.user = userWithStats;
   }
 
   private toggleCommentCard() {

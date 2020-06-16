@@ -61,23 +61,20 @@ export class EjConversationRegister {
     location.reload();
   }
 
-  async componentDidLoad() {
-    this.api = new API(this.host, "");
-  }
-
   private async setUserName(event: any) {
-    this.user = { ...this.user, name: event.target.value };
+    this.user.name = event.target.value;
   }
 
   private async setUserEmail(event: any) {
-    this.user = { ...this.user, email: event.target.value };
+    this.user.email = event.target.value;
   }
 
   private async registerUser() {
     try {
       if (this.user.email && this.user.name) {
         let response = await this.api.createUser(this.user);
-        this.api.setUserTokenOnLocalStorage(response.key);
+        this.user.token = response.key;
+        this.user.saveOnLocalStorage();
         this.register.emit(this.user);
       }
     } catch (error) {

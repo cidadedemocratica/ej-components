@@ -5,6 +5,7 @@ export class User {
   password2: string;
   displayName: string;
   stats: any;
+  token?: string;
 
   constructor(
     name?: string,
@@ -19,6 +20,25 @@ export class User {
     this.displayName = "";
     this.stats = {};
   }
+
+  saveOnLocalStorage() {
+    let data: any = {
+      name: this.name,
+      email: this.email,
+      password1: this.password1,
+      password2: this.password2,
+      displayName: this.displayName,
+      token: this.token,
+      stats: this.stats,
+    };
+    localStorage.setItem("user", JSON.stringify(data));
+  }
+
+  static getFromLocalStorage() {
+    let user: User = new User();
+    user = { ...JSON.parse(localStorage.getItem("user")) };
+    return user;
+  }
 }
 
 import { APIConfig } from "./api_config";
@@ -26,18 +46,36 @@ import { APIConfig } from "./api_config";
 export class API {
   config: APIConfig;
   COMMENTS_PER_USER: number = 2;
-  constructor(host: string, conversationID: string, commentID?: string) {
+  authMethod: string;
+  constructor(
+    host: string,
+    conversationID: string,
+    authMethod: string,
+    commentID?: string
+  ) {
     this.config = new APIConfig(host, conversationID, commentID);
+    this.authMethod = authMethod;
+    console.log(authMethod);
   }
 
   async authenticate() {
     if (this.authTokenExists()) {
-      return this.getUser();
+      return User.getFromLocalStorage();
     }
-    const user: User = this.getUser();
+    let user: User;
+    if (this.authMethod == "register") {
+      user = this.newUserUsingEJToken();
+    }
+    if (this.authMethod == "mautic") {
+      user = this.newUserUsingMauticID();
+    }
+    if (this.authMethod == "analytics") {
+      user = this.newUserUsingAnalyticsID();
+    }
     if (user) {
       let response = await this.createUser(user);
-      this.setUserTokenOnLocalStorage(response.key);
+      user.token = response.key;
+      user.saveOnLocalStorage();
       return user;
     } else {
       throw new Error("could not authenticate user");
@@ -136,21 +174,14 @@ export class API {
   }
 
   authTokenExists() {
-    if (localStorage.getItem("ejToken")) {
-      return true;
-    }
-    return false;
+    return localStorage.getItem("ejToken") ? true : false;
   }
 
   getUserToken() {
     return localStorage.getItem("ejToken");
   }
 
-  setUserTokenOnLocalStorage(token: string) {
-    localStorage.setItem("ejToken", token);
-  }
-
-  getUser(): any {
+  newUserUsingMauticID() {
     let cookie = this.getUserIdentifierCookie(document.cookie);
     if (cookie) {
       return new User(
@@ -160,11 +191,22 @@ export class API {
         `${cookie}-mautic`
       );
     }
+  }
+
+  newUserUsingEJToken() {
     let token: string = this.getUserToken();
     if (token) {
       return new User(`${token}`, `${token}@mail.com`, `${token}`, `${token}`);
     }
-    return false;
+  }
+
+  newUserUsingAnalyticsID() {
+    return new User(
+      `Participante anônimo`,
+      `analytics@mail.com`,
+      `analytics`,
+      `analytics`
+    );
   }
 
   /*
