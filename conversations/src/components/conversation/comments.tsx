@@ -125,7 +125,8 @@ export class EjConversationComments {
     };
     let userWithStats: User = this.user;
     userWithStats.stats = { ...voteStatsData, ...commentStatsData };
-    this.user = userWithStats;
+    this.user.stats = userWithStats.stats;
+    this.el.forceUpdate();
   }
 
   private toggleCommentCard() {

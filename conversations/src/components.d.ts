@@ -9,16 +9,56 @@
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 import {
   API,
-} from './components/my-component/api';
+} from './components/conversation/api/api';
+import {
+  User,
+} from './components/conversation/api/user';
 
 export namespace Components {
   interface EjConversation {
     'api': API;
+    'authenticateWith': string;
+    'cid': string;
+    'ejQueryParams': any;
+    'host': string;
+    'showBoardComponent': boolean;
+    'theme': string;
+    'user': User;
+  }
+  interface EjConversationBoard {
+    'currentContainer': number;
+    'currentStep': number;
+    'theme': string;
+  }
+  interface EjConversationComments {
+    'LGPDDenied': boolean;
+    'api': API;
+    'cid': string;
+    'comment': any;
+    'commentsError': any;
+    'conversation': any;
+    'ejQueryParams': any;
+    'host': string;
+    'newCommentContent': string;
+    'newCommentMode': boolean;
+    'showRegisterComponent': boolean;
+    'theme': string;
+    'user': User;
+  }
+  interface EjConversationRegister {
+    'LGPDDenied': boolean;
+    'api': API;
+    'cid': string;
     'comment': any;
     'conversation': any;
     'host': string;
-    'id': string;
     'newCommentContent': string;
+    'registerErrors': any;
+    'theme': string;
+    'user': User;
+  }
+  interface EjConversationSpinner {
+    'background': string;
   }
 }
 
@@ -30,23 +70,95 @@ declare global {
     prototype: HTMLEjConversationElement;
     new (): HTMLEjConversationElement;
   };
+
+  interface HTMLEjConversationBoardElement extends Components.EjConversationBoard, HTMLStencilElement {}
+  var HTMLEjConversationBoardElement: {
+    prototype: HTMLEjConversationBoardElement;
+    new (): HTMLEjConversationBoardElement;
+  };
+
+  interface HTMLEjConversationCommentsElement extends Components.EjConversationComments, HTMLStencilElement {}
+  var HTMLEjConversationCommentsElement: {
+    prototype: HTMLEjConversationCommentsElement;
+    new (): HTMLEjConversationCommentsElement;
+  };
+
+  interface HTMLEjConversationRegisterElement extends Components.EjConversationRegister, HTMLStencilElement {}
+  var HTMLEjConversationRegisterElement: {
+    prototype: HTMLEjConversationRegisterElement;
+    new (): HTMLEjConversationRegisterElement;
+  };
+
+  interface HTMLEjConversationSpinnerElement extends Components.EjConversationSpinner, HTMLStencilElement {}
+  var HTMLEjConversationSpinnerElement: {
+    prototype: HTMLEjConversationSpinnerElement;
+    new (): HTMLEjConversationSpinnerElement;
+  };
   interface HTMLElementTagNameMap {
     'ej-conversation': HTMLEjConversationElement;
+    'ej-conversation-board': HTMLEjConversationBoardElement;
+    'ej-conversation-comments': HTMLEjConversationCommentsElement;
+    'ej-conversation-register': HTMLEjConversationRegisterElement;
+    'ej-conversation-spinner': HTMLEjConversationSpinnerElement;
   }
 }
 
 declare namespace LocalJSX {
   interface EjConversation {
     'api'?: API;
+    'authenticateWith'?: string;
+    'cid'?: string;
+    'ejQueryParams'?: any;
+    'host'?: string;
+    'onTokenExists'?: (event: CustomEvent<any>) => void;
+    'showBoardComponent'?: boolean;
+    'theme'?: string;
+    'user'?: User;
+  }
+  interface EjConversationBoard {
+    'currentContainer'?: number;
+    'currentStep'?: number;
+    'onCloseBoard'?: (event: CustomEvent<any>) => void;
+    'theme'?: string;
+  }
+  interface EjConversationComments {
+    'LGPDDenied'?: boolean;
+    'api'?: API;
+    'cid'?: string;
+    'comment'?: any;
+    'commentsError'?: any;
+    'conversation'?: any;
+    'ejQueryParams'?: any;
+    'host'?: string;
+    'newCommentContent'?: string;
+    'newCommentMode'?: boolean;
+    'showRegisterComponent'?: boolean;
+    'theme'?: string;
+    'user'?: User;
+  }
+  interface EjConversationRegister {
+    'LGPDDenied'?: boolean;
+    'api'?: API;
+    'cid'?: string;
     'comment'?: any;
     'conversation'?: any;
     'host'?: string;
-    'id'?: string;
     'newCommentContent'?: string;
+    'onRegister'?: (event: CustomEvent<any>) => void;
+    'registerErrors'?: any;
+    'theme'?: string;
+    'user'?: User;
+  }
+  interface EjConversationSpinner {
+    'background'?: string;
   }
 
   interface IntrinsicElements {
     'ej-conversation': EjConversation;
+    'ej-conversation-board': EjConversationBoard;
+    'ej-conversation-comments': EjConversationComments;
+    'ej-conversation-register': EjConversationRegister;
+    'ej-conversation-spinner': EjConversationSpinner;
   }
 }
 
@@ -57,6 +169,10 @@ declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
       'ej-conversation': LocalJSX.EjConversation & JSXBase.HTMLAttributes<HTMLEjConversationElement>;
+      'ej-conversation-board': LocalJSX.EjConversationBoard & JSXBase.HTMLAttributes<HTMLEjConversationBoardElement>;
+      'ej-conversation-comments': LocalJSX.EjConversationComments & JSXBase.HTMLAttributes<HTMLEjConversationCommentsElement>;
+      'ej-conversation-register': LocalJSX.EjConversationRegister & JSXBase.HTMLAttributes<HTMLEjConversationRegisterElement>;
+      'ej-conversation-spinner': LocalJSX.EjConversationSpinner & JSXBase.HTMLAttributes<HTMLEjConversationSpinnerElement>;
     }
   }
 }
