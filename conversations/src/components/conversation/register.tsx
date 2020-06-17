@@ -76,7 +76,7 @@ export class EjConversationRegister {
         this.user.setPassword();
         let response = await this.api.createUser(this.user);
         this.user.token = response.key;
-        this.user.saveOnLocalStorage();
+        this.user.save();
         this.register.emit(this.user);
       }
     } catch (error) {

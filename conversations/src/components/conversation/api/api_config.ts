@@ -11,6 +11,10 @@ export class APIConfig {
   USER_PENDING_COMMENTS_ROUTE: string = "";
   MAUTIC_COOKIE: string = "mtc_id";
   VOTE_CHOICES: any = { skip: 0, agree: 1, disagree: -1 };
+  COOKIES_MAP: any = {
+    analytics: "_ga",
+    mautic: "mtc_id",
+  };
 
   constructor(host: string, conversationID: string, commentID?: string) {
     this.HOST = host;

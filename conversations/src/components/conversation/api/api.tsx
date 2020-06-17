@@ -21,9 +21,6 @@ export class API {
       return User.get();
     }
     let user: User;
-    if (this.authMethod == "register") {
-      user = this.newUserUsingEJToken();
-    }
     if (this.authMethod == "mautic") {
       user = this.newUserUsingMauticID();
     }
@@ -33,7 +30,7 @@ export class API {
     if (user) {
       let response = await this.createUser(user);
       user.token = response.key;
-      user.saveOnLocalStorage();
+      user.save();
       return user;
     } else {
       throw new Error("could not authenticate user");
@@ -141,7 +138,8 @@ export class API {
   }
 
   newUserUsingMauticID() {
-    let cookie = this.getUserIdentifierCookie(document.cookie);
+    let cookieName: string = this.config.COOKIES_MAP["mautic"];
+    let cookie = this.getCookie(cookieName);
     if (cookie) {
       return new User(
         `Participante anônimo`,
@@ -152,37 +150,35 @@ export class API {
     }
   }
 
-  newUserUsingEJToken() {
-    let token: string = this.getUserToken();
-    if (token) {
-      return new User(`${token}`, `${token}@mail.com`, `${token}`, `${token}`);
-    }
-  }
-
   newUserUsingAnalyticsID() {
-    return new User(
-      `Participante anônimo`,
-      `analytics@mail.com`,
-      `analytics`,
-      `analytics`
-    );
+    let cookieName: string = this.config.COOKIES_MAP["analytics"];
+    let cookie = this.getCookie(cookieName);
+    if (cookie) {
+      return new User(
+        `Participante anônimo`,
+        `${cookie}-analytics@mail.com`,
+        `${cookie}-analytics`,
+        `${cookie}-analytics`
+      );
+    }
   }
 
   /*
-   * This method will retrieve a mautic cookie and use it as
+   * This method will retrieve a cookie and use it as
    * username on EJ
    */
-  getUserIdentifierCookie(cookies: string): string {
-    let cookieIndex = cookies.indexOf(this.config.MAUTIC_COOKIE);
+  getCookie(cookieName: string): string {
+    let cookies = document.cookie;
+    let cookieIndex = cookies.indexOf(cookieName);
+    let cookieValue = "";
     if (cookieIndex != -1) {
       let cookieKeyAndValue = cookies.substring(cookieIndex, cookies.length);
-      let cookieValue = cookieKeyAndValue.split("=")[1];
+      cookieValue = cookieKeyAndValue.split("=")[1];
       if (cookieValue.indexOf(";") != -1) {
         cookieValue = cookieValue.split(";")[0];
       }
-      return cookieValue;
     }
-    return "";
+    return cookieValue;
   }
 
   getCommentID(comment: any): number {

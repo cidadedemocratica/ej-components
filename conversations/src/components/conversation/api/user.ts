@@ -26,7 +26,7 @@ export class User {
     this.password2 = this.email;
   }
 
-  saveOnLocalStorage() {
+  save() {
     let data: any = {
       name: this.name,
       email: this.email,
