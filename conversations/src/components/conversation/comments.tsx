@@ -6,7 +6,8 @@ import {
   Element,
   getAssetPath,
 } from "@stencil/core";
-import { API, User } from "./api/api";
+import { API } from "./api/api";
+import { User } from "./api/user";
 import { HTMLStencilElement } from "@stencil/core/internal";
 
 @Component({

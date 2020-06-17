@@ -1,47 +1,5 @@
-export class User {
-  name: string;
-  email: string;
-  password1: string;
-  password2: string;
-  displayName: string;
-  stats: any;
-  token?: string;
-
-  constructor(
-    name?: string,
-    email?: string,
-    password1?: string,
-    password2?: string
-  ) {
-    this.name = name || "";
-    this.email = email || "";
-    this.password1 = password1 || "";
-    this.password2 = password2 || "";
-    this.displayName = "";
-    this.stats = {};
-  }
-
-  saveOnLocalStorage() {
-    let data: any = {
-      name: this.name,
-      email: this.email,
-      password1: this.password1,
-      password2: this.password2,
-      displayName: this.displayName,
-      token: this.token,
-      stats: this.stats,
-    };
-    localStorage.setItem("user", JSON.stringify(data));
-  }
-
-  static getFromLocalStorage() {
-    let user: User = new User();
-    user = { ...JSON.parse(localStorage.getItem("user")) };
-    return user;
-  }
-}
-
 import { APIConfig } from "./api_config";
+import { User } from "./user";
 
 export class API {
   config: APIConfig;
@@ -60,7 +18,7 @@ export class API {
 
   async authenticate() {
     if (this.authTokenExists()) {
-      return User.getFromLocalStorage();
+      return User.get();
     }
     let user: User;
     if (this.authMethod == "register") {
@@ -174,11 +132,12 @@ export class API {
   }
 
   authTokenExists() {
-    return localStorage.getItem("ejToken") ? true : false;
+    return this.getUserToken() ? true : false;
   }
 
   getUserToken() {
-    return localStorage.getItem("ejToken");
+    let user = JSON.parse(localStorage.getItem("user"));
+    return user && user.token ? user.token : "";
   }
 
   newUserUsingMauticID() {

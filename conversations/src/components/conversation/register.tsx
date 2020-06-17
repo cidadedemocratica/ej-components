@@ -8,7 +8,8 @@ import {
   Element,
   getAssetPath,
 } from "@stencil/core";
-import { API, User } from "./api/api";
+import { API } from "./api/api";
+import { User } from "./api/user";
 import { HTMLStencilElement } from "@stencil/core/internal";
 
 @Component({
@@ -37,12 +38,12 @@ export class EjConversationRegister {
   @Listen("closeBoard", { target: "window" })
   async onCloseBoard(event?: any) {
     console.log("Board visualizado");
-    if (this.userBlocksDataCollect(event)) {
+    if (this.userBlocksDataCollection(event)) {
       this.LGPDDenied = true;
     }
   }
 
-  private userBlocksDataCollect(event?: any) {
+  private userBlocksDataCollection(event?: any) {
     if (event) {
       return event && event.detail && event.detail.blockedByLGPD;
     }
@@ -50,7 +51,7 @@ export class EjConversationRegister {
   }
 
   componentDidRender() {
-    if (this.userBlocksDataCollect()) {
+    if (this.userBlocksDataCollection()) {
       this.LGPDDenied = true;
     }
   }
@@ -72,6 +73,7 @@ export class EjConversationRegister {
   private async registerUser() {
     try {
       if (this.user.email && this.user.name) {
+        this.user.setPassword();
         let response = await this.api.createUser(this.user);
         this.user.token = response.key;
         this.user.saveOnLocalStorage();

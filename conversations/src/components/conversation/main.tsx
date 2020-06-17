@@ -7,7 +7,8 @@ import {
   Event,
   EventEmitter,
 } from "@stencil/core";
-import { API, User } from "./api/api";
+import { API } from "./api/api";
+import { User } from "./api/user";
 import { HTMLStencilElement } from "@stencil/core/internal";
 
 @Component({
@@ -60,10 +61,9 @@ export class EjConversation {
   private async waitUserToken() {
     setTimeout(
       async function () {
-        let user = this.api.getUser();
-        if (user) {
+        try {
           this.user = { ...(await this.api.authenticate()) };
-        } else {
+        } catch (error) {
           this.authenticateWith = "register";
           console.log("No token found to create EJ user");
         }
@@ -138,12 +138,13 @@ export class EjConversation {
   }
 
   render() {
-    if (!this.api.authTokenExists() && this.authenticateWith != "register") {
-      this.waitUserToken();
-      return this.spinnerComponent();
-    }
-    if (this.authenticateWith == "register") {
-      return this.registerComponent();
+    if (!this.api.authTokenExists()) {
+      if (this.authenticateWith != "register") {
+        this.waitUserToken();
+        return this.spinnerComponent();
+      } else {
+        return this.registerComponent();
+      }
     }
     return this.commentsComponent();
   }
