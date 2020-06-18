@@ -5,10 +5,10 @@ import { API } from "../api/api";
 it("should render spinner component", async () => {
   const page = await newSpecPage({
     components: [EjConversation],
-    html: `<ej-conversation host="" cid=""></ej-conversation>`,
+    html: `<ej-conversation host="" cid="" authenticate-with="analytics"></ej-conversation>`,
   });
   expect(page.root).toEqualHtml(`
-     <ej-conversation cid="" host="">
+     <ej-conversation authenticate-with="analytics" cid="" host="">
        <mock:shadow-root>
          <div>
           <div id="user-prop"></div>
@@ -22,10 +22,10 @@ it("should render spinner component", async () => {
 it("should render register component", async () => {
   const page = await newSpecPage({
     components: [EjConversation],
-    html: `<ej-conversation show-register-component="true" host="" cid=""></ej-conversation>`,
+    html: `<ej-conversation host="" cid="" authenticate-with="register"></ej-conversation>`,
   });
   expect(page.root).toEqualHtml(`
-     <ej-conversation show-register-component="true" cid="" host="">
+     <ej-conversation authenticate-with="register" cid="" host="">
        <mock:shadow-root>
        <div>
         <ej-conversation-board theme="osf"></ej-conversation-board>
@@ -44,10 +44,10 @@ it("should render comments component", async () => {
   API.prototype.authTokenExists = jest.fn().mockReturnValue(true);
   const page = await newSpecPage({
     components: [EjConversation],
-    html: `<ej-conversation host="" cid=""></ej-conversation>`,
+    html: `<ej-conversation host="" cid="" authenticate-with="register"></ej-conversation>`,
   });
   expect(page.root).toEqualHtml(`
-     <ej-conversation cid="" host="">
+     <ej-conversation authenticate-with="register" cid="" host="">
        <mock:shadow-root>
          <div>
           <div id="user-prop"></div>

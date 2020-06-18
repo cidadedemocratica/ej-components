@@ -13,7 +13,6 @@ export class API {
   ) {
     this.config = new APIConfig(host, conversationID, commentID);
     this.authMethod = authMethod;
-    console.log(authMethod);
   }
 
   async authenticate() {

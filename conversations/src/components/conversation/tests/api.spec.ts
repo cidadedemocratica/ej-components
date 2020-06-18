@@ -1,54 +1,63 @@
 import { API } from "../api/api";
 
+const user: string = JSON.stringify({
+  token: "sometoken2",
+  name: "teste",
+  email: "teste@mail.com",
+  password1: "teste1234",
+  password2: "teste1234",
+});
+
 it("should check user token", () => {
-  const api = new API("http://localhost", "1");
-  localStorage.setItem("ejToken", "sometoken");
+  const api = new API("http://localhost", "1", "register");
+  localStorage.setItem("user", user);
   expect(api.authTokenExists()).toBe(true);
 });
 
 it("should get user token", () => {
-  const api = new API("http://localhost", "1");
-  localStorage.setItem("ejToken", "sometoken");
-  expect(api.getUserToken()).toBe("sometoken");
-});
-
-it("should set token on localstorage", () => {
-  const api = new API("http://localhost", "1");
-  api.setUserTokenOnLocalStorage("sometoken2");
+  const api = new API("http://localhost", "1", "register");
+  localStorage.setItem("user", user);
   expect(api.getUserToken()).toBe("sometoken2");
 });
 
 it("should return user when token exists", () => {
-  const api = new API("http://localhost", "1");
-  api.setUserTokenOnLocalStorage("sometoken2");
-  expect(api.getUser().name).toBe("sometoken2");
+  const api = new API("http://localhost", "1", "register");
+  localStorage.setItem("user", user);
+  expect(api.getUserToken()).toBe("sometoken2");
 });
 
 it("should return user when cookie exists", () => {
-  const api = new API("http://localhost", "1");
-  api.setUserTokenOnLocalStorage("sometoken2");
-  api.getUserIdentifierCookie = jest.fn().mockReturnValue("12345678");
-  expect(api.getUser().name).toBe("Participante anônimo");
+  const api = new API("http://localhost", "1", "register");
+  api.getCookie = jest.fn().mockReturnValue("12345678");
+  expect(api.newUserUsingAnalyticsID().name).toBe("Participante anônimo");
 });
 
 it("should return mautic cookie from a list of cookies", () => {
-  const api = new API("http://localhost", "1");
-  let cookies: string =
+  const api = new API("http://localhost", "1", "register");
+  document.cookie =
     "wp-settings-time-1=1582866339; mtc_id=9015; mtc_sid=t55crwrfus0r5eblxotzvzg; mautic_device_id=t55crwrfus0r5eblxotzvzg";
-  let cookie: string = api.getUserIdentifierCookie(cookies);
+  let cookie: string = api.getCookie("mtc_id");
   expect(cookie).toBe("9015");
 });
 
+it("should return analytics cookie from a list of cookies", () => {
+  const api = new API("http://localhost", "1", "register");
+  document.cookie =
+    "wp-settings-time-1=1582866339; mtc_id=9015; mtc_sid=t55crwrfus0r5eblxotzvzg; mautic_device_id=t55crwrfus0r5eblxotzvzg; _ga=GA.1.12345";
+  let cookie: string = api.getCookie("_ga");
+  expect(cookie).toBe("GA.1.12345");
+});
+
 it("should return empty string from a list of cookies", () => {
-  const api = new API("http://localhost", "1");
-  let cookies: string =
+  const api = new API("http://localhost", "1", "register");
+  document.cookie =
     "wp-settings-time-1=1582866339; mtc_sid=t55crwrfus0r5eblxotzvzg; mautic_device_id=t55crwrfus0r5eblxotzvzg";
-  let cookie: string = api.getUserIdentifierCookie(cookies);
+  let cookie: string = api.getCookie("_ga");
   expect(cookie).toBe("");
 });
 
 it("should return commentID from EJ data", () => {
-  const api = new API("http://localhost", "1");
+  const api = new API("http://localhost", "1", "register");
   let comment: any = {
     links: { self: "http://localhost:8000/api/v1/comments/29/" },
     content: "Um novo comentário interessante",
@@ -62,7 +71,7 @@ it("should return commentID from EJ data", () => {
 });
 
 it("should return conversationID from EJ data", () => {
-  const api = new API("http://localhost", "1");
+  const api = new API("http://localhost", "1", "register");
   let conversation: any = {
     links: {
       self: "http://localhost:8000/api/v1/conversations/5/",
@@ -93,7 +102,7 @@ it("should return conversationID from EJ data", () => {
 });
 
 it("should return comment url from EJ data", () => {
-  const api = new API("http://localhost", "1");
+  const api = new API("http://localhost", "1", "register");
   let conversation: any = {
     links: {
       self: "http://localhost:8000/api/v1/conversations/5/",
@@ -126,7 +135,7 @@ it("should return comment url from EJ data", () => {
 });
 
 it("should return comment url with https from EJ data", () => {
-  const api = new API("https://localhost", "1");
+  const api = new API("https://localhost", "1", "register");
   let conversation: any = {
     links: {
       self: "http://localhost:8000/api/v1/conversations/5/",
