@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:version="1.0 (6e3e5246a0, 2020-05-07)"
+   sodipodi:docname="icone-mais-icd.svg"
+   xml:space="preserve"
+   enable-background="new 0 0 219.419 219.419"
+   viewBox="0 0 219.419 219.419"
+   height="219.419px"
+   width="219.419px"
+   y="0px"
+   x="0px"
+   id="Layer_1"
+   version="1.1"><metadata
+   id="metadata9"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+   id="defs7" /><sodipodi:namedview
+   inkscape:current-layer="Layer_1"
+   inkscape:window-maximized="1"
+   inkscape:window-y="27"
+   inkscape:window-x="70"
+   inkscape:cy="109.4573"
+   inkscape:cx="55.485266"
+   inkscape:zoom="3.9650166"
+   showgrid="false"
+   id="namedview5"
+   inkscape:window-height="1016"
+   inkscape:window-width="1850"
+   inkscape:pageshadow="2"
+   inkscape:pageopacity="0"
+   guidetolerance="10"
+   gridtolerance="10"
+   objecttolerance="10"
+   borderopacity="1"
+   bordercolor="#666666"
+   pagecolor="#ffffff" />
+<polygon
+   id="polygon2"
+   points="134.11,219.419 134.11,134.11 219.419,134.11   219.419,85.302 134.11,85.302 134.11,0 85.302,0 85.302,85.302 0,85.302 0,134.11 85.302,134.11 85.302,219.419 "
+   fill="#f14236"
+   clip-rule="evenodd"
+   fill-rule="evenodd" />
+<path
+   id="path11"
+   d="M 85.371648,176.67013 V 133.92126 H 42.748875 0.12610288 V 109.7095 85.497751 H 42.748875 85.371648 V 42.748875 0 h 24.337852 24.33786 v 42.748875 42.748876 h 42.62277 42.62277 v 24.211749 24.21176 h -42.62277 -42.62277 v 42.74887 42.74888 H 109.7095 85.371648 Z"
+   style="fill:#f5821f;stroke:none;stroke-width:0.252206;fill-opacity:1" /></svg>
