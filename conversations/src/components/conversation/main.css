@@ -93,6 +93,8 @@
 	transform: rotate(46deg);
 }
 
+/* ======== Specifics Votorantim Theme ========*/
+
 .header-votorantim {
 	color: #f14236;
 	background-color: #2d294e !important;
@@ -128,6 +130,48 @@
 	width: 200px;
 	height: 120px;
 }
+
+/* ======== END Specifics Votorantim Theme ========*/
+
+/* ======== Specifics ICD Theme ========*/
+
+.header-icd {
+	color: #00afd7;
+	background-color: #005baa !important;
+}
+
+.header-icd .stats > div {
+	color: #00afd7 !important;
+}
+
+.add-comment-icd {
+	color: #f5821f !important;
+}
+
+.card-btn-icd {
+	background-color:  #f5821f !important;
+}
+
+.card-btn-unfocused-icd {
+	color:  #f5821f !important;
+	background-color:  white!important;
+}
+
+.skip-card-icd {
+	color: #f5821f !important;
+}
+
+.board-header-icd h1,
+.board-header-icd h2 {
+	color: #005baa !important
+}
+
+.board-header-icd img {
+	width: 200px;
+	height: 120px;
+}
+
+/* ======== END Specifics ICD Theme ========*/
 
 .box {
 	text-align: center;

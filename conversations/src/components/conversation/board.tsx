@@ -33,6 +33,12 @@ export class EjConversationBoard {
         "Ao participar dessa pesquisa, você nos ajuda a entender as questões da cidade de Votorantim e o que podemos fazer para melhorar a cidadania. Suas opiniões serão tratadas de acordo com a nossa",
       privacyPolitic: "https://www.ejparticipe.org/usage/",
     },
+    icd: {
+      h1: "INSTITUTO CIDADE DEMOCRÁTICA",
+      lgpdText:
+        "Ao participar dessa pesquisa, você nos ajuda a entender questões sobre vários assuntos e o que podemos fazer para melhorar a cidadania. Suas opiniões serão tratadas de acordo com a nossa",
+      privacyPolitic: "https://www.ejparticipe.org/usage/",
+    },
   };
 
   nextBoard() {
