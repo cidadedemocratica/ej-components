@@ -1,5 +1,5 @@
 import { APIConfig } from "./api_config";
-import { User } from "./user";
+import { User, UserMetaData } from "./user";
 
 export class API {
   config: APIConfig;
@@ -101,6 +101,8 @@ export class API {
   }
 
   async createUser(data: any) {
+    let metadata = this.newUserMetaData();
+    data.metadata = metadata;
     try {
       return await this.httpRequest(
         this.config.REGISTRATION_ROUTE,
@@ -109,6 +111,15 @@ export class API {
     } catch (error) {
       throw new Error(error);
     }
+  }
+
+  newUserMetaData() {
+    let metadata: UserMetaData = new UserMetaData();
+    let mauticCookie: string = this.config.COOKIES_MAP["mautic"];
+    let analyticsCookie: string = this.config.COOKIES_MAP["analytics"];
+    metadata.mautic_id = parseInt(this.getCookie(mauticCookie));
+    metadata.analytics_id = this.getCookie(analyticsCookie);
+    return metadata;
   }
 
   async httpRequest(route: string, payload?: string) {

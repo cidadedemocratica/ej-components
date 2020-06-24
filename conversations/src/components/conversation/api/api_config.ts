@@ -9,7 +9,6 @@ export class APIConfig {
   USER_STATISTICS_ROUTE: string = "";
   USER_COMMENTS_ROUTE: string = "";
   USER_PENDING_COMMENTS_ROUTE: string = "";
-  MAUTIC_COOKIE: string = "mtc_id";
   VOTE_CHOICES: any = { skip: 0, agree: 1, disagree: -1 };
   COOKIES_MAP: any = {
     analytics: "_ga",

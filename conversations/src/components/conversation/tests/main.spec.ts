@@ -11,8 +11,11 @@ it("should render spinner component", async () => {
      <ej-conversation authenticate-with="analytics" cid="" host="">
        <mock:shadow-root>
          <div>
-          <div id="user-prop"></div>
-           <ej-conversation-spinner background="background"></ej-conversation-spinner>
+        <ej-conversation-board theme="osf"></ej-conversation-board>
+        <ej-conversation-register
+          host=""
+          theme="osf"
+        ></ej-conversation-register>
          </div>
        </mock:shadow-root>
      </ej-conversation>

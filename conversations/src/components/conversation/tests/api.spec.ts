@@ -56,6 +56,15 @@ it("should return empty string from a list of cookies", () => {
   expect(cookie).toBe("");
 });
 
+it("should return user metadata instance", () => {
+  const api = new API("http://localhost", "1", "register");
+  document.cookie =
+    "wp-settings-time-1=1582866339; mtc_id=7652; mtc_sid=t55crwrfus0r5eblxotzvzg; mautic_device_id=t55crwrfus0r5eblxotzvzg; _ga=GA.1.1.1234455667";
+  let userMetaData = api.newUserMetaData();
+  expect(userMetaData.analytics_id).toBe("GA.1.1.1234455667");
+  expect(userMetaData.mautic_id).toBe(7652);
+});
+
 it("should return commentID from EJ data", () => {
   const api = new API("http://localhost", "1", "register");
   let comment: any = {

@@ -1,3 +1,8 @@
+export class UserMetaData {
+  mautic_id: number;
+  analytics_id: string;
+}
+
 export class User {
   name: string;
   email: string;
@@ -6,6 +11,7 @@ export class User {
   displayName: string;
   stats: any;
   token?: string;
+  metadata: UserMetaData;
 
   constructor(
     name?: string,

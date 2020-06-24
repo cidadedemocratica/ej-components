@@ -139,7 +139,7 @@ export class EjConversation {
 
   render() {
     if (!this.api.authTokenExists()) {
-      if (this.authenticateWith != "register") {
+      if (this.authenticateWith == "mautic") {
         this.waitUserToken();
         return this.spinnerComponent();
       } else {
