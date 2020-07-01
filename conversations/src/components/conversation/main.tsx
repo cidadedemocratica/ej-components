@@ -30,15 +30,17 @@ export class EjConversation {
   @Prop() authenticateWith: string = "register";
   @Event() tokenExists: EventEmitter;
 
-  @Listen("register")
+  @Listen("userRegisteredOnEJ", { target: "window" })
   async registerHandler() {
     this.user = await this.api.authenticate();
     this.authenticateWith = "register";
+    console.log("reloading page");
     location.reload();
   }
 
   componentWillLoad() {
     this.ejQueryParams = this.getEJQueryParams(document.location.search);
+    console.log(this.ejQueryParams);
     this.api = this.newAPI();
   }
 
@@ -79,7 +81,7 @@ export class EjConversation {
     if (search != "/" && search != "") {
       let params: any = search.split("&");
       for (let param of params) {
-        if (param.match(/^cid/)) {
+        if (param.match(/.*cid.*/)) {
           cid = param.split("=")[1];
         }
         if (param.match(/^comment_id/)) {

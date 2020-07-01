@@ -78,6 +78,18 @@ it("should read ej params from url", () => {
   });
 });
 
+it("should read ej params from url with random order", () => {
+  let search: string =
+    "?cid=1&utm_medium=direct&comment_id=28&choice=agree&utm_campaign=primconv";
+  const component = new EjConversation();
+  let ejQueryParams: any = component.getEJQueryParams(search);
+  expect(ejQueryParams).toStrictEqual({
+    cid: "1",
+    commentId: "28",
+    choice: "agree",
+  });
+});
+
 it("should return empty object from url with no ej params", () => {
   let search: string = "?utm_medium=direct&utm_campaign=primconv";
   const component = new EjConversation();

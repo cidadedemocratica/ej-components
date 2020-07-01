@@ -26,7 +26,7 @@ export class EjConversationRegister {
   @Prop() newCommentContent: string = "";
   @Prop() api: API;
   @Prop() user: User = new User();
-  @Event() register: EventEmitter;
+  @Event() userRegisteredOnEJ: EventEmitter;
   @Prop() LGPDDenied: boolean = false;
   @Prop() theme: string = "osf";
   @Prop() registerErrors: any = { name: "" };
@@ -77,7 +77,7 @@ export class EjConversationRegister {
         let response = await this.api.createUser(this.user);
         this.user.token = response.key;
         this.user.save();
-        this.register.emit(this.user);
+        this.userRegisteredOnEJ.emit();
       }
     } catch (error) {
       this.registerErrors = {
