@@ -26,7 +26,11 @@ export class EjConversationRegister {
   @Prop() newCommentContent: string = "";
   @Prop() api: API;
   @Prop() user: User = new User();
-  @Event() userRegisteredOnEJ: EventEmitter;
+  @Event({
+    bubbles: true,
+    composed: true,
+  })
+  userRegisteredOnEJ: EventEmitter;
   @Prop() LGPDDenied: boolean = false;
   @Prop() theme: string = "osf";
   @Prop() registerErrors: any = { name: "" };

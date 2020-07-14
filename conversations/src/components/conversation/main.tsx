@@ -1,7 +1,6 @@
 import {
   Component,
   Prop,
-  Listen,
   h,
   Element,
   Event,
@@ -30,11 +29,10 @@ export class EjConversation {
   @Prop() authenticateWith: string = "register";
   @Event() tokenExists: EventEmitter;
 
-  @Listen("userRegisteredOnEJ", { target: "window" })
-  async registerHandler() {
+  async registerHandler(event?: any) {
     this.user = await this.api.authenticate();
     this.authenticateWith = "register";
-    console.log("reloading page");
+    console.log(event);
     location.reload();
   }
 
@@ -115,6 +113,7 @@ export class EjConversation {
           user={this.user}
           theme={this.theme}
           api={this.api}
+          onUserRegisteredOnEJ={(ev) => this.registerHandler(ev)}
         ></ej-conversation-register>
       </div>
     );
