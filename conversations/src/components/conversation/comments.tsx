@@ -1,11 +1,4 @@
-import {
-  Component,
-  Prop,
-  Listen,
-  h,
-  Element,
-  getAssetPath,
-} from "@stencil/core";
+import { Component, Prop, h, Element, getAssetPath } from "@stencil/core";
 import { API } from "./api/api";
 import { User } from "./api/user";
 import { HTMLStencilElement } from "@stencil/core/internal";
@@ -33,13 +26,6 @@ export class EjConversationComments {
   @Prop() LGPDDenied: boolean = false;
   @Prop() commentsError: any = { name: "" };
 
-  @Listen("closeBoard", { target: "window" })
-  async onCloseBoard(event?: any) {
-    this.setUICommentState(event);
-    this.setUserStats();
-    this.voteUsingejQueryParams(this.ejQueryParams);
-  }
-
   async componentWillLoad() {
     this.prepareToLoad();
   }
@@ -65,6 +51,9 @@ export class EjConversationComments {
     if (!localStorage.getItem("userSawBoard")) {
       return;
     }
+    if (localStorage.getItem("lgpd") != "agree") {
+      return;
+    }
     if (ejQueryParams.cid && ejQueryParams.commentId && ejQueryParams.choice) {
       this.vote(ejQueryParams.choice);
     }
@@ -78,14 +67,14 @@ export class EjConversationComments {
         content: "Obrigado por participar!",
       };
     }
-    if (this.userBlocksDataCollect(event)) {
+    if (this.lgpdDeniedByUser(event)) {
       this.LGPDDenied = true;
     }
     this.toggleChoices();
     this.toogleAddCommentButton();
   }
 
-  userBlocksDataCollect(event: any) {
+  lgpdDeniedByUser(event: any) {
     if (event) {
       return event && event.detail && event.detail.blockedByLGPD;
     }
@@ -235,7 +224,7 @@ export class EjConversationComments {
     skipButton.disabled = false;
   }
 
-  private resetLGPD() {
+  resetLGPD() {
     localStorage.removeItem("userSawBoard");
     localStorage.removeItem("lgpd");
     location.reload();

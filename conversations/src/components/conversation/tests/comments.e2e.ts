@@ -7,7 +7,7 @@ it("should block lgpd", async () => {
     detail: { blockedByLGPD: true },
   });
   const comments = new EjConversationComments();
-  let disableAllInteractions: boolean = comments.userBlocksDataCollect(
+  let disableAllInteractions: boolean = comments.lgpdDeniedByUser(
     closeBoadEvent
   );
   expect(disableAllInteractions).toBe(true);

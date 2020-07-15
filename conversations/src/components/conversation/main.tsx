@@ -36,6 +36,10 @@ export class EjConversation {
     location.reload();
   }
 
+  async boardHandler() {
+    location.reload();
+  }
+
   componentWillLoad() {
     this.ejQueryParams = this.getEJQueryParams(document.location.search);
     console.log(this.ejQueryParams);
@@ -106,14 +110,17 @@ export class EjConversation {
     return (
       <div>
         {this.showBoardComponent && (
-          <ej-conversation-board theme={this.theme}></ej-conversation-board>
+          <ej-conversation-board
+            theme={this.theme}
+            onCloseBoard={() => this.boardHandler()}
+          ></ej-conversation-board>
         )}
         <ej-conversation-register
           host={this.host}
           user={this.user}
           theme={this.theme}
           api={this.api}
-          onUserRegisteredOnEJ={(ev) => this.registerHandler(ev)}
+          onUserRegisteredOnEJ={() => this.registerHandler()}
         ></ej-conversation-register>
       </div>
     );
@@ -124,7 +131,10 @@ export class EjConversation {
       <div>
         <div id="user-prop">{this.user.name}</div>
         {this.showBoardComponent && (
-          <ej-conversation-board theme={this.theme}></ej-conversation-board>
+          <ej-conversation-board
+            onCloseBoard={() => this.boardHandler()}
+            theme={this.theme}
+          ></ej-conversation-board>
         )}
         <ej-conversation-comments
           cid={this.cid}

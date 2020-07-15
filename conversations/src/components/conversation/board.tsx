@@ -18,7 +18,11 @@ export class EjConversationBoard {
   @Prop() currentContainer: number = 0;
   @Prop() currentStep: number = 0;
   @Prop() theme: string;
-  @Event() closeBoard: EventEmitter;
+  @Event({
+    bubbles: true,
+    composed: true,
+  })
+  closeBoard: EventEmitter;
   themeOptions: any = {
     osf: {
       h1: "todos importam na luta contra a corrupção",
@@ -120,7 +124,6 @@ export class EjConversationBoard {
     localStorage.setItem("lgpd", "disagree");
     this.skip();
     this.closeBoard.emit({ blockedByLGPD: true });
-    location.reload();
   }
 
   render() {
