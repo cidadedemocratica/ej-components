@@ -37,7 +37,11 @@ export class API {
   }
 
   async getConversation() {
-    return this.httpRequest(this.config.CONVERSATIONS_ROUTE);
+    let response = await this.httpRequest(this.config.CONVERSATIONS_ROUTE);
+    if (response.status) {
+      return { response: response, status: response.status };
+    }
+    return { response: response, status: 200 };
   }
 
   async getUserConversationStatistics() {
@@ -129,12 +133,10 @@ export class API {
       try {
         return await response.json();
       } catch (error) {
-        console.error("could not send request");
         return {};
       }
     } else {
-      let invalidResponse = await response.json();
-      throw new Error(invalidResponse.name);
+      return response;
     }
   }
 
