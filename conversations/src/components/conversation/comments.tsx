@@ -36,15 +36,35 @@ export class EjConversationComments {
 
   async prepareToLoad() {
     try {
-      this.conversation = { ...(await this.api.getConversation()) };
-      this.comment = {
-        ...(await this.api.getConversationNextComment(this.conversation)),
-      };
-      this.setUserStats();
-      this.voteUsingejQueryParams(this.ejQueryParams);
+      let { response, status } = await this.api.getConversation();
+      if (status == 401) {
+        await this.getNewToken();
+      } else {
+        this.conversation = response;
+        this.comment = {
+          ...(await this.api.getConversationNextComment(this.conversation)),
+        };
+        this.setUserStats();
+        this.voteUsingejQueryParams(this.ejQueryParams);
+      }
     } catch (err) {
       console.log(err);
     }
+  }
+
+  async getNewToken() {
+    console.log("reloading token");
+    let user = JSON.parse(localStorage.getItem("user"));
+    user.token = "";
+    localStorage.setItem("user", JSON.stringify(user));
+    await this.api.authenticate();
+    let { response } = await this.api.getConversation();
+    this.conversation = response;
+    this.comment = {
+      ...(await this.api.getConversationNextComment(this.conversation)),
+    };
+    this.setUserStats();
+    this.voteUsingejQueryParams(this.ejQueryParams);
   }
 
   private voteUsingejQueryParams(ejQueryParams: any) {
