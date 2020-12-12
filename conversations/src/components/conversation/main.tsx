@@ -23,7 +23,7 @@ export class EjConversation {
   //cid == conversation_id
   @Prop() cid: string;
   @Prop() user: User = new User();
-  @Prop() theme: string = "osf";
+  @Prop() theme: string = "icd";
   @Prop() showBoardComponent: boolean = true;
   @Prop() ejQueryParams: any = null;
   @Prop() authenticateWith: string = "register";

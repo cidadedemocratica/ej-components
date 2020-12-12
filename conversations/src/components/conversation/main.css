@@ -216,7 +216,7 @@ h2 {
 /* ======== BOARDS ELEMENTS ========*/
 
 .lgpd {
-	font-size: 2vh;
+	font-size: 1.5vw;
 	width: 90%;
 	margin: 10px auto;
 	text-align: center;
@@ -232,7 +232,7 @@ h2 {
 .lgpd-card-btn, .lgpd-card-btn-unfocused, .skip-card, .card-btn {
 	margin: unset;
 	margin-bottom: 10px;
-	font-size: 2.5vh;
+	font-size: 1.5vh;
 	text-transform: uppercase;
 	text-align: center;
 	font-family: Folio;
@@ -314,7 +314,7 @@ h2 {
 }
 
 .board-header h1 {
-  font-size: 5vh;
+  font-size: 3vh;
 	font-weight: 100;
 	position: relative;
 	text-transform: uppercase;
@@ -324,7 +324,7 @@ h2 {
 .board-header h2 {
 	margin-bottom: 25px !important;
 	font-weight: 100;
-	font-size: 4vh;
+	font-size: 2vh;
 }
 
 .board-header h1, .board-header h2 {
@@ -715,7 +715,7 @@ textarea {
 	background-color: #000937;
 	color: white;
 	font-family: Folio;
-	font-size: 2.5vh;
+	font-size: 1.5vh;
 	box-shadow: 0px 0px 2px 0px;
 	box-sizing: content-box;
 	padding: 4px 10px 4px 10px;
