@@ -303,7 +303,7 @@ h2 {
   background-color: white;
   top: 5%;
   z-index: 1000;
-	left: calc(50% - 271px);
+	left: 30vw;
 	width: 40vw;
 	max-width: unset;
 }
