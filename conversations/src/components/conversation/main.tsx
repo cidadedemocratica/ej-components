@@ -5,6 +5,7 @@ import {
   Element,
   Event,
   EventEmitter,
+  State,
 } from "@stencil/core";
 import { API } from "./api/api";
 import { User } from "./api/user";
@@ -27,6 +28,9 @@ export class EjConversation {
   @Prop() showBoardComponent: boolean = true;
   @Prop() ejQueryParams: any = null;
   @Prop() authenticateWith: string = "register";
+  @Prop() conversation: any = {};
+  @State() showCommentsComponent: boolean = true;
+  @State() showInfoComponent: boolean = false;
   @Event() tokenExists: EventEmitter;
 
   async registerHandler(event?: any) {
@@ -40,10 +44,12 @@ export class EjConversation {
     location.reload();
   }
 
-  componentWillLoad() {
+  async componentWillLoad() {
     this.ejQueryParams = this.getEJQueryParams(document.location.search);
     console.log(this.ejQueryParams);
     this.api = this.newAPI();
+    let { response } = await this.api.getConversation();
+    this.conversation = response;
   }
 
   private newAPI() {
@@ -126,26 +132,13 @@ export class EjConversation {
     );
   }
 
-  bodyComponents() {
-    return (
-      <div>
-        <div id="user-prop">{this.user.name}</div>
-        {this.showBoardComponent && (
-          <ej-conversation-board
-            onCloseBoard={() => this.boardHandler()}
-            theme={this.theme}
-          ></ej-conversation-board>
-        )}
-        <ej-conversation-comments
-          cid={this.cid}
-          host={this.host}
-          user={this.user}
-          theme={this.theme}
-          ejQueryParams={this.ejQueryParams}
-          api={this.api}
-        ></ej-conversation-comments>
-      </div>
-    );
+  toogleComments() {
+    this.showInfoComponent = false;
+    this.showCommentsComponent = true;
+  }
+  toogleInfo() {
+    this.showInfoComponent = true;
+    this.showCommentsComponent = false;
   }
 
   render() {
@@ -157,6 +150,43 @@ export class EjConversation {
         return this.registerComponent();
       }
     }
-    return this.bodyComponents();
+    return (
+      <div>
+        <div id="user-prop">{this.user.name}</div>
+        {this.showBoardComponent && (
+          <ej-conversation-board
+            onCloseBoard={() => this.boardHandler()}
+            theme={this.theme}
+          ></ej-conversation-board>
+        )}
+        <ej-conversation-header
+          conversation={this.conversation}
+          theme={this.theme}
+        ></ej-conversation-header>
+        <div>
+          <nav>
+            <div onClick={this.toogleComments.bind(this)} class="title">
+              <h2>Comentários</h2>
+            </div>
+            <div onClick={this.toogleInfo.bind(this)} class="title">
+              <h2>Informações</h2>
+            </div>
+          </nav>
+          {this.showCommentsComponent && (
+            <ej-conversation-comments
+              cid={this.cid}
+              host={this.host}
+              user={this.user}
+              theme={this.theme}
+              ejQueryParams={this.ejQueryParams}
+              api={this.api}
+            ></ej-conversation-comments>
+          )}
+          {this.showInfoComponent && (
+            <ej-conversation-infos></ej-conversation-infos>
+          )}
+        </div>
+      </div>
+    );
   }
 }

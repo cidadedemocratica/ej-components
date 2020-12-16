@@ -256,14 +256,7 @@ export class EjConversationComments {
         <div class="box">
           <div id="user-prop">{this.user.name}</div>
           <div id="user-prop">{this.showRegisterComponent}</div>
-          <ej-conversation-header
-            conversation={this.conversation}
-            theme={this.theme}
-          ></ej-conversation-header>
           <div class="comment">
-            <div id="comment-header">
-              <h2>comentários</h2>
-            </div>
             <div class="card-transition">
               <div class="card comment-card">
                 <div class={"comment-owner " + `comment-owner-${this.theme}`}>
