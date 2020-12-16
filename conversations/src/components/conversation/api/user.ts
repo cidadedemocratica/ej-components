@@ -45,7 +45,12 @@ export class User {
 
   static get() {
     let user: User = new User();
-    user = { ...JSON.parse(localStorage.getItem("user")) };
+    let userData = { ...JSON.parse(localStorage.getItem("user")) };
+    user.displayName = userData.displayName;
+    user.email = userData.email;
+    user.token = userData.token;
+    user.name = userData.name;
+    user.metadata = { ...userData.metadata };
     return user;
   }
 }

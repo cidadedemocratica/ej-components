@@ -461,6 +461,14 @@ h2 {
 	margin-right: 5px;
 }
 
+.stats, .infos-component {
+  font-size: 1rem;
+}
+
+.infos-component {
+  padding-bottom: unset;
+}
+
 .comment {
 	margin: auto;
 	width: 80%;
@@ -469,14 +477,37 @@ h2 {
 	position: relative;
 }
 
-#comment-header h2 {
-	font-size: calc(1.5em + 1vw);
+
+.title {
+  width: 20%;
+  padding: 5px;
+}
+
+.focused-title {
+  border-bottom: 2px solid black !important;
+  transition: border-bottom 1s;
+}
+
+.unfocused-title {
+  border-bottom: 2px solid white !important;
+  color: #00093799 !important
+}
+
+.unfocused-title:hover {
+  border-bottom: 2px solid #00093799 !important;
+  transition: border-bottom 1s;
+}
+
+.title h2 {
+	font-size: calc(0.8em + 1vw);
 	font-family: Folio,sans-serif;
 	text-transform: uppercase;
 	padding: 30px 0 30px 0;
 	text-align: center;
 	color: #000937;
 	font-weight: 100;
+  height: 0px;
+  border-bottom: 0px solid black;
 }
 
 .comment-owner {
@@ -731,6 +762,14 @@ textarea {
 	margin: auto auto auto auto;
 	background-position: center;
 }
+
+nav {
+  display: flex;
+  width: 80%;
+  margin: auto;
+  max-width: 700px;
+  justify-content: center;
+}
 /* ======== NEW COMMENT CARD ELEMENTS ========*/
 
 @media only screen and (max-width: 1024px) {
@@ -788,6 +827,98 @@ textarea {
 		max-width: 40%;
 	}
 
+}
+
+/*============= GROUPS TAB ======================*/
+
+.clusters {
+  background-color: #e2f9fa;
+  height: 40px;
+  color: #1db0f0;
+  max-width: 800px;
+  margin: auto;
+}
+
+.clusters nav {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.clusters nav div {
+  margin: 0 10px 0 10px;
+}
+
+.clusters nav div {
+  transition: border-bottom-color 0.5s;
+}
+
+.clusters nav div:hover {
+  border-bottom: 4px #1db0f08a solid;
+  padding-bottom: 2px;
+}
+
+.active-cluster {
+  border-bottom: 4px #1db0f0 solid;
+  padding-bottom: 2px;
+}
+
+.clusters .details {
+  color: black;
+  text-align: left;
+  padding: 20px;
+  max-width: 600px;
+  margin: auto auto 160px auto;
+}
+
+.cluster-comment {
+  padding: 20px;
+}
+
+
+.comments-label {
+  margin-bottom: 20px;
+}
+.comments-label span {
+  color: #ff3e72;
+  font-weight: 100;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-family: Folio,sans-serif;
+  margin-left: 5px;
+}
+
+.comment-ratio {
+  font-family: Folio,sans-serif;
+  font-weight: 100;
+}
+
+.comment-content {
+  font-family: Helvetica;
+  padding: 20px;
+  font-weight: 100;
+}
+
+.no-comments, .clusters-message, .no-groups {
+  font-family: Helvetica;
+  font-weight: 100;
+  font-size: 1rem;
+  color: black;
+}
+
+.no-groups {
+  width: 50%;
+  margin: auto;
+}
+
+.comments-box {
+  opacity: 0;
+  position: absolute;
+  left: -99999px;
+  transition: opacity 0.5s ease 0s, position 0.5s ease 0s;
+}
+
+.fa-plus {
+  color: #ff3e72;
 }
 
 @media only screen and (max-width: 800px) {

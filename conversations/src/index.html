@@ -35,11 +35,36 @@
   font-display: auto;
 	src: url('/build/assets/fonts/helvetica_neue_lts_roman.otf');
 }
+
+@font-face {
+  font-family: 'Font Awesome 5 Free';
+  font-style: normal;
+  font-weight: 400;
+  font-display: auto;
+	src: url('/build/assets/fonts/fa-regular-400.ttf');
+}
+
+@font-face {
+  font-family: 'Font Awesome 5 Free';
+  font-style: normal;
+  font-weight: 400;
+  font-display: auto;
+	src: url('/build/assets/fonts/fa-brands-400.ttf');
+}
+
+@font-face {
+  font-family: 'Font Awesome 5 Free';
+  font-style: normal;
+  font-weight: 400;
+  font-display: auto;
+	src: url('/build/assets/fonts/fa-solid-900.ttf');
+}
+
 </style>
 </head>
 <body>
 
-<ej-conversation host="http://localhost:8000" cid="1" theme="osf" authenticate-with="analytics"></ej-conversation>
+<ej-conversation host="http://localhost:8000" cid="47" theme="icd" authenticate-with="register"></ej-conversation>
 	<!-- Mautic tracking script. It also try to retrieve analytics _ga cookie, to send with
 	contact data. -->
 <script>
@@ -49,29 +74,6 @@
     })(window,document,'script','http://mautic.local/mtc.js','mt');
 
     mt('send', 'pageview');
-
-	function getCookie(cookieName) {
-		var cookies = document.cookie;
-		var cookieIndex = cookies.indexOf(cookieName);
-		var cookieValue = '';
-		if (cookieIndex != -1) {
-			var cookieKeyAndValue = cookies.substring(cookieIndex, cookies.length);
-			cookieValue = cookieKeyAndValue.split("=")[1];
-			if (cookieValue.indexOf(";") != -1) {
-				cookieValue = cookieValue.split(";")[0];
-			}
-		}
-		return cookieValue;
-	}
-    setTimeout(function() {
-	var mtc_id = getCookie("mtc_id");
-	var _ga = getCookie("_ga");
-	var ej_host = "http://localhost:8000";
-	    fetch(`${ej_host}/mautic/contacts/?mtc_id=${mtc_id}&_ga=${_ga}`)
-		    .then(res => {
-			    console.log(res)
-		    })
-    }, 6000);
 </script>
 </body>
 </html>

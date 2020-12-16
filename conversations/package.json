@@ -1,6 +1,6 @@
 {
   "name": "ej-conversations",
-  "version": "1.7.12-ICD-Theme",
+  "version": "1.7.13-beta",
   "description": "EJ conversations component",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

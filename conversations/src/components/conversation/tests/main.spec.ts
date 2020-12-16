@@ -2,26 +2,6 @@ import { newSpecPage } from "@stencil/core/testing";
 import { EjConversation } from "../main";
 import { API } from "../api/api";
 
-it("should render spinner component", async () => {
-  const page = await newSpecPage({
-    components: [EjConversation],
-    html: `<ej-conversation host="" cid="" authenticate-with="analytics"></ej-conversation>`,
-  });
-  expect(page.root).toEqualHtml(`
-     <ej-conversation authenticate-with="analytics" cid="" host="">
-       <mock:shadow-root>
-         <div>
-        <ej-conversation-board theme="osf"></ej-conversation-board>
-        <ej-conversation-register
-          host=""
-          theme="osf"
-        ></ej-conversation-register>
-         </div>
-       </mock:shadow-root>
-     </ej-conversation>
-  `);
-});
-
 it("should render register component", async () => {
   const page = await newSpecPage({
     components: [EjConversation],
@@ -31,10 +11,10 @@ it("should render register component", async () => {
      <ej-conversation authenticate-with="register" cid="" host="">
        <mock:shadow-root>
        <div>
-        <ej-conversation-board theme="osf"></ej-conversation-board>
+        <ej-conversation-board theme="icd"></ej-conversation-board>
         <ej-conversation-register
           host=""
-          theme="osf"
+          theme="icd"
         ></ej-conversation-register>
         </div>
        </mock:shadow-root>
@@ -54,11 +34,24 @@ it("should render comments component", async () => {
        <mock:shadow-root>
          <div>
           <div id="user-prop"></div>
-           <ej-conversation-board theme="osf"></ej-conversation-board>
+           <ej-conversation-board theme="icd"></ej-conversation-board>
+           <ej-conversation-header theme="icd"></ej-conversation-header>
+           <div>
+           <nav>
+           <div class="title">
+           <h2 class="focused-title">
+             Comentários
+           </h2>
+           </div>
+           <div class="title">
+           <h2 class="unfocused-title">
+             Grupos
+           </h2>
+           </div>
+           </nav>
            <ej-conversation-comments
-            cid=""
             host=""
-            theme="osf"
+            theme="icd"
           ></ej-conversation-comments>
          </div>
        </mock:shadow-root>

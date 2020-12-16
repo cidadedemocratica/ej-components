@@ -13,6 +13,12 @@ um segundo ambiente.
 
 ## Desenvolvimento
 
+Antes de executar o componente, é preciso ter uma instância local da EJ rodando. Para
+apontar o componente para essa instância, edite o arquivo `src/index.html`. Encontre
+o componente `ej-conversation` dentro do arquivo, e altere a variável `host`, 
+apontando para a instância local da EJ. 
+Altere também a variável `cid`, para o ID de uma conversa que exista na sua instância local da EJ.
+
 Todos os componentes são desenvolvidos utilizando o framework [stenciljs](https://stenciljs.com/).
 Para subir o servidor de desenvolvimento, execute:
 
@@ -22,6 +28,7 @@ Para subir o servidor de desenvolvimento, execute:
 Para executar os testes:
 
 	cd conversations && npm test
+
 
 Para publicar uma nova versão do componente, faça as alterações necessárias,
 faça bump da versão do componente no `package.json` e utilize a task `publish` do

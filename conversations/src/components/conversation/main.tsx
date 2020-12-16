@@ -5,6 +5,7 @@ import {
   Element,
   Event,
   EventEmitter,
+  State,
 } from "@stencil/core";
 import { API } from "./api/api";
 import { User } from "./api/user";
@@ -27,6 +28,9 @@ export class EjConversation {
   @Prop() showBoardComponent: boolean = true;
   @Prop() ejQueryParams: any = null;
   @Prop() authenticateWith: string = "register";
+  @Prop() conversation: any = {};
+  @State() commentsComponentFocused: boolean = true;
+  @State() groupComponentFocused: boolean = false;
   @Event() tokenExists: EventEmitter;
 
   async registerHandler(event?: any) {
@@ -40,10 +44,12 @@ export class EjConversation {
     location.reload();
   }
 
-  componentWillLoad() {
+  async componentWillLoad() {
     this.ejQueryParams = this.getEJQueryParams(document.location.search);
-    console.log(this.ejQueryParams);
     this.api = this.newAPI();
+    await this.api.authenticate();
+    let { response } = await this.api.getConversation();
+    this.conversation = response;
   }
 
   private newAPI() {
@@ -126,7 +132,37 @@ export class EjConversation {
     );
   }
 
-  bodyComponents() {
+  showCommentsComponent(event: any) {
+    this.commentsComponentFocused = true;
+    this.groupComponentFocused = false;
+    this.animateFocus(event);
+  }
+  showGroupComponent(event: any) {
+    this.groupComponentFocused = true;
+    this.commentsComponentFocused = false;
+    this.animateFocus(event);
+  }
+
+  animateFocus(event: any) {
+    if (event.target.classList.value.indexOf("unfocused-title") >= 0) {
+      let focusedNav = this.el.shadowRoot.querySelector(".focused-title");
+      console.log(focusedNav);
+      focusedNav.classList.remove("focused-title");
+      focusedNav.classList.add("unfocused-title");
+      event.target.classList.remove("unfocused-title");
+      event.target.classList.add("focused-title");
+    }
+  }
+
+  render() {
+    if (!this.api.authTokenExists()) {
+      if (this.authenticateWith != "register") {
+        this.waitUserToken();
+        return this.spinnerComponent();
+      } else {
+        return this.registerComponent();
+      }
+    }
     return (
       <div>
         <div id="user-prop">{this.user.name}</div>
@@ -136,27 +172,38 @@ export class EjConversation {
             theme={this.theme}
           ></ej-conversation-board>
         )}
-        <ej-conversation-comments
-          cid={this.cid}
-          host={this.host}
-          user={this.user}
+        <ej-conversation-header
+          conversation={this.conversation}
           theme={this.theme}
-          ejQueryParams={this.ejQueryParams}
-          api={this.api}
-        ></ej-conversation-comments>
+        ></ej-conversation-header>
+        <div>
+          <nav>
+            <div onClick={this.showCommentsComponent.bind(this)} class="title">
+              <h2 class="focused-title">Comentários</h2>
+            </div>
+            <div onClick={this.showGroupComponent.bind(this)} class="title">
+              <h2 class="unfocused-title">Grupos</h2>
+            </div>
+          </nav>
+          {this.commentsComponentFocused && (
+            <ej-conversation-comments
+              conversation={this.conversation}
+              host={this.host}
+              user={this.user}
+              theme={this.theme}
+              ejQueryParams={this.ejQueryParams}
+              api={this.api}
+            ></ej-conversation-comments>
+          )}
+          {this.groupComponentFocused && (
+            <ej-conversation-groups
+              conversation={this.conversation}
+              api={this.api}
+              theme={this.theme}
+            ></ej-conversation-groups>
+          )}
+        </div>
       </div>
     );
-  }
-
-  render() {
-    if (!this.api.authTokenExists()) {
-      if (this.authenticateWith == "mautic") {
-        this.waitUserToken();
-        return this.spinnerComponent();
-      } else {
-        return this.registerComponent();
-      }
-    }
-    return this.bodyComponents();
   }
 }
