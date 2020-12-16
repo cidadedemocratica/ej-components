@@ -126,7 +126,7 @@ export class EjConversation {
     );
   }
 
-  commentsComponent() {
+  bodyComponents() {
     return (
       <div>
         <div id="user-prop">{this.user.name}</div>
@@ -157,6 +157,6 @@ export class EjConversation {
         return this.registerComponent();
       }
     }
-    return this.commentsComponent();
+    return this.bodyComponents();
   }
 }

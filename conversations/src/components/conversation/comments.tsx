@@ -256,41 +256,10 @@ export class EjConversationComments {
         <div class="box">
           <div id="user-prop">{this.user.name}</div>
           <div id="user-prop">{this.showRegisterComponent}</div>
-          <div class={"header " + `header-${this.theme}`}>
-            <h1> {this.conversation && this.conversation.text}</h1>
-            <div class="stats">
-              <div>
-                <img
-                  src={getAssetPath(
-                    `./assets/icons/icone-branco-comentarios.png`
-                  )}
-                  alt=""
-                />
-                {(this.conversation.statistics &&
-                  this.conversation.statistics.comments.approved) ||
-                  0}{" "}
-                comentarios
-              </div>
-              <div>
-                <img
-                  src={getAssetPath(`./assets/icons/icone-branco-votos.png`)}
-                  alt=""
-                />
-                {(this.conversation.statistics &&
-                  this.conversation.statistics.votes.total) ||
-                  0}{" "}
-                votos
-              </div>
-              <div id="seta">
-                <img
-                  src={getAssetPath(
-                    `./assets/icons/seta-branca-para-fundo-azul.png`
-                  )}
-                  alt=""
-                />
-              </div>
-            </div>
-          </div>
+          <ej-conversation-header
+            conversation={this.conversation}
+            theme={this.theme}
+          ></ej-conversation-header>
           <div class="comment">
             <div id="comment-header">
               <h2>comentários</h2>
