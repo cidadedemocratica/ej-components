@@ -46,8 +46,8 @@ export class EjConversation {
 
   async componentWillLoad() {
     this.ejQueryParams = this.getEJQueryParams(document.location.search);
-    console.log(this.ejQueryParams);
     this.api = this.newAPI();
+    await this.api.authenticate();
     let { response } = await this.api.getConversation();
     this.conversation = response;
   }
@@ -143,7 +143,7 @@ export class EjConversation {
 
   render() {
     if (!this.api.authTokenExists()) {
-      if (this.authenticateWith == "mautic") {
+      if (this.authenticateWith != "register") {
         this.waitUserToken();
         return this.spinnerComponent();
       } else {
@@ -174,7 +174,7 @@ export class EjConversation {
           </nav>
           {this.showCommentsComponent && (
             <ej-conversation-comments
-              cid={this.cid}
+              conversation={this.conversation}
               host={this.host}
               user={this.user}
               theme={this.theme}

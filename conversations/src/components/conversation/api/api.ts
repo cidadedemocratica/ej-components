@@ -16,15 +16,15 @@ export class API {
   }
 
   async authenticate() {
-    if (this.authTokenExists()) {
-      return User.get();
-    }
     let user: User;
     if (this.authMethod == "mautic") {
       user = this.newUserUsingMauticID();
     }
     if (this.authMethod == "analytics") {
       user = this.newUserUsingAnalyticsID();
+    }
+    if (this.authMethod == "register") {
+      user = this.getUser();
     }
     if (user) {
       let response = await this.createUser(user);
@@ -145,8 +145,14 @@ export class API {
   }
 
   getUserToken() {
-    let user = JSON.parse(localStorage.getItem("user"));
+    let user = User.get();
     return user && user.token ? user.token : "";
+  }
+
+  getUser() {
+    let user = User.get();
+    user.token = "";
+    return user;
   }
 
   newUserUsingMauticID() {

@@ -14,8 +14,6 @@ export class EjConversationComments {
   @Element() el!: HTMLStencilElement;
   @Prop() conversation: any = {};
   @Prop() host: string;
-  //conversation_id
-  @Prop() cid: string;
   @Prop() comment: any = {};
   @Prop() newCommentContent: string = "";
   @Prop() user: User;
@@ -35,31 +33,6 @@ export class EjConversationComments {
   }
 
   async prepareToLoad() {
-    try {
-      let { response, status } = await this.api.getConversation();
-      if (status == 401) {
-        await this.getNewToken();
-      } else {
-        this.conversation = response;
-        this.comment = {
-          ...(await this.api.getConversationNextComment(this.conversation)),
-        };
-        this.setUserStats();
-        this.voteUsingejQueryParams(this.ejQueryParams);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  async getNewToken() {
-    console.log("reloading token");
-    let user = JSON.parse(localStorage.getItem("user"));
-    user.token = "";
-    localStorage.setItem("user", JSON.stringify(user));
-    await this.api.authenticate();
-    let { response } = await this.api.getConversation();
-    this.conversation = response;
     this.comment = {
       ...(await this.api.getConversationNextComment(this.conversation)),
     };
