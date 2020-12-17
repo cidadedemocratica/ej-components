@@ -29,8 +29,8 @@ export class EjConversation {
   @Prop() ejQueryParams: any = null;
   @Prop() authenticateWith: string = "register";
   @Prop() conversation: any = {};
-  @State() showCommentsComponent: boolean = true;
-  @State() showInfoComponent: boolean = false;
+  @State() commentsComponentFocused: boolean = true;
+  @State() infoComponentFocused: boolean = false;
   @Event() tokenExists: EventEmitter;
 
   async registerHandler(event?: any) {
@@ -132,13 +132,26 @@ export class EjConversation {
     );
   }
 
-  toogleComments() {
-    this.showInfoComponent = false;
-    this.showCommentsComponent = true;
+  showCommentsComponent(event: any) {
+    this.commentsComponentFocused = true;
+    this.infoComponentFocused = false;
+    this.animateFocus(event);
   }
-  toogleInfo() {
-    this.showInfoComponent = true;
-    this.showCommentsComponent = false;
+  showInfoComponent(event: any) {
+    this.infoComponentFocused = true;
+    this.commentsComponentFocused = false;
+    this.animateFocus(event);
+  }
+
+  animateFocus(event: any) {
+    if (event.target.classList.value.indexOf("unfocused-title") >= 0) {
+      let focusedNav = this.el.shadowRoot.querySelector(".focused-title");
+      console.log(focusedNav);
+      focusedNav.classList.remove("focused-title");
+      focusedNav.classList.add("unfocused-title");
+      event.target.classList.remove("unfocused-title");
+      event.target.classList.add("focused-title");
+    }
   }
 
   render() {
@@ -165,14 +178,14 @@ export class EjConversation {
         ></ej-conversation-header>
         <div>
           <nav>
-            <div onClick={this.toogleComments.bind(this)} class="title">
-              <h2>Comentários</h2>
+            <div onClick={this.showCommentsComponent.bind(this)} class="title">
+              <h2 class="focused-title">Comentários</h2>
             </div>
-            <div onClick={this.toogleInfo.bind(this)} class="title">
-              <h2>Informações</h2>
+            <div onClick={this.showInfoComponent.bind(this)} class="title">
+              <h2 class="unfocused-title">Informações</h2>
             </div>
           </nav>
-          {this.showCommentsComponent && (
+          {this.commentsComponentFocused && (
             <ej-conversation-comments
               conversation={this.conversation}
               host={this.host}
@@ -182,7 +195,7 @@ export class EjConversation {
               api={this.api}
             ></ej-conversation-comments>
           )}
-          {this.showInfoComponent && (
+          {this.infoComponentFocused && (
             <ej-conversation-infos></ej-conversation-infos>
           )}
         </div>
