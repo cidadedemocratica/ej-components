@@ -470,7 +470,7 @@ h2 {
 }
 
 .title {
-  width: 30%;
+  width: 25%;
 }
 
 .focused-title {
@@ -480,6 +480,7 @@ h2 {
 
 .unfocused-title {
   border-bottom: 2px solid white !important;
+  color: #00093799 !important
 }
 
 .title h2 {
