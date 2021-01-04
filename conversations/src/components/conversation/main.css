@@ -461,6 +461,10 @@ h2 {
 	margin-right: 5px;
 }
 
+.stats, .infos-component {
+  font-size: 1rem;
+}
+
 .comment {
 	margin: auto;
 	width: 80%;
@@ -818,6 +822,10 @@ nav {
 		max-width: 40%;
 	}
 
+}
+
+.clusters {
+  background-color: #1db0f0;
 }
 
 @media only screen and (max-width: 800px) {

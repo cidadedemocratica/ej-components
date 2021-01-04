@@ -48,6 +48,10 @@ export class API {
     return this.httpRequest(this.config.USER_STATISTICS_ROUTE);
   }
 
+  async getConversationClusters() {
+    return this.httpRequest(this.config.CONVERSATION_CLUSTERS_ROUTE);
+  }
+
   async getConversationNextComment(conversation: any) {
     let commentUrl: string = "";
     if (this.config.COMMENT_ROUTE) {

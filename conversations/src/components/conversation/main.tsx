@@ -196,7 +196,10 @@ export class EjConversation {
             ></ej-conversation-comments>
           )}
           {this.infoComponentFocused && (
-            <ej-conversation-infos></ej-conversation-infos>
+            <ej-conversation-infos
+              conversation={this.conversation}
+              api={this.api}
+            ></ej-conversation-infos>
           )}
         </div>
       </div>
