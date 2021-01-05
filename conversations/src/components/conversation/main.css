@@ -830,8 +830,9 @@ nav {
 }
 
 .clusters {
-  background-color: #1db0f0;
+  background-color: #e2f9fa;
   height: 40px;
+  color: #1db0f0;
   max-width: 800px;
   margin: auto;
 }
@@ -840,13 +841,44 @@ nav {
   padding: 10px;
 }
 
+.clusters nav div {
+  margin: 0 10px 0 10px;
+}
+
 .clusters .details {
   color: black;
   text-align: left;
+  padding: 20px;
+  max-width: 600px;
+  margin: auto;
 }
 
-.clusterComment {
-  display: flex;
+.cluster-comment {
+  padding: 20px;
+}
+
+
+.comments-label {
+  color: #ff3e72;
+  font-weight: 100;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-family: Folio,sans-serif;
+}
+
+.comment-ratio {
+  font-family: Folio,sans-serif;
+  font-weight: 100;
+}
+
+.comment-content {
+  font-family: Helvetica;
+  padding: 20px;
+  font-weight: 100;
+}
+
+.comments-box {
+  transition: height 2s, opacity 2s;
 }
 
 @media only screen and (max-width: 800px) {

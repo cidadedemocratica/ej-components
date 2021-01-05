@@ -31,6 +31,12 @@ export class EjConversationInfos {
     console.log(this.selectedCluster);
   }
 
+  animateComments(event: any) {
+    let target = event.target;
+    target.style.height = "0";
+    target.style.opacity = "0";
+  }
+
   render() {
     return (
       <div>
@@ -69,39 +75,61 @@ export class EjConversationInfos {
           </div>
           <div class="clusters">
             <nav>
+              <i class="fa fa-chevron-left"></i>
               {this.clusters &&
                 this.clusters.map((cluster: any) => (
                   <div onClick={this.showClusterData.bind(this, cluster.name)}>
                     {cluster.name}
                   </div>
                 ))}
+              <i class="fa fa-chevron-right"></i>
             </nav>
             <div class="details">
               {this.selectedCluster && (
                 <div>
                   <div>
-                    <div>Comentários Positivos</div>
-                    {this.selectedCluster.positive_comments &&
-                      this.selectedCluster.positive_comments.map(
-                        (comment: any) => (
-                          <div class="clusterComment">
-                            <div>{Object.keys(comment)[0]}</div>
-                            <div>{Object.values(comment)[0]}</div>
-                          </div>
-                        )
-                      )}
+                    <div class="comments-label">Comentários Positivos</div>
+                    <div class="comments-box">
+                      {this.selectedCluster.positive_comments &&
+                        this.selectedCluster.positive_comments.map(
+                          (comment: any) => (
+                            <div class="cluster-comment">
+                              <div class="comment-ratio">
+                                {(
+                                  parseFloat(Object.keys(comment)[0]) * 100
+                                ).toFixed(1)}{" "}
+                                %
+                              </div>
+                              <div class="comment-content">
+                                {Object.values(comment)[0]}
+                              </div>
+                            </div>
+                          )
+                        )}
+                    </div>
                   </div>
                   <div>
-                    <div>Comentários Negativos</div>
-                    {this.selectedCluster.negative_comments &&
-                      this.selectedCluster.negative_comments.map(
-                        (comment: any) => (
-                          <div class="clusterComment">
-                            <div>{Object.keys(comment)[0]}</div>
-                            <div>{Object.values(comment)[0]}</div>
-                          </div>
-                        )
-                      )}
+                    <div onClick={this.animateComments} class="comments-label">
+                      Comentários Negativos
+                    </div>
+                    <div class="comments-box">
+                      {this.selectedCluster.negative_comments &&
+                        this.selectedCluster.negative_comments.map(
+                          (comment: any) => (
+                            <div class="cluster-comment">
+                              <div class="comment-ratio">
+                                {(
+                                  parseFloat(Object.keys(comment)[0]) * 100
+                                ).toFixed(1)}{" "}
+                                %
+                              </div>
+                              <div class="comment-content">
+                                <span>{Object.values(comment)[0]}</span>
+                              </div>
+                            </div>
+                          )
+                        )}
+                    </div>
                   </div>
                 </div>
               )}
