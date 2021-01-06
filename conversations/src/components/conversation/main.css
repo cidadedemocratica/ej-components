@@ -859,6 +859,9 @@ nav {
 
 
 .comments-label {
+  margin-bottom: 20px;
+}
+.comments-label span {
   color: #ff3e72;
   font-weight: 100;
   font-size: 1.2rem;
@@ -877,8 +880,12 @@ nav {
   font-weight: 100;
 }
 
+
 .comments-box {
-  transition: height 2s, opacity 2s;
+  opacity: 0;
+  position: absolute;
+  left: -99999px;
+  transition: opacity 0.5s ease 0s, position 0.5s ease 0s;
 }
 
 @media only screen and (max-width: 800px) {

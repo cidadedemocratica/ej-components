@@ -31,10 +31,20 @@ export class EjConversationInfos {
     console.log(this.selectedCluster);
   }
 
-  animateComments(event: any) {
-    let target = event.target;
-    target.style.height = "0";
-    target.style.opacity = "0";
+  animateComments(type: any, _: string) {
+    let children: any = this.el.shadowRoot.querySelector(
+      `.comments-box .${type}`
+    );
+    let target = children.parentElement;
+    let computedStyle = getComputedStyle(target);
+    target.style.opacity = computedStyle.opacity == "0" ? "1" : "0";
+    if (computedStyle.position == "absolute") {
+      target.style.position = "unset";
+    } else {
+      setTimeout(() => {
+        target.style.position = "absolute";
+      }, 500);
+    }
   }
 
   render() {
@@ -87,9 +97,14 @@ export class EjConversationInfos {
             <div class="details">
               {this.selectedCluster && (
                 <div>
-                  <div>
-                    <div class="comments-label">Comentários Positivos</div>
-                    <div class="comments-box">
+                  <div
+                    onClick={this.animateComments.bind(this, "positive")}
+                    class="comments-label"
+                  >
+                    <span>Comentários Positivos</span>
+                  </div>
+                  <div class="comments-box">
+                    <div class="positive">
                       {this.selectedCluster.positive_comments &&
                         this.selectedCluster.positive_comments.map(
                           (comment: any) => (
@@ -109,26 +124,31 @@ export class EjConversationInfos {
                     </div>
                   </div>
                   <div>
-                    <div onClick={this.animateComments} class="comments-label">
-                      Comentários Negativos
+                    <div
+                      onClick={this.animateComments.bind(this, "negative")}
+                      class="comments-label"
+                    >
+                      <span>Comentários Negativos</span>
                     </div>
                     <div class="comments-box">
-                      {this.selectedCluster.negative_comments &&
-                        this.selectedCluster.negative_comments.map(
-                          (comment: any) => (
-                            <div class="cluster-comment">
-                              <div class="comment-ratio">
-                                {(
-                                  parseFloat(Object.keys(comment)[0]) * 100
-                                ).toFixed(1)}{" "}
-                                %
+                      <div class="negative">
+                        {this.selectedCluster.negative_comments &&
+                          this.selectedCluster.negative_comments.map(
+                            (comment: any) => (
+                              <div class="cluster-comment">
+                                <div class="comment-ratio">
+                                  {(
+                                    parseFloat(Object.keys(comment)[0]) * 100
+                                  ).toFixed(1)}{" "}
+                                  %
+                                </div>
+                                <div class="comment-content">
+                                  {Object.values(comment)[0]}
+                                </div>
                               </div>
-                              <div class="comment-content">
-                                <span>{Object.values(comment)[0]}</span>
-                              </div>
-                            </div>
-                          )
-                        )}
+                            )
+                          )}
+                      </div>
                     </div>
                   </div>
                 </div>
