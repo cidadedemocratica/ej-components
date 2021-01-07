@@ -24,11 +24,13 @@ export class EjConversationInfos {
     this.selectedCluster = this.clusters[0];
   }
 
-  showClusterData(clusterName: any, _) {
+  showClusterData(clusterName: any, event: any) {
+    let previousCluster = this.el.shadowRoot.querySelector(".active-cluster");
+    previousCluster.classList.remove("active-cluster");
+    event.target.classList.add("active-cluster");
     this.selectedCluster = this.clusters.filter(
       (cluster: any) => cluster.name == clusterName
     )[0];
-    console.log(this.selectedCluster);
   }
 
   animateComments(type: any, _: string) {
@@ -87,11 +89,22 @@ export class EjConversationInfos {
             <nav>
               <i class="fa fa-chevron-left"></i>
               {this.clusters &&
-                this.clusters.map((cluster: any) => (
-                  <div onClick={this.showClusterData.bind(this, cluster.name)}>
-                    {cluster.name}
-                  </div>
-                ))}
+                this.clusters.map((cluster: any, index: number) =>
+                  index == 0 ? (
+                    <div
+                      class="active-cluster"
+                      onClick={this.showClusterData.bind(this, cluster.name)}
+                    >
+                      {cluster.name}
+                    </div>
+                  ) : (
+                    <div
+                      onClick={this.showClusterData.bind(this, cluster.name)}
+                    >
+                      {cluster.name}
+                    </div>
+                  )
+                )}
               <i class="fa fa-chevron-right"></i>
             </nav>
             <div class="details">
@@ -101,6 +114,9 @@ export class EjConversationInfos {
                     onClick={this.animateComments.bind(this, "positive")}
                     class="comments-label"
                   >
+                    {this.selectedCluster.positive_comments.length > 0 && (
+                      <i class="fa fa-plus"></i>
+                    )}
                     <span>Comentários Positivos</span>
                   </div>
                   <div class="comments-box">
@@ -121,6 +137,9 @@ export class EjConversationInfos {
                             </div>
                           )
                         )}
+                      {this.selectedCluster.positive_comments.length == 0 && (
+                        <span>Nenhum comentário negativo no grupo</span>
+                      )}
                     </div>
                   </div>
                   <div>
@@ -128,6 +147,9 @@ export class EjConversationInfos {
                       onClick={this.animateComments.bind(this, "negative")}
                       class="comments-label"
                     >
+                      {this.selectedCluster.negative_comments.length > 0 && (
+                        <i class="fa fa-plus"></i>
+                      )}
                       <span>Comentários Negativos</span>
                     </div>
                     <div class="comments-box">
@@ -150,6 +172,11 @@ export class EjConversationInfos {
                           )}
                       </div>
                     </div>
+                    {this.selectedCluster.negative_comments.length == 0 && (
+                      <span class="no-comments">
+                        Nenhum comentário negativo no grupo
+                      </span>
+                    )}
                   </div>
                 </div>
               )}
