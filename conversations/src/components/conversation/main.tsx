@@ -182,7 +182,7 @@ export class EjConversation {
               <h2 class="focused-title">Comentários</h2>
             </div>
             <div onClick={this.showInfoComponent.bind(this)} class="title">
-              <h2 class="unfocused-title">Informações</h2>
+              <h2 class="unfocused-title">Grupos</h2>
             </div>
           </nav>
           {this.commentsComponentFocused && (

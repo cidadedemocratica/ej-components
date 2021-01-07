@@ -829,6 +829,8 @@ nav {
 
 }
 
+/*============= GROUPS TAB ======================*/
+
 .clusters {
   background-color: #e2f9fa;
   height: 40px;
@@ -839,6 +841,7 @@ nav {
 
 .clusters nav {
   padding: 10px;
+  margin-bottom: 10px;
 }
 
 .clusters nav div {
@@ -864,7 +867,7 @@ nav {
   text-align: left;
   padding: 20px;
   max-width: 600px;
-  margin: auto;
+  margin: auto auto 160px auto;
 }
 
 .cluster-comment {
@@ -895,10 +898,16 @@ nav {
   font-weight: 100;
 }
 
-.no-comments {
+.no-comments, .clusters-message, .no-groups {
   font-family: Helvetica;
   font-weight: 100;
   font-size: 1rem;
+  color: black;
+}
+
+.no-groups {
+  width: 50%;
+  margin: auto;
 }
 
 .comments-box {

@@ -1,4 +1,4 @@
-import { Component, Prop, h, Element, getAssetPath } from "@stencil/core";
+import { Component, Prop, h, Element } from "@stencil/core";
 import { API } from "./api/api";
 import { HTMLStencilElement } from "@stencil/core/internal";
 
@@ -53,109 +53,48 @@ export class EjConversationInfos {
     return (
       <div>
         <div class="box">
-          <div class="stats infos-component">
-            <div>
-              <img
-                src={getAssetPath(
-                  `./assets/icons/icone-branco-comentarios.png`
-                )}
-                alt=""
-              />
-              {(this.conversation.statistics &&
-                this.conversation.statistics.comments.approved) ||
-                0}{" "}
-              comentarios
-            </div>
-            <div>
-              <img
-                src={getAssetPath(`./assets/icons/icone-branco-votos.png`)}
-                alt=""
-              />
-              {(this.conversation.statistics &&
-                this.conversation.statistics.votes.total) ||
-                0}{" "}
-              votos
-            </div>
-            <div id="seta">
-              <img
-                src={getAssetPath(
-                  `./assets/icons/seta-branca-para-fundo-azul.png`
-                )}
-                alt=""
-              />
-            </div>
-          </div>
-          <div class="clusters">
-            <nav>
-              <i class="fa fa-chevron-left"></i>
-              {this.clusters &&
-                this.clusters.map((cluster: any, index: number) =>
-                  index == 0 ? (
-                    <div
-                      class="active-cluster"
-                      onClick={this.showClusterData.bind(this, cluster.name)}
-                    >
-                      {cluster.name}
-                    </div>
-                  ) : (
-                    <div
-                      onClick={this.showClusterData.bind(this, cluster.name)}
-                    >
-                      {cluster.name}
-                    </div>
-                  )
-                )}
-              <i class="fa fa-chevron-right"></i>
-            </nav>
-            <div class="details">
-              {this.selectedCluster && (
-                <div>
-                  <div
-                    onClick={this.animateComments.bind(this, "positive")}
-                    class="comments-label"
-                  >
-                    {this.selectedCluster.positive_comments.length > 0 && (
-                      <i class="fa fa-plus"></i>
-                    )}
-                    <span>Comentários Positivos</span>
-                  </div>
-                  <div class="comments-box">
-                    <div class="positive">
-                      {this.selectedCluster.positive_comments &&
-                        this.selectedCluster.positive_comments.map(
-                          (comment: any) => (
-                            <div class="cluster-comment">
-                              <div class="comment-ratio">
-                                {(
-                                  parseFloat(Object.keys(comment)[0]) * 100
-                                ).toFixed(1)}{" "}
-                                %
-                              </div>
-                              <div class="comment-content">
-                                {Object.values(comment)[0]}
-                              </div>
-                            </div>
-                          )
-                        )}
-                      {this.selectedCluster.positive_comments.length == 0 && (
-                        <span>Nenhum comentário negativo no grupo</span>
-                      )}
-                    </div>
-                  </div>
+          {this.conversation.statistics.votes.total >= 500 && (
+            <div class="clusters">
+              <nav>
+                <i class="fa fa-chevron-left"></i>
+                {this.clusters &&
+                  this.clusters.map((cluster: any, index: number) =>
+                    index == 0 ? (
+                      <div
+                        class="active-cluster"
+                        onClick={this.showClusterData.bind(this, cluster.name)}
+                      >
+                        {cluster.name}
+                      </div>
+                    ) : (
+                      <div
+                        onClick={this.showClusterData.bind(this, cluster.name)}
+                      >
+                        {cluster.name}
+                      </div>
+                    )
+                  )}
+                <i class="fa fa-chevron-right"></i>
+              </nav>
+              <span class="clusters-message">
+                Comentários típicos do grupo <b>{this.selectedCluster.name}</b>
+              </span>
+              <div class="details">
+                {this.selectedCluster && (
                   <div>
                     <div
-                      onClick={this.animateComments.bind(this, "negative")}
+                      onClick={this.animateComments.bind(this, "positive")}
                       class="comments-label"
                     >
-                      {this.selectedCluster.negative_comments.length > 0 && (
+                      {this.selectedCluster.positive_comments.length > 0 && (
                         <i class="fa fa-plus"></i>
                       )}
-                      <span>Comentários Negativos</span>
+                      <span>Comentários Positivos</span>
                     </div>
                     <div class="comments-box">
-                      <div class="negative">
-                        {this.selectedCluster.negative_comments &&
-                          this.selectedCluster.negative_comments.map(
+                      <div class="positive">
+                        {this.selectedCluster.positive_comments &&
+                          this.selectedCluster.positive_comments.map(
                             (comment: any) => (
                               <div class="cluster-comment">
                                 <div class="comment-ratio">
@@ -170,18 +109,66 @@ export class EjConversationInfos {
                               </div>
                             )
                           )}
+                        {this.selectedCluster.positive_comments.length == 0 && (
+                          <span>Nenhum comentário negativo no grupo</span>
+                        )}
                       </div>
                     </div>
-                    {this.selectedCluster.negative_comments.length == 0 && (
-                      <span class="no-comments">
-                        Nenhum comentário negativo no grupo
-                      </span>
-                    )}
+                    <div>
+                      <div
+                        onClick={this.animateComments.bind(this, "negative")}
+                        class="comments-label"
+                      >
+                        {this.selectedCluster.negative_comments.length > 0 && (
+                          <i class="fa fa-plus"></i>
+                        )}
+                        <span>Comentários Negativos</span>
+                      </div>
+                      <div class="comments-box">
+                        <div class="negative">
+                          {this.selectedCluster.negative_comments &&
+                            this.selectedCluster.negative_comments.map(
+                              (comment: any) => (
+                                <div class="cluster-comment">
+                                  <div class="comment-ratio">
+                                    {(
+                                      parseFloat(Object.keys(comment)[0]) * 100
+                                    ).toFixed(1)}{" "}
+                                    %
+                                  </div>
+                                  <div class="comment-content">
+                                    {Object.values(comment)[0]}
+                                  </div>
+                                </div>
+                              )
+                            )}
+                        </div>
+                      </div>
+                      {this.selectedCluster.negative_comments.length == 0 && (
+                        <span class="no-comments">
+                          Nenhum comentário negativo no grupo
+                        </span>
+                      )}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
-          </div>
+          )}
+          {this.conversation.statistics.votes.total < 500 && (
+            <div class="no-groups">
+              <h2>
+                Ainda não há dados suficientes para apresentar os grupos de
+                opinião.
+              </h2>
+              Os grupos de opinião são formados a partir dos votos dos
+              participantes da coleta. Um número baixo de votos pode gerar
+              grupos que não condizem com a realidade. As informações sobre os
+              grupos de opinião são apresentadas apenas se houver um número de
+              votos superior a <b>500</b>. O número atual de votos computados é{" "}
+              <b>{this.conversation.statistics.votes.total}</b>.
+            </div>
+          )}
         </div>
       </div>
     );
