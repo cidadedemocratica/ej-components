@@ -1,4 +1,4 @@
-image: node:10
+image: node:12
 stages:
   - test
   # TODO: fix this https://gitlab.com/pencillabs/ej/conversation-component/-/issues/1
