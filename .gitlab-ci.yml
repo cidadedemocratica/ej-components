@@ -11,6 +11,7 @@ run_tests:
     - apt update && apt install git -y
     - git clone -b $CI_COMMIT_REF_NAME https://gitlab+deploy-token-147653:i6FB3YR1UUsD4EtCkL1H@gitlab.com/pencillabs/ej/conversation-component.git
     - cd conversation-component/conversations
+    - npm install --save-dev @types/jest@26.0.15 jest@26.6.3 jest-cli@26.6.3
     - npm install @stencil/core@latest --save-exact && node_modules/@stencil/core/bin/stencil test --spec
   artifacts:
     paths:
