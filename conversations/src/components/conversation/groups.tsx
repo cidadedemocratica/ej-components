@@ -23,7 +23,9 @@ export class EjConversationInfos {
   }
 
   async prepareToLoad() {
-    this.clusters = await this.api.getConversationClusters();
+    this.clusters = await this.api.getConversationClusters(
+      this.conversation.links.clusterization
+    );
     this.selectedCluster = this.clusters[0];
   }
 

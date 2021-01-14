@@ -9,7 +9,6 @@ export class APIConfig {
   USER_STATISTICS_ROUTE: string = "";
   USER_COMMENTS_ROUTE: string = "";
   USER_PENDING_COMMENTS_ROUTE: string = "";
-  CONVERSATION_CLUSTERS_ROUTE: string = "";
   VOTE_CHOICES: any = { skip: 0, agree: 1, disagree: -1 };
   COOKIES_MAP: any = {
     analytics: "_ga",
@@ -29,6 +28,5 @@ export class APIConfig {
     this.USER_STATISTICS_ROUTE = `${this.API_URL}/conversations/${conversationID}/user-statistics/`;
     this.USER_COMMENTS_ROUTE = `${this.API_URL}/conversations/${conversationID}/user-comments/`;
     this.USER_PENDING_COMMENTS_ROUTE = `${this.API_URL}/conversations/${conversationID}/user-pending-comments/`;
-    this.CONVERSATION_CLUSTERS_ROUTE = `${this.API_URL}/clusterizations/${conversationID}/clusters/`;
   }
 }

@@ -48,8 +48,8 @@ export class API {
     return this.httpRequest(this.config.USER_STATISTICS_ROUTE);
   }
 
-  async getConversationClusters() {
-    return this.httpRequest(this.config.CONVERSATION_CLUSTERS_ROUTE);
+  async getConversationClusters(clusterizationLink: string) {
+    return this.httpRequest(clusterizationLink + "clusters");
   }
 
   async getConversationNextComment(conversation: any) {
