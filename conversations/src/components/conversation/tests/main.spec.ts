@@ -30,32 +30,14 @@ it("should render comments component", async () => {
     html: `<ej-conversation host="" cid="" authenticate-with="register"></ej-conversation>`,
   });
   expect(page.root).toEqualHtml(`
-     <ej-conversation authenticate-with="register" cid="" host="">
-       <mock:shadow-root>
-         <div>
-          <div id="user-prop"></div>
-           <ej-conversation-board theme="icd"></ej-conversation-board>
-           <ej-conversation-header theme="icd"></ej-conversation-header>
-           <div>
-           <nav>
-           <div class="title">
-           <h2 class="focused-title">
-             Comentários
-           </h2>
-           </div>
-           <div class="title">
-           <h2 class="unfocused-title">
-             Grupos
-           </h2>
-           </div>
-           </nav>
-           <ej-conversation-comments
-            host=""
-            theme="icd"
-          ></ej-conversation-comments>
-         </div>
-       </mock:shadow-root>
-     </ej-conversation>
+    <ej-conversation authenticate-with="register" cid="" host="">
+      <mock:shadow-root>
+        <div>
+          <ej-conversation-board theme="icd"></ej-conversation-board>
+          <ej-conversation-register host="" theme="icd"></ej-conversation-register>
+        </div>
+      </mock:shadow-root>
+    </ej-conversation>
   `);
 });
 

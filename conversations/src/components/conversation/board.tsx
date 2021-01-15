@@ -27,20 +27,20 @@ export class EjConversationBoard {
     osf: {
       h1: "todos importam na luta contra a corrupção",
       lgpdText:
-        "Ao participar desta seção, você nos ajuda a entender sua opinião sobre a luta anticorrupção e como percebe determinadas afirmações. Usaremos estes dados apenas para melhorar a comunicação da Unidos Contra a Corrupção com você e outras pessoas, conforme descrito em nossa",
+        "Essa consulta tem o objetivo de coletar opiniões para melhorar o ambiente escolar. Nós utilizamos os cookies do google analytics e mautic para fazer a sua autenticação e para melhorar a eficiência desta ferramenta ao combinar os dados de opinião com as informações comportamentais que você nos fornece ao navegar pelo nosso domínio. Caso você tenha nos fornecido ou forneça no futuro, diretamente, alguma informação pessoal (email, telefone etc) usaremos os cookies para te identificar. Caso contrário sua autenticação será anônima. Não fornecemos suas informações pessoais para nenhum meio externo e caso queira que seus dados sejam excluídos por favor clique na opção opt-out. Para obter mais detalhes de nossa política de privacidade, por favor acesse-a diretamente no link abaixo",
       privacyPolitic:
         "http://privacidade.transparenciainternacional.org.br/unidos-contra-a-corrupcao/",
     },
     votorantim: {
       h1: "AGENTES DA CIDADANIA",
       lgpdText:
-        "Ao participar dessa pesquisa, você nos ajuda a entender as questões da cidade de Votorantim e o que podemos fazer para melhorar a cidadania. Suas opiniões serão tratadas de acordo com a nossa",
+        "Essa consulta tem o objetivo de coletar opiniões para melhorar o ambiente escolar. Nós utilizamos os cookies do google analytics e mautic para fazer a sua autenticação e para melhorar a eficiência desta ferramenta ao combinar os dados de opinião com as informações comportamentais que você nos fornece ao navegar pelo nosso domínio. Caso você tenha nos fornecido ou forneça no futuro, diretamente, alguma informação pessoal (email, telefone etc) usaremos os cookies para te identificar. Caso contrário sua autenticação será anônima. Não fornecemos suas informações pessoais para nenhum meio externo e caso queira que seus dados sejam excluídos por favor clique na opção opt-out. Para obter mais detalhes de nossa política de privacidade, por favor acesse-a diretamente no link abaixo",
       privacyPolitic: "https://www.ejparticipe.org/usage/",
     },
     icd: {
       h1: "INSTITUTO CIDADE DEMOCRÁTICA",
       lgpdText:
-        "Ao participar dessa pesquisa, você nos ajuda a entender questões sobre vários assuntos e o que podemos fazer para melhorar a cidadania. Suas opiniões serão tratadas de acordo com a nossa",
+        "Essa consulta tem o objetivo de coletar opiniões para melhorar o ambiente escolar. Nós utilizamos os cookies do google analytics e mautic para fazer a sua autenticação e para melhorar a eficiência desta ferramenta ao combinar os dados de opinião com as informações comportamentais que você nos fornece ao navegar pelo nosso domínio. Caso você tenha nos fornecido ou forneça no futuro, diretamente, alguma informação pessoal (email, telefone etc) usaremos os cookies para te identificar. Caso contrário sua autenticação será anônima. Não fornecemos suas informações pessoais para nenhum meio externo e caso queira que seus dados sejam excluídos por favor clique na opção opt-out. Para obter mais detalhes de nossa política de privacidade, por favor acesse-a diretamente no link abaixo",
       privacyPolitic: "https://www.ejparticipe.org/usage/",
     },
   };
