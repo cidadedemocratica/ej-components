@@ -17,15 +17,24 @@ export class EjConversationInfos {
   @Prop() clusters: Array<any>;
   @Prop() selectedCluster: any;
   @Prop() theme: string;
+  @Prop() host: string;
 
   async componentWillLoad() {
     this.prepareToLoad();
   }
 
+  fixClusterizationLinkWithHttp(link: string) {
+    if (this.host.includes("https")) {
+      return link.replace("http", "https");
+    }
+    return link;
+  }
+
   async prepareToLoad() {
-    this.clusters = await this.api.getConversationClusters(
+    let clusterizationLink = this.fixClusterizationLinkWithHttp(
       this.conversation.links.clusterization
     );
+    this.clusters = await this.api.getConversationClusters(clusterizationLink);
     this.selectedCluster = this.clusters[0];
   }
 

@@ -200,6 +200,7 @@ export class EjConversation {
               conversation={this.conversation}
               api={this.api}
               theme={this.theme}
+              host={this.host}
             ></ej-conversation-groups>
           )}
         </div>
