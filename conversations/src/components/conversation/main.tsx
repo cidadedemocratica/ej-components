@@ -155,14 +155,20 @@ export class EjConversation {
   }
 
   render() {
-    if (!this.api.authTokenExists()) {
-      if (this.authenticateWith != "register") {
-        this.waitUserToken();
-        return this.spinnerComponent();
-      } else {
-        return this.registerComponent();
+    if(localStorage.getItem("lgpd") == "agree") {
+      if (!this.api.authTokenExists()) {
+        if (this.authenticateWith != "register") {
+          this.waitUserToken();
+          return this.spinnerComponent();
+        }
+        else {
+          return this.registerComponent();
+        }
       }
     }
+    else {
+        return this.registerComponent();
+      }
     return (
       <div>
         <div id="user-prop">{this.user.name}</div>
