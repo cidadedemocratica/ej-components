@@ -23,6 +23,7 @@ export class EjConversation {
   @Prop() host: string;
   //cid == conversation_id
   @Prop() cid: string;
+  @Prop() clustersVotesLimit: number = 500;
   @Prop() user: User = new User();
   @Prop() theme: string = "icd";
   @Prop() showBoardComponent: boolean = true;
@@ -207,6 +208,7 @@ export class EjConversation {
               api={this.api}
               theme={this.theme}
               host={this.host}
+              clusters-votes-limit={this.clustersVotesLimit}
             ></ej-conversation-groups>
           )}
         </div>

@@ -2,7 +2,6 @@ import { Component, Prop, h, Element } from "@stencil/core";
 import { API } from "./api/api";
 import { HTMLStencilElement } from "@stencil/core/internal";
 
-const MIN_GROUPS_VOTES: number = 89;
 
 @Component({
   tag: "ej-conversation-groups",
@@ -18,6 +17,7 @@ export class EjConversationInfos {
   @Prop() selectedCluster: any;
   @Prop() theme: string;
   @Prop() host: string;
+  @Prop() clustersVotesLimit: number;
 
   async componentWillLoad() {
     this.prepareToLoad();
@@ -67,7 +67,7 @@ export class EjConversationInfos {
     return (
       <div>
         <div class="box">
-          {this.conversation.statistics.votes.total >= MIN_GROUPS_VOTES && (
+          {this.conversation.statistics.votes.total >= this.clustersVotesLimit && (
             <div class="clusters">
               <nav>
                 <i class="fa fa-chevron-left"></i>
@@ -173,7 +173,7 @@ export class EjConversationInfos {
               </div>
             </div>
           )}
-          {this.conversation.statistics.votes.total < MIN_GROUPS_VOTES && (
+          {this.conversation.statistics.votes.total < this.clustersVotesLimit && (
             <div class="no-groups">
               <h2>
                 Ainda não há dados suficientes para apresentar os grupos de
@@ -183,7 +183,7 @@ export class EjConversationInfos {
               participantes da coleta. Um número baixo de votos pode gerar
               grupos que não condizem com a realidade. As informações sobre os
               grupos de opinião são apresentadas apenas se houver um número de
-              votos superior a <b>{MIN_GROUPS_VOTES}</b>. O número atual de
+              votos superior a <b>{this.clustersVotesLimit}</b>. O número atual de
               votos computados é{" "}
               <b>{this.conversation.statistics.votes.total}</b>.
             </div>
