@@ -1,23 +1,23 @@
-# Componentes de participação da EJ
+# Componente de participação
 
-Componentes de participação para permitir coleta de opinião via API da EJ.
+*Web component* para permitir coleta de opinião via API da EJ.
 A motivação desse projeto é permitir a participação de usuários sem a exigência
 de ter que acessar a EJ diretamente. Vários clientes e parceiros possuem seus
-próprios sites e sistemas, e forçar o usuário à acessar outro sistema (EJ) para
+próprios sites e sistemas, e forçar o usuário à acessar outro sistema para
 participar de uma coleta de opinião gera quebra de experiência e
 reduz a conversão.
 
-Esses componentes permitem que usuários participem
-de conversas criadas na EJ, mas sem a quebra de experiência de ter que acessar
-um segundo ambiente.
+![Exemplo](./example.png)
 
 ## Desenvolvimento
 
-Antes de executar o componente, é preciso ter uma instância local da EJ rodando. Para
-apontar o componente para essa instância, edite o arquivo `src/index.html`. Encontre
+Antes de executar o componente, é preciso ter uma [instância local da EJ rodando](https://gitlab.com/pencillabs/ej/ej-server/-/blob/develop/README.rst). 
+Depois de subir a EJ, é necessário criar uma nova conversa, e configurar o componente para
+utiliza-la.
+Para apontar o componente para essa instância, edite o arquivo `src/index.html`. Encontre
 o componente `ej-conversation` dentro do arquivo, e altere a variável `host`, 
 apontando para a instância local da EJ. 
-Altere também a variável `cid`, para o ID de uma conversa que exista na sua instância local da EJ.
+Altere também a variável `cid`, para o ID de uma conversa que exista na instância local.
 
 Todos os componentes são desenvolvidos utilizando o framework [stenciljs](https://stenciljs.com/).
 Para subir o servidor de desenvolvimento, execute:
@@ -75,4 +75,4 @@ com a API da EJ e viabilizar o processo de participação, que envolve:
 
 O planejamento das sprints e milestones está sendo feito no seguinte repositório:
 
-https://github.com/cidadedemocratica/ej-server/projects/1
+https://github.com/cidadedemocratica/ej-server/

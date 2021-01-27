@@ -11,28 +11,12 @@ Esses componentes permitem que usuários participem
 de conversas criadas na EJ, mas sem a quebra de experiência de ter que acessar
 um segundo ambiente.
 
-## Desenvolvimento
-
-Todos os componentes são desenvolvidos utilizando o framework [stenciljs](https://stenciljs.com/).
-Para subir o servidor de desenvolvimento, execute:
-
-	sudo npm install @stencil/core@latest --save-exact -g
-	cd conversations && npm start
-
-Para executar os testes:
-
-	cd conversations && npm test
-
-Para publicar uma nova versão do componente, faça as alterações necessárias,
-faça bump da versão do componente no `package.json` e utilize a task `publish` do
-Makefile, presente na raiz do projeto do componente.
-
 ## Componentes
 
 Existem dois componentes mantidos nesse repositório:
 
 1. **conversations**: Componente principal de coleta. Irá permitir que o usuário
-vote e adicione novos comentários.
+vote e adicione novos comentários. Para executar o componente, acesse `conversations/README.md`.
 2. **opinion-button**: Componente que permite redirecionar o usuário para uma subrota do
 site. Normalmente esse componente é utilizado para redirecionar o usuário para
 a pagina em que o componente **conversations** foi incluído.
@@ -54,16 +38,11 @@ necessários:
 
 	`<ej-conversation host=https://www.ejplatform.org cid="54"></ej-conversation>`
 
-Essas instruções também podem ser encontradas na pagina `conversations/<conversation_id>/<conversation_slug>/integrations`.
-Nessa pagina as instruções e versão dos pacotes estarão sempre atualizadas,
-uma vez que puxamos diretamente do npm a ultima versão publicada do componente.
-
-
 ## Processo de Coleta
 
 Para participar de uma coleta, a EJ exige que o usuário esteja autenticado.
 Na versão atual dos componentes (1.x.x), a autenticação é feita de duas formas:
-1. Um cookie de sessão criado por alguma ferramenta de marketing segmentado. Atualmente suportamos apenas o cookie da ferramenta Mautic (mtc_id).
+1. Um cookie de sessão criado por alguma ferramenta de marketing segmentado. Atualmente suportamos apenas o cookie da ferramenta Mautic (mtc_id) e do Analytics (_ga).
 2. Caso não exista um cookie de sessão,  a autenticação é feita via tela de registro, utilizando nome e email.
 
 A partir do momento que o usuário se autentica, o componente irá se comunicar
@@ -71,6 +50,7 @@ com a API da EJ e viabilizar o processo de participação, que envolve:
 
 1. Votar nos comentários aprovados da conversa;
 2. Adicionar novos comentários para moderação;
+3. Visualizar informações sobre os grupos de opinião;
 
 ## Planning and Roadmap
 
