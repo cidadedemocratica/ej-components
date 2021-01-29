@@ -34,8 +34,11 @@ export class EjConversationInfos {
     let clusterizationLink = this.fixClusterizationLinkWithHttp(
       this.conversation.links.clusterization
     );
+    let loading: HTMLElement = this.el.shadowRoot.querySelector(".loading");
+    loading.style.display = "block";
     this.clusters = await this.api.getConversationClusters(clusterizationLink);
     this.selectedCluster = this.clusters[0];
+    loading.style.display = "none";
   }
 
   showClusterData(clusterName: any, event: any) {
@@ -69,6 +72,9 @@ export class EjConversationInfos {
         <div class="box">
           {this.conversation.statistics.votes.total >= this.minimalVotesGroups && (
             <div class="clusters">
+              <div class="loading">
+                <ej-conversation-spinner background="no-background"></ej-conversation-spinner>
+              </div>
               <nav>
                 <i class="fa fa-chevron-left"></i>
                 {this.clusters &&
