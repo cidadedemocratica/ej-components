@@ -291,6 +291,10 @@ h2 {
 	height: 35px;
 }
 
+.groups-loading {
+	display: block;
+}
+
 .no-background .lds-spinner div::after {
 	top: 26px;
 	width: 3px;
