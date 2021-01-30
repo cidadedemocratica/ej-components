@@ -47,9 +47,11 @@ export class EjConversation {
   async componentWillLoad() {
     this.ejQueryParams = this.getEJQueryParams(document.location.search);
     this.api = this.newAPI();
-    await this.api.authenticate();
-    let { response } = await this.api.getConversation();
-    this.conversation = response;
+    if(document.cookie){
+      await this.api.authenticate();
+      let { response } = await this.api.getConversation();
+      this.conversation = response;
+    }
   }
 
   private newAPI() {
@@ -73,6 +75,7 @@ export class EjConversation {
       async function () {
         try {
           this.user = { ...(await this.api.authenticate()) };
+          this.conversation = { ...(await this.api.getConversation())};
         } catch (error) {
           this.authenticateWith = "register";
           console.log("No token found to create EJ user");
