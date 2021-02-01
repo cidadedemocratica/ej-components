@@ -1,6 +1,6 @@
 {
   "name": "ej-conversations",
-  "version": "1.7.14-beta1",
+  "version": "1.7.14",
   "description": "EJ conversations component",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
