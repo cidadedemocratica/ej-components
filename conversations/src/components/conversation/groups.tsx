@@ -18,7 +18,7 @@ export class EjConversationInfos {
   @Prop() theme: string;
   @Prop() host: string;
   @Prop() minimalVotesGroups: number;
-  @Prop() navGroups: boolean = false;
+  hideClusters: boolean = false;
 
   async componentDidRender() {
     this.prepareToLoad();
@@ -37,9 +37,13 @@ export class EjConversationInfos {
     );
     this.clusters = await this.api.getConversationClusters(clusterizationLink);
     this.selectedCluster = this.clusters[0];
+    this.showClusters();
+  }
+
+  showClusters() {
     let loading: HTMLElement = this.el.shadowRoot.querySelector(".groups-loading");
     loading.style.display = "none";
-    this.navGroups = true;
+    this.hideClusters = true;
   }
 
   showClusterData(clusterName: any, event: any) {
@@ -74,7 +78,7 @@ export class EjConversationInfos {
           <div class="groups-loading">
             <ej-conversation-spinner background="no-background"></ej-conversation-spinner>
           </div>
-          {this.navGroups == true && this.conversation.statistics.votes.total >= this.minimalVotesGroups && (
+          {this.hideClusters && this.conversation.statistics.votes.total >= this.minimalVotesGroups && (
             <div class="clusters">
               <nav>
                 <i class="fa fa-chevron-left"></i>
