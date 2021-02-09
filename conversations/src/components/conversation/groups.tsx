@@ -18,7 +18,7 @@ export class EjConversationInfos {
   @Prop() theme: string;
   @Prop() host: string;
   @Prop() minimalVotesGroups: number;
-  hideClusters: boolean = false;
+  clustersIsReady: boolean = false;
 
   async componentDidRender() {
     this.prepareToLoad();
@@ -43,7 +43,7 @@ export class EjConversationInfos {
   showClusters() {
     let loading: HTMLElement = this.el.shadowRoot.querySelector(".groups-loading");
     loading.style.display = "none";
-    this.hideClusters = true;
+    this.clustersIsReady = true;
   }
 
   showClusterData(clusterName: any, event: any) {
@@ -78,7 +78,7 @@ export class EjConversationInfos {
           <div class="groups-loading">
             <ej-conversation-spinner background="no-background"></ej-conversation-spinner>
           </div>
-          {this.hideClusters && this.conversation.statistics.votes.total >= this.minimalVotesGroups && (
+          {this.clustersIsReady && this.conversation.statistics.votes.total >= this.minimalVotesGroups && (
             <div class="clusters">
               <nav>
                 <i class="fa fa-chevron-left"></i>
