@@ -1,4 +1,5 @@
 import { API } from "../api/api";
+import { User } from "../api/user";
 
 const user: string = JSON.stringify({
   token: "sometoken2",
@@ -9,21 +10,13 @@ const user: string = JSON.stringify({
 });
 
 it("should check user token", () => {
-  const api = new API("http://localhost", "1", "register");
   localStorage.setItem("user", user);
-  expect(api.authTokenExists()).toBe(true);
+  expect(User.tokenIsValid()).toBe("sometoken2");
 });
 
 it("should get user token", () => {
-  const api = new API("http://localhost", "1", "register");
   localStorage.setItem("user", user);
-  expect(api.getUserToken()).toBe("sometoken2");
-});
-
-it("should return user when token exists", () => {
-  const api = new API("http://localhost", "1", "register");
-  localStorage.setItem("user", user);
-  expect(api.getUserToken()).toBe("sometoken2");
+  expect(User.get().token).toBe("sometoken2");
 });
 
 it("should return user when cookie exists", () => {
