@@ -487,6 +487,10 @@ h2 {
   padding: 5px;
 }
 
+.focused-title, .unfocused-title {
+  cursor: pointer;
+}
+
 .focused-title {
   border-bottom: 2px solid black !important;
   transition: border-bottom 1s;
@@ -568,6 +572,7 @@ h2 {
 }
 
 .add-comment {
+  cursor: pointer;
 	width: 50%;
   margin: auto;
   padding: 20px 20px 20px 20px;
@@ -591,6 +596,7 @@ h2 {
 }
 
 .choice button {
+  cursor: pointer;
 	justify-content: center;
 	background: 0 0;
   border-radius: 50% !important;
@@ -813,6 +819,7 @@ nav {
 
 	.add-comment {
 		font-size: 1.1rem;
+		width: unset;
 	}
 
 	.card-btn > div {
@@ -821,10 +828,6 @@ nav {
 
 	textarea {
 		width: 100%;
-	}
-
-	.add-comment {
-		width: unset;
 	}
 
 	.stats {
@@ -850,11 +853,10 @@ nav {
 
 .clusters nav div {
   margin: 0 10px 0 10px;
+  transition: border-bottom-color 0.5s;
+  cursor: pointer;
 }
 
-.clusters nav div {
-  transition: border-bottom-color 0.5s;
-}
 
 .clusters nav div:hover {
   border-bottom: 4px #1db0f08a solid;
@@ -881,6 +883,7 @@ nav {
 
 .comments-label {
   margin-bottom: 20px;
+  cursor: pointer;
 }
 .comments-label span {
   color: #ff3e72;

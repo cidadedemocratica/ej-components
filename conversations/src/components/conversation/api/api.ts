@@ -144,15 +144,6 @@ export class API {
     }
   }
 
-  authTokenExists() {
-    return this.getUserToken() ? true : false;
-  }
-
-  getUserToken() {
-    let user = User.get();
-    return user && user.token ? user.token : "";
-  }
-
   getUser() {
     let user = User.get();
     user.token = "";
@@ -249,8 +240,9 @@ export class API {
       requestOpts["body"] = payload;
       requestOpts["method"] = "POST";
     }
-    if (this.getUserToken()) {
-      requestOpts.headers["Authorization"] = `Token ${this.getUserToken()}`;
+    let user = User.get();
+    if (user.token) {
+      requestOpts.headers["Authorization"] = `Token ${user.token}`;
     }
     return requestOpts;
   }

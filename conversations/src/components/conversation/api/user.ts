@@ -43,6 +43,15 @@ export class User {
     localStorage.setItem("user", JSON.stringify(data));
   }
 
+  static tokenIsInValid() {
+    return !User.tokenIsValid();
+  }
+
+  static tokenIsValid() {
+    let me = User.get();
+    return me && me.token ? me.token : "";
+  }
+
   static get() {
     let user: User = new User();
     let userData = { ...JSON.parse(localStorage.getItem("user")) };

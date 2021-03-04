@@ -35,8 +35,6 @@ export class EjConversation {
   @Event() tokenExists: EventEmitter;
 
   async registerHandler(event?: any) {
-    this.user = await this.api.authenticate();
-    this.authenticateWith = "register";
     console.log(event);
     location.reload();
   }
@@ -46,12 +44,19 @@ export class EjConversation {
   }
 
   async componentWillLoad() {
-    this.ejQueryParams = this.getEJQueryParams(document.location.search);
-    this.api = this.newAPI();
-    if(document.cookie){
-      await this.api.authenticate();
-      let { response } = await this.api.getConversation();
-      this.conversation = response;
+    if (this.userAgreeWithLGPD()) {
+      this.ejQueryParams = this.getEJQueryParams(document.location.search);
+      this.api = this.newAPI();
+      let user = User.get();
+      try {
+        if (!user.token) {
+          await this.api.authenticate();
+        }
+        let { response } = await this.api.getConversation();
+        this.conversation = response;
+      } catch (error) {
+        console.log(error.message);
+      }
     }
   }
 
@@ -71,13 +76,14 @@ export class EjConversation {
     return new API(this.host, this.cid, this.authenticateWith);
   }
 
-  private async waitUserToken() {
+  private async authenticateWithCookieAsync() {
     setTimeout(
       async function () {
         try {
           this.user = { ...(await this.api.authenticate()) };
-          this.conversation = { ...(await this.api.getConversation())};
+          this.conversation = { ...(await this.api.getConversation()) };
         } catch (error) {
+          this.api.authMethod = "register";
           this.authenticateWith = "register";
           console.log("No token found to create EJ user");
         }
@@ -141,6 +147,7 @@ export class EjConversation {
     this.groupComponentFocused = false;
     this.animateFocus(event);
   }
+
   showGroupComponent(event: any) {
     this.groupComponentFocused = true;
     this.commentsComponentFocused = false;
@@ -158,21 +165,23 @@ export class EjConversation {
     }
   }
 
+  userAgreeWithLGPD() {
+    let userSawBoard = localStorage.getItem("userSawBoard") == "yes";
+    let userAgree = localStorage.getItem("lgpd") == "agree";
+    return userSawBoard && userAgree;
+  }
+
   render() {
-    if(localStorage.getItem("lgpd") == "agree") {
-      if (!this.api.authTokenExists()) {
-        if (this.authenticateWith != "register") {
-          this.waitUserToken();
-          return this.spinnerComponent();
-        }
-        else {
-          return this.registerComponent();
-        }
-      }
+    if (!this.userAgreeWithLGPD()) {
+      return this.registerComponent();
     }
-    else {
+    if (User.tokenIsInValid()) {
+      if (this.authenticateWith == "register") {
         return this.registerComponent();
       }
+      this.authenticateWithCookieAsync();
+      return this.spinnerComponent();
+    }
     return (
       <div>
         <div id="user-prop">{this.user.name}</div>
