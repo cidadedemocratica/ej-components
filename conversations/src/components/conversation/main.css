@@ -431,7 +431,7 @@ h2 {
 #seta {
 	position: absolute;
 	left: calc(50% - 8px);
-	bottom: -0.8vh;
+	bottom: -1vh;
 }
 
 #seta img {
@@ -711,6 +711,8 @@ textarea {
 .register-card {
 	padding: 20px 30px 30px 30px;
 	margin-top: 70px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  border-radius: 5px;
 }
 
 .register-card div {
@@ -718,7 +720,7 @@ textarea {
 }
 
 .register-card .welcome {
-	font-size: calc(2vh + 2vw);
+	font-size: calc(1vh + 1vw);
 	margin-bottom: 20px;
 }
 
@@ -730,7 +732,9 @@ textarea {
   padding: 8px;
   min-height: 25px;
 	box-sizing: border-box;
-	width: 40%;
+	width: 60%;
+  max-width: 250px;
+  outline: none;
 }
 
 .api-error {
@@ -756,11 +760,13 @@ textarea {
 	background-color: #000937;
 	color: white;
 	font-family: Folio;
-	font-size: 1.5vh;
 	box-shadow: 0px 0px 2px 0px;
 	box-sizing: content-box;
 	padding: 4px 10px 4px 10px;
 	max-width: 150px;
+  width: 50%;
+	font-size: 0.8rem;
+  cursor: pointer;
 }
 
 
