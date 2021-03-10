@@ -20,6 +20,7 @@
 <style>
 
 /* https://github.com/ionic-team/stencil/issues/2072 */
+/* on public domains like https://agentesdacidadania.org.br/, replaces url('/build/....') by url('https://unpkg.com/ej-conversations@<tag>/dist/conversations/...') */
 @font-face {
   font-family: Folio;
   font-style: normal;
@@ -64,14 +65,14 @@
 </head>
 <body>
 
-<ej-conversation host="http://localhost:8000" cid="47" theme="icd" authenticate-with="analytics"></ej-conversation>
+<ej-conversation host="https://ejplatform.pencillabs.com.br" cid="64" theme="icd" authenticate-with="register"></ej-conversation>
 	<!-- Mautic tracking script. It also try to retrieve analytics _ga cookie, to send with
 	contact data. -->
-<script>
+  <script>
     (function(w,d,t,u,n,a,m){w['MauticTrackingObject']=n;
         w[n]=w[n]||function(){(w[n].q=w[n].q||[]).push(arguments)},a=d.createElement(t),
         m=d.getElementsByTagName(t)[0];a.async=1;a.src=u;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','http://mautic.local/mtc.js','mt');
+    })(window,document,'script','https://contatos.ejparticipe.org/mtc.js','mt');
 
     mt('send', 'pageview');
 </script>
