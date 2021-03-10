@@ -845,22 +845,27 @@ nav {
 /*============= GROUPS TAB ======================*/
 
 .clusters {
-  background-color: #e2f9fa;
-  height: 40px;
-  color: #1db0f0;
   max-width: 800px;
   margin: auto;
 }
 
 .clusters nav {
-  padding: 10px;
   margin-bottom: 10px;
+  height: 27px;
+  color: #1db0f0;
+  background-color: #e2f9fa;
+  width: 100%;
+}
+
+.clusters nav i {
+  padding: 5px;
 }
 
 .clusters nav div {
   margin: 0 10px 0 10px;
   transition: border-bottom-color 0.5s;
   cursor: pointer;
+  height: 18px;
 }
 
 
