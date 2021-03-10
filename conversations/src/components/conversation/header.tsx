@@ -39,14 +39,14 @@ export class EjConversationHeader {
                   0}{" "}
                 votos
               </div>
-              <div id="seta">
-                <img
-                  src={getAssetPath(
-                    `./assets/icons/seta-branca-para-fundo-azul.png`
-                  )}
-                  alt=""
-                />
-              </div>
+            </div>
+            <div id="seta">
+              <img
+                src={getAssetPath(
+                  `./assets/icons/seta-branca-para-fundo-azul.png`
+                )}
+                alt=""
+              />
             </div>
           </div>
         </div>

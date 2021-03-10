@@ -431,7 +431,7 @@ h2 {
 #seta {
 	position: absolute;
 	left: calc(50% - 8px);
-	bottom: -8px;
+	bottom: -0.8vh;
 }
 
 #seta img {
@@ -953,5 +953,16 @@ nav {
 	.skip-card {
 		font-size: 1.6vh;
 	}
+  .title {
+    width: unset;
+  }
 
+  .choice button {
+    min-width: 30px;
+    height: 30px !important;
+  }
+
+  .box, #choices > div, .comments-label span, .clusters-message {
+    font-size: 0.9rem;
+  }
 }
